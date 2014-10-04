@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ActionLanguage="http://www.omg.org/spec/ALF/20120827/ActionLanguage-Profile" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="http://www.omg.org/spec/ALF/20120827/ActionLanguage-Profile pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_sYse0YZLEeKyw49uR6nx3g">
+  <uml:Model xmi:id="_wsVBAEvSEeSbnuzYMxz78g" name="Model">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_wsVBAUvSEeSbnuzYMxz78g">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Class" xmi:id="_ONYrIEvTEeSbnuzYMxz78g" name="EarthSimulation">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Apf9cEvVEeSbnuzYMxz78g" name="EarthSimulation"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Vg-GIEvWEeSbnuzYMxz78g" name="EarthSimualation">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_cLkV4EvWEeSbnuzYMxz78g" name="updateTarget" type="_TqS_wEvTEeSbnuzYMxz78g"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_SgWVIEvTEeSbnuzYMxz78g" name="RequestUpdate">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_myYD4EvTEeSbnuzYMxz78g" name="onRequestUpdate"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_TqS_wEvTEeSbnuzYMxz78g" name="ProgressUpdate">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_oD7yYEvTEeSbnuzYMxz78g" name="onProgressUpdate"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Zv3P0EvTEeSbnuzYMxz78g" name="Controller">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_JtgKAEvUEeSbnuzYMxz78g" name="mSim" type="_Xm_CUEvUEeSbnuzYMxz78g"/>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_Mb7fIEvUEeSbnuzYMxz78g" name="mPres" type="_S6AV0EvUEeSbnuzYMxz78g"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Et1yEEvUEeSbnuzYMxz78g" name="start"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_FkJvAEvUEeSbnuzYMxz78g" name="stop"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_sZFNsEvTEeSbnuzYMxz78g" name="GuiPresentation">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_jsxdgEvWEeSbnuzYMxz78g" name="GuiPresentation"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_k9YJwEvWEeSbnuzYMxz78g" name="GuiPresentation">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_oOdgAEvWEeSbnuzYMxz78g" name="requestTarget" type="_SgWVIEvTEeSbnuzYMxz78g"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_3lSncEvTEeSbnuzYMxz78g" name="" client="_SgWVIEvTEeSbnuzYMxz78g" supplier="_ONYrIEvTEeSbnuzYMxz78g"/>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_4PsPUEvTEeSbnuzYMxz78g" name="" client="_TqS_wEvTEeSbnuzYMxz78g" supplier="_sZFNsEvTEeSbnuzYMxz78g"/>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_6rWZcEvTEeSbnuzYMxz78g" name="" client="_TqS_wEvTEeSbnuzYMxz78g" supplier="_Zv3P0EvTEeSbnuzYMxz78g"/>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_7r-wAEvTEeSbnuzYMxz78g" name="" client="_SgWVIEvTEeSbnuzYMxz78g" supplier="_Zv3P0EvTEeSbnuzYMxz78g"/>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_S6AV0EvUEeSbnuzYMxz78g" name="Presentation">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_vtkAwEvUEeSbnuzYMxz78g" name="runAsync">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_QnDJ0EvWEeSbnuzYMxz78g" type="_H1jfAEvWEeSbnuzYMxz78g" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_yLGaMEvUEeSbnuzYMxz78g" name="update"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_zd10cEvUEeSbnuzYMxz78g" name="udateAvailable"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Interface" xmi:id="_Xm_CUEvUEeSbnuzYMxz78g" name="Simulation">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_sdCEIEvUEeSbnuzYMxz78g" name="runAsync">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_TjDA4EvWEeSbnuzYMxz78g" type="_H1jfAEvWEeSbnuzYMxz78g" direction="return"/>
+      </ownedOperation>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_tfg00EvUEeSbnuzYMxz78g" name="simulate"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_uheBEEvUEeSbnuzYMxz78g" name="updateRequested"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_br6QUEvUEeSbnuzYMxz78g" name="MockSimulation"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_cq19wEvUEeSbnuzYMxz78g" name="MockPresentation"/>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_ecp5oEvUEeSbnuzYMxz78g" name="" client="_S6AV0EvUEeSbnuzYMxz78g" supplier="_sZFNsEvTEeSbnuzYMxz78g"/>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_e1i6wEvUEeSbnuzYMxz78g" name="" client="_S6AV0EvUEeSbnuzYMxz78g" supplier="_cq19wEvUEeSbnuzYMxz78g"/>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_fSDQkEvUEeSbnuzYMxz78g" name="" client="_Xm_CUEvUEeSbnuzYMxz78g" supplier="_ONYrIEvTEeSbnuzYMxz78g"/>
+    <packagedElement xmi:type="uml:Realization" xmi:id="_fqvdYEvUEeSbnuzYMxz78g" name="" client="_Xm_CUEvUEeSbnuzYMxz78g" supplier="_br6QUEvUEeSbnuzYMxz78g"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_IF1zMEvVEeSbnuzYMxz78g" name="Demo">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_KI53IEvVEeSbnuzYMxz78g" name="maxBufferSize" isStatic="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EInt"/>
+        <defaultValue xmi:type="uml:LiteralInteger" xmi:id="_VOJGMEvVEeSbnuzYMxz78g" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_jF6HQEvVEeSbnuzYMxz78g" name="buffer" type="_eoHGQEvVEeSbnuzYMxz78g">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nA3g8EvVEeSbnuzYMxz78g"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nA4vEEvVEeSbnuzYMxz78g" value="*"/>
+      </ownedAttribute>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_s1BQ4EvVEeSbnuzYMxz78g" name="main">
+        <ownedParameter xmi:type="uml:Parameter" xmi:id="_z4i-AEvVEeSbnuzYMxz78g" name="args">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_15m20EvVEeSbnuzYMxz78g"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_15oE8EvVEeSbnuzYMxz78g" value="*"/>
+        </ownedParameter>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_eoHGQEvVEeSbnuzYMxz78g" name="SimulationResult"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_H1jfAEvWEeSbnuzYMxz78g" name="Thread"/>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_KyFzgEvUEeSbnuzYMxz78g">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_KysQcEvUEeSbnuzYMxz78g" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_sYse0YZLEeKyw49uR6nx3g"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
+  </uml:Model>
+  <ActionLanguage:TextualRepresentation xmi:id="_KysQcUvUEeSbnuzYMxz78g" language="org.eclipse.papyrus.uml.textedit.property.xtext.UmlProperty"/>
+</xmi:XMI>
