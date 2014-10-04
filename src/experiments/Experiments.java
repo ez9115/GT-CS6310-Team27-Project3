@@ -15,6 +15,8 @@ public class Experiments {
 		controllerBothAsync();
 		//controllerAsyncMix();
 		//controllerBothSync();
+		
+		System.out.print("DONE");
 	}
 	
 	/**
