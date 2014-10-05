@@ -88,6 +88,8 @@ public class testGui extends JFrame {
 		presentation_panel.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 		presentation_panel.setBounds(12, 18, 628, 426);
 		panel.add(presentation_panel);
+		JImageComponent ic = new JImageComponent(); //this is what I'm not getting
+		presentation_panel.add(ic); //it should bring in the image???
 				
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(6, 30, 155, 207);
