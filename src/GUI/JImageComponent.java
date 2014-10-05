@@ -1,4 +1,4 @@
-package experiments;
+package GUI;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -11,7 +11,7 @@ public class JImageComponent extends JPanel {
 
     public JImageComponent() {
        try {                
-          image = ImageIO.read(new File("Robinson2.png"));
+          image = ImageIO.read(new File("images/Robinson2.png"));
        } catch (IOException ex) {
             // handle exception...
        }

@@ -1,14 +1,17 @@
-package experiments;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
@@ -16,12 +19,14 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.TextArea;
+
 import javax.swing.JTextPane;
 
-public class testGui extends JFrame {
+public class GUIApp extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtEnterAValue;
@@ -38,7 +43,7 @@ public class testGui extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					testGui frame = new testGui();
+					GUIApp frame = new GUIApp();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +55,8 @@ public class testGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public testGui() {
+	public GUIApp() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(1, 1, 825, 600);
 		contentPane = new JPanel();
