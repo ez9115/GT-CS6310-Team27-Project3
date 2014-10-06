@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
@@ -11,7 +12,7 @@ public class JImageComponent extends JPanel {
 
     public JImageComponent() {
        try {                
-          image = ImageIO.read(new File("Robinson2.png"));
+          image = ImageIO.read(new File("src/experiments/Robinson2.png"));
        } catch (IOException ex) {
             // handle exception...
        }
