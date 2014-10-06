@@ -1,6 +1,5 @@
 package experiments;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.imageio.ImageIO;
@@ -8,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
@@ -16,19 +16,13 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
 
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.TextArea;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JTextPane;
 
 public class testGui extends JFrame {
 
