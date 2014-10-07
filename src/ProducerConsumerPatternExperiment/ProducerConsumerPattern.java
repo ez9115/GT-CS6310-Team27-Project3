@@ -7,7 +7,6 @@ public class ProducerConsumerPattern {
 
     public static void main(String args[]){
   
-    	Grid
      //Creating shared object
      BlockingQueue<String> sharedQueue = new ArrayBlockingQueue<>(10);
  
