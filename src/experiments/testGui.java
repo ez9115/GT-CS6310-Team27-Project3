@@ -27,12 +27,12 @@ import java.io.IOException;
 public class testGui extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtEnterAValue;
-	private JTextField txtTo;
-	private JTextField textField;
-	private JTextField txtSimOrPre;
-	private JTextField txtSimPreGui;
-	private JTextField txtPositiveInt;
+	private JTextField gridSpacing;
+	private JTextField timeStep;
+	private JTextField displayRate;
+	private JTextField threadsEntry;
+	private JTextField iniativeEntry;
+	private JTextField bufferSizeEntry;
 
 	/**
 	 * Launch the application.
@@ -59,140 +59,163 @@ public class testGui extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JButton btnStart = new JButton("Start");
-		btnStart.setBounds(261, 543, 117, 29);
-		contentPane.add(btnStart);
+		/**
+		 * Buttons to start/stop/pause/resume the application
+		 */
+		JButton startButton = new JButton("Start");
+		startButton.setBounds(261, 543, 117, 29);
+		contentPane.add(startButton);
 
-		JButton btnStop = new JButton("Resume");
-		btnStop.addActionListener(new ActionListener() {
+		JButton resumeButton = new JButton("Resume");
+		resumeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnStop.setBounds(594, 543, 117, 29);
-		contentPane.add(btnStop);
+		resumeButton.setBounds(594, 543, 117, 29);
+		contentPane.add(resumeButton);
 
-		JButton button = new JButton("Stop");
-		button.setBounds(371, 543, 117, 29);
-		contentPane.add(button);
+		JButton stopButton = new JButton("Stop");
+		stopButton.setBounds(371, 543, 117, 29);
+		contentPane.add(stopButton);
 
-		JButton btnPause = new JButton("Pause");
-		btnPause.setBounds(482, 543, 117, 29);
-		contentPane.add(btnPause);
+		JButton pauseButton = new JButton("Pause");
+		pauseButton.setBounds(482, 543, 117, 29);
+		contentPane.add(pauseButton);
+		
+		/**
+		 * Jpanel for holding display contents
+		 */
+		JPanel displayPanel = new JPanel();
+		displayPanel.setBorder(null);
+		displayPanel.setBounds(160, 12, 640, 450);
+		contentPane.add(displayPanel);
+		displayPanel.setLayout(null);
 
-		JPanel panel = new JPanel();
-		panel.setBorder(null);
-		panel.setBounds(160, 12, 640, 450);
-		contentPane.add(panel);
-		panel.setLayout(null);
-
+		/**
+		 * Jpanel for displaying the earth and simulation animation
+		 */
 		JPanel presentation_panel = new JPanel();
 		presentation_panel.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 		presentation_panel.setBounds(12, 18, 628, 426);
-		panel.add(presentation_panel);
+		displayPanel.add(presentation_panel);
 		BufferedImage bufImage = ImageIO.read(new File("src/experiments/Robinson5.png"));
 		JLabel picLabel = new JLabel(new ImageIcon(bufImage));
 		presentation_panel.add(picLabel);
-		//JImageComponent ic = new JImageComponent(); //this is what I'm not getting
-		//presentation_panel.add(ic);//it should bring in the image???
-		
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(6, 30, 155, 207);
-		contentPane.add(panel_1);
-		panel_1.setLayout(null);
 
-		txtEnterAValue = new JTextField();
-		txtEnterAValue.setBounds(40, 5, 74, 28);
-		txtEnterAValue.setText("1 to 180");
-		panel_1.add(txtEnterAValue);
-		txtEnterAValue.setColumns(5);
+
+		/**
+		 * Jpanel in top left area of gui for first set of user input
+		 */
+		JPanel topLeftPanel = new JPanel();
+		topLeftPanel.setBounds(6, 30, 155, 207);
+		contentPane.add(topLeftPanel);
+		topLeftPanel.setLayout(null);
+
+		gridSpacing = new JTextField();
+		gridSpacing.setBounds(40, 5, 74, 28);
+		gridSpacing.setText("1 to 180");
+		topLeftPanel.add(gridSpacing);
+		gridSpacing.setColumns(5);
 
 		JLabel lblNewLabel = new JLabel(" Grid Spacing (degrees)");
 		lblNewLabel.setBounds(5, 38, 144, 16);
-		panel_1.add(lblNewLabel);
+		topLeftPanel.add(lblNewLabel);
 
-		txtTo = new JTextField();
-		txtTo.setBounds(40, 59, 74, 28);
-		txtTo.setText("1 to 1440");
-		txtTo.setColumns(5);
-		panel_1.add(txtTo);
+		/**
+		 * text fields for user input of grid spacing, display rate and time step 
+		 */
+		timeStep = new JTextField();
+		timeStep.setBounds(40, 59, 74, 28);
+		timeStep.setText("1 to 1440");
+		timeStep.setColumns(5);
+		topLeftPanel.add(timeStep);
 
 		JLabel lblTimeStepminutes = new JLabel("Time Step (minutes)");
 		lblTimeStepminutes.setBounds(15, 92, 125, 16);
-		panel_1.add(lblTimeStepminutes);
+		topLeftPanel.add(lblTimeStepminutes);
 
-		textField = new JTextField();
-		textField.setBounds(40, 113, 74, 28);
-		textField.setText("18 - 24");
-		textField.setColumns(5);
-		panel_1.add(textField);
+		displayRate = new JTextField();
+		displayRate.setBounds(40, 113, 74, 28);
+		displayRate.setText("18 - 24");
+		displayRate.setColumns(5);
+		topLeftPanel.add(displayRate);
 
 		JLabel lblDisplayRate = new JLabel("Display Rate");
 		lblDisplayRate.setBounds(38, 146, 78, 16);
-		panel_1.add(lblDisplayRate);
+		topLeftPanel.add(lblDisplayRate);
 
 		JLabel lblframesPerSecond = new JLabel("(frames per second)");
 		lblframesPerSecond.setBounds(15, 167, 124, 16);
-		panel_1.add(lblframesPerSecond);
-
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(6, 249, 155, 213);
-		contentPane.add(panel_2);
-		panel_2.setLayout(null);
-
+		topLeftPanel.add(lblframesPerSecond);
+		
+		/**
+		 * Jpanel in bottom left area of gui for second set of user input
+		 */
+		JPanel botLeftPanel = new JPanel();
+		botLeftPanel.setBounds(6, 249, 155, 213);
+		contentPane.add(botLeftPanel);
+		botLeftPanel.setLayout(null);
+		
+		/**
+		 * text fields for user input of threads, initiative and buffer size 
+		 */
 		JLabel lblThreads = new JLabel("Threads");
 		lblThreads.setBounds(39, 51, 78, 16);
 		lblThreads.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lblThreads);
+		botLeftPanel.add(lblThreads);
 
-		txtSimOrPre = new JTextField();
-		txtSimOrPre.setHorizontalAlignment(SwingConstants.CENTER);
-		txtSimOrPre.setBounds(39, 22, 78, 28);
-		txtSimOrPre.setText("s or p");
-		txtSimOrPre.setColumns(5);
-		panel_2.add(txtSimOrPre);
+		threadsEntry = new JTextField();
+		threadsEntry.setHorizontalAlignment(SwingConstants.CENTER);
+		threadsEntry.setBounds(39, 22, 78, 28);
+		threadsEntry.setText("s or p");
+		threadsEntry.setColumns(5);
+		botLeftPanel.add(threadsEntry);
 
 		JLabel lblInitiative = new JLabel("Initiative");
 		lblInitiative.setBounds(39, 106, 78, 16);
 		lblInitiative.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lblInitiative);
+		botLeftPanel.add(lblInitiative);
 
-		txtSimPreGui = new JTextField();
-		txtSimPreGui.setHorizontalAlignment(SwingConstants.CENTER);
-		txtSimPreGui.setBounds(20, 77, 114, 28);
-		txtSimPreGui.setText("Sim, Pre, GUI");
-		txtSimPreGui.setColumns(5);
-		panel_2.add(txtSimPreGui);
+		iniativeEntry = new JTextField();
+		iniativeEntry.setHorizontalAlignment(SwingConstants.CENTER);
+		iniativeEntry.setBounds(20, 77, 114, 28);
+		iniativeEntry.setText("Sim, Pre, GUI");
+		iniativeEntry.setColumns(5);
+		botLeftPanel.add(iniativeEntry);
 
 		JLabel lblBufferSize = new JLabel("Buffer Size");
 		lblBufferSize.setBounds(39, 166, 78, 16);
 		lblBufferSize.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lblBufferSize);
+		botLeftPanel.add(lblBufferSize);
 
-		txtPositiveInt = new JTextField();
-		txtPositiveInt.setHorizontalAlignment(SwingConstants.CENTER);
-		txtPositiveInt.setBounds(39, 134, 78, 28);
-		txtPositiveInt.setText(">= 1");
-		txtPositiveInt.setColumns(5);
-		panel_2.add(txtPositiveInt);
+		bufferSizeEntry = new JTextField();
+		bufferSizeEntry.setHorizontalAlignment(SwingConstants.CENTER);
+		bufferSizeEntry.setBounds(39, 134, 78, 28);
+		bufferSizeEntry.setText(">= 1");
+		bufferSizeEntry.setColumns(5);
+		botLeftPanel.add(bufferSizeEntry);
 
-		TextArea textArea = new TextArea();
-		textArea.setForeground(new Color(0, 0, 0));
-		textArea.setBounds(17, 512, 128, 25);
-		contentPane.add(textArea);
+		/**
+		 * display the 
+		 */
+		TextArea elapsedTimeDisplay = new TextArea();
+		elapsedTimeDisplay.setForeground(new Color(0, 0, 0));
+		elapsedTimeDisplay.setBounds(672, 483, 128, 25);
+		contentPane.add(elapsedTimeDisplay);
 
-		JLabel lblNewLabel_1 = new JLabel("Time Elapsed");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(6, 544, 157, 25);
-		contentPane.add(lblNewLabel_1);
+		JLabel elapsedTimeLabel = new JLabel("Time Elapsed");
+		elapsedTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		elapsedTimeLabel.setBounds(563, 483, 111, 25);
+		contentPane.add(elapsedTimeLabel);
 
-		JLabel lblPositionOfThe = new JLabel("Rotational Position");
-		lblPositionOfThe.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPositionOfThe.setBounds(27, 474, 134, 25);
-		contentPane.add(lblPositionOfThe);
-
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(160, 478, 659, 21);
-		contentPane.add(panel_3);
+		JLabel rotatePositionLabel = new JLabel("Rotational Position");
+		rotatePositionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		rotatePositionLabel.setBounds(170, 483, 134, 25);
+		contentPane.add(rotatePositionLabel);
+		
+		TextArea rotatePositionDisplay = new TextArea();
+		rotatePositionDisplay.setForeground(Color.BLACK);
+		rotatePositionDisplay.setBounds(310, 483, 128, 25);
+		contentPane.add(rotatePositionDisplay);
 	}
 }
