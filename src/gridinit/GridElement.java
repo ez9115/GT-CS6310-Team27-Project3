@@ -6,8 +6,10 @@ public class GridElement {
 	double bottomlengthinmeters;
 	double sidelengthinmeters;
 	double areainmeters;
+	double heightinmeters;
 	double perimeterinmeters;
 	double areainsquaremeters;
+	double propofearthsainsquaremeters;
 	
 	public double getAreainsquaremeters() {
 		return areainsquaremeters;
@@ -19,6 +21,14 @@ public class GridElement {
 
 	public double getPerimeterinmeters() {
 		return perimeterinmeters;
+	}
+
+	public double getPropofearthsainsquaremeters() {
+		return propofearthsainsquaremeters;
+	}
+
+	public void setPropofearthsainsquaremeters(double propofearthsainsquaremeters) {
+		this.propofearthsainsquaremeters = propofearthsainsquaremeters;
 	}
 
 	public void setPerimeterinmeters(double perimeterinmeters) {
@@ -41,16 +51,15 @@ public class GridElement {
 		this.heightinmeters = heightinmeters;
 	}
 
-	double heightinmeters;
-	
-	public GridElement(double vl, double bl, double tl, double h, double pm, double a) {
+	public GridElement(double vl, double bl, double tl, double h, double pm, double a, double ra) {
 		sidelengthinmeters = vl;
 		bottomlengthinmeters = bl;
 		toplengthinmeters = tl;
 		heightinmeters = h;
 		perimeterinmeters = pm;
 		areainsquaremeters = a;
- 		temperature = 288;
+		propofearthsainsquaremeters = ra;
+		temperature = 288;
 	}
 
 	public double getToplengthinmeters() {

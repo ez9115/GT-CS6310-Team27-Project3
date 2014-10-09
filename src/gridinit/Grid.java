@@ -21,6 +21,7 @@ public class Grid {
 		double h = 0;
 		double pm = 0;
 		double a = 0;
+		double ra = 0;
 		int latitude;
 		int longitude;
 		earth = new GridElement[rows][cols];
@@ -41,16 +42,17 @@ public class Grid {
 				tl = radiusInMeters * Math.cos((latitude + degrees) * (Math.PI/180)) * 2 * Math.PI * proportionOfEquator;
 				tl = Math.round(tl*100);
 				tl = tl/100;
-				h = Math.sqrt((vl * vl -1)/4 * (bl - tl) * (bl - tl));
+				h = Math.sqrt(Math.pow(vl,2) - 1.0/4 * Math.pow(bl-tl,2));
 				h = Math.round(h*100);
 				h = h/100;
 				pm = tl + bl + 2 * vl;
 				pm = Math.round(pm*100);
 				pm = pm/100;
-				a = 1.0/2 * (tl + bl) * h;
+				a = (1.0/2) * h * (tl + bl);
 				a = Math.round(a*100);
 				a = a/100;
-				earth[row][col] = new GridElement(vl, bl, tl, h, pm, a);
+				ra = a/surfaceAreaInSqMeters;
+				earth[row][col] = new GridElement(vl, bl, tl, h, pm, a, ra);
 			}
 		}
 		for (int row = 0; row < rows; row = row + 1) {
@@ -63,6 +65,7 @@ public class Grid {
 				System.out.print(earth[row][col].getHeightinmeters()+" ");
 				System.out.print(earth[row][col].getPerimeterinmeters()+" ");
 				System.out.print(earth[row][col].getAreainsquaremeters()+" ");
+				System.out.print(earth[row][col].getPropofearthsainsquaremeters()+" ");
 			}
 			System.out.println();
 		}
