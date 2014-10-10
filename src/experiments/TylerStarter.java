@@ -11,7 +11,7 @@ public class TylerStarter {
 	static final boolean ASYNC_SIMULATION = true;
 	static final boolean ASYNC_PRESENTATION = true;
 	
-	public static void main(String[] args) {
+	public static void main(String args[]) {
 		
 		PausableStoppable process = masterController();
 //		PausableStoppable process = presentationInitiative();
