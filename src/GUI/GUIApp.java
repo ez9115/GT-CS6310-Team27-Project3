@@ -25,6 +25,7 @@ import GUI.widget.earth.EarthPanel;
 
 import javax.swing.JCheckBox;
 
+import base.PausableStoppable;
 import base.PresentationMethod;
 import base.SimulationResult;
 
@@ -38,6 +39,10 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	private JTextField displayRate;
 	private JTextField iniativeEntry;
 	private JTextField bufferSizeEntry;
+	
+	private EarthPanel presentation_panel;
+	private PausableStoppable initiative;
+	
 	/**
 	 * @wbp.nonvisual location=-141,459
 	 */
@@ -58,6 +63,12 @@ public class GUIApp extends JFrame implements PresentationMethod{
 			}
 		});
 	}
+	
+
+	public void setInitiative(PausableStoppable initiative) {
+		this.initiative = initiative;
+	}
+
 
 	/**
 	 * Create the frame.
@@ -76,11 +87,33 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		 */
 		JButton startButton = new JButton("Start");
 		startButton.setBounds(261, 543, 117, 29);
+		startButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					initiative.start();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		contentPane.add(startButton);
 
 		JButton resumeButton = new JButton("Resume");
 		resumeButton.addActionListener(new ActionListener() {
+			
+			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
+					initiative.resume();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		resumeButton.setBounds(594, 543, 117, 29);
@@ -88,10 +121,36 @@ public class GUIApp extends JFrame implements PresentationMethod{
 
 		JButton stopButton = new JButton("Stop");
 		stopButton.setBounds(371, 543, 117, 29);
+		stopButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					initiative.stop();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		contentPane.add(stopButton);
 
 		JButton pauseButton = new JButton("Pause");
 		pauseButton.setBounds(482, 543, 117, 29);
+		pauseButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					initiative.pause();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		contentPane.add(pauseButton);
 		
 		/**
@@ -106,20 +165,10 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		/**
 		 * Jpanel for displaying the earth and simulation animation
 		 */
-		JPanel presentation_panel = new EarthPanel(new Dimension(30,100), new Dimension(30,100), new Dimension(30,100));
+		presentation_panel = new EarthPanel(new Dimension(30,100), new Dimension(30,100), new Dimension(30,100));
 		presentation_panel.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 		presentation_panel.setBounds(12, 18, 800, 400);
 		displayPanel.add(presentation_panel);
-//		BufferedImage bufImage = null;
-//		try {
-//			bufImage = ImageIO.read(new File("src/experiments/Robinson5.png"));
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//		JLabel picLabel = new JLabel(new ImageIcon(bufImage));
-//		presentation_panel.add(picLabel);
-
 
 		/**
 		 * Jpanel in top left area of gui for first set of user input
@@ -232,8 +281,8 @@ public class GUIApp extends JFrame implements PresentationMethod{
 
 	@Override
 	public void present(SimulationResult result) throws InterruptedException {
-		// TODO Auto-generated method stub
-		
+		presentation_panel.updateGrid(result);
+		System.out.println(result.getTemperature(1, 1));
 	}
 
 	@Override
