@@ -1,53 +1,53 @@
-package experiments;
+package base;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.logging.Logger;
 
-public class Presentation extends PausableStoppable {
+public class SimulationInitiative extends PausableStoppable {
 	
-	private final static Logger LOGGER = Logger.getLogger(Simulation.class.getName()); 
+	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName()); 
 
 	private OnStop mOnStop;
-	private PresentationMethod mPresentationMethod;
 	private BlockingQueue<SimulationResult> mQueue;
-	
-	public Presentation(BlockingQueue<SimulationResult> queue, PresentationMethod presentationMethod) {
-		mPresentationMethod = presentationMethod;
+	private SimulationMethod mSimulationMethod;
+
+	public SimulationInitiative(BlockingQueue<SimulationResult> queue, SimulationMethod simulationMethod) {
 		mQueue = queue;
-		LOGGER.info("Presentation initialized");
-	}
-	
-	public void present(SimulationResult simulationResult) throws InterruptedException {
-		mPresentationMethod.present(simulationResult);
+		mSimulationMethod = simulationMethod;
+		LOGGER.info("Simulation initialized");
 	}
 	
 	public void setOnStopListener(OnStop onStop) {
 		mOnStop = onStop;
 	}
 	
+	public SimulationResult simulate() throws InterruptedException {
+		return mSimulationMethod.simulate();
+	}
+	
 	@Override
 	public void start() throws Exception {
-		LOGGER.info("Starting presentation");
+		LOGGER.info("Starting simulation");
 		super.start();
 	}
 	
 	@Override
 	public void pause() throws Exception {
-		LOGGER.info("Pausing presentation");
+		LOGGER.info("Pausing simulation");
 		super.pause();
-		mPresentationMethod.pause();
+		mSimulationMethod.pause();
 	}
 	
 	@Override
 	public void resume() throws Exception {
-		LOGGER.info("Resuming presentation");
+		LOGGER.info("Resuming simulation");
 		super.resume();
-		mPresentationMethod.resume();
+		mSimulationMethod.resume();
 	}
-	
+
 	@Override
 	public void stop() throws Exception {
-		LOGGER.info("Stopping presentation");
+		LOGGER.info("Stopping simulation");
 		super.stop();
 	}
 	
@@ -60,11 +60,10 @@ public class Presentation extends PausableStoppable {
 				try {
 					while(!runningThread.isInterrupted()) {
 						checkPaused();
-						present(mQueue.take());
-						LOGGER.info("Buffer size: " + mQueue.size());
+						mQueue.put(simulate());
 					}
 				} catch (InterruptedException e) {
-					LOGGER.info("Presentation stopped");
+					LOGGER.info("Simulation stopped");
 				} finally {
 					runningThread = null;
 					if (mOnStop != null) {

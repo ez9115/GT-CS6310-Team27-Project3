@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
@@ -20,7 +21,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-public class GUIApp extends JFrame {
+import GUI.widget.earth.EarthPanel;
+
+import javax.swing.JCheckBox;
+
+import base.PresentationMethod;
+import base.SimulationResult;
+
+public class GUIApp extends JFrame implements PresentationMethod{
 
 	private static final long serialVersionUID = -1873444547097063288L;
 	
@@ -28,9 +36,12 @@ public class GUIApp extends JFrame {
 	private JTextField gridSpacing;
 	private JTextField timeStep;
 	private JTextField displayRate;
-	private JTextField threadsEntry;
 	private JTextField iniativeEntry;
 	private JTextField bufferSizeEntry;
+	/**
+	 * @wbp.nonvisual location=-141,459
+	 */
+	private final JCheckBox checkBox = new JCheckBox("New check box");
 
 	/**
 	 * Launch the application.
@@ -54,7 +65,7 @@ public class GUIApp extends JFrame {
 	public GUIApp() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(1, 1, 825, 600);
+		setBounds(1, 1, 1006, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -88,26 +99,26 @@ public class GUIApp extends JFrame {
 		 */
 		JPanel displayPanel = new JPanel();
 		displayPanel.setBorder(null);
-		displayPanel.setBounds(160, 12, 640, 450);
+		displayPanel.setBounds(160, 12, 834, 450);
 		contentPane.add(displayPanel);
 		displayPanel.setLayout(null);
 
 		/**
 		 * Jpanel for displaying the earth and simulation animation
 		 */
-		JPanel presentation_panel = new JPanel();
+		JPanel presentation_panel = new EarthPanel(new Dimension(30,100), new Dimension(30,100), new Dimension(30,100));
 		presentation_panel.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
-		presentation_panel.setBounds(12, 18, 628, 426);
+		presentation_panel.setBounds(12, 18, 800, 400);
 		displayPanel.add(presentation_panel);
-		BufferedImage bufImage = null;
-		try {
-			bufImage = ImageIO.read(new File("src/experiments/Robinson5.png"));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		JLabel picLabel = new JLabel(new ImageIcon(bufImage));
-		presentation_panel.add(picLabel);
+//		BufferedImage bufImage = null;
+//		try {
+//			bufImage = ImageIO.read(new File("src/experiments/Robinson5.png"));
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		JLabel picLabel = new JLabel(new ImageIcon(bufImage));
+//		presentation_panel.add(picLabel);
 
 
 		/**
@@ -162,21 +173,6 @@ public class GUIApp extends JFrame {
 		botLeftPanel.setBounds(6, 249, 155, 213);
 		contentPane.add(botLeftPanel);
 		botLeftPanel.setLayout(null);
-		
-		/**
-		 * text fields for user input of threads, initiative and buffer size 
-		 */
-		JLabel lblThreads = new JLabel("Threads");
-		lblThreads.setBounds(39, 51, 78, 16);
-		lblThreads.setHorizontalAlignment(SwingConstants.CENTER);
-		botLeftPanel.add(lblThreads);
-
-		threadsEntry = new JTextField();
-		threadsEntry.setHorizontalAlignment(SwingConstants.CENTER);
-		threadsEntry.setBounds(39, 22, 78, 28);
-		threadsEntry.setText("s or p");
-		threadsEntry.setColumns(5);
-		botLeftPanel.add(threadsEntry);
 
 		JLabel lblInitiative = new JLabel("Initiative");
 		lblInitiative.setBounds(39, 106, 78, 16);
@@ -201,6 +197,14 @@ public class GUIApp extends JFrame {
 		bufferSizeEntry.setText(">= 1");
 		bufferSizeEntry.setColumns(5);
 		botLeftPanel.add(bufferSizeEntry);
+		
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Simulation Thread");
+		chckbxNewCheckBox.setBounds(20, 7, 114, 23);
+		botLeftPanel.add(chckbxNewCheckBox);
+		
+		JCheckBox chckbxPresentationThread = new JCheckBox("Presentation Thread");
+		chckbxPresentationThread.setBounds(20, 33, 129, 23);
+		botLeftPanel.add(chckbxPresentationThread);
 
 		/**
 		 * display the 
@@ -224,5 +228,23 @@ public class GUIApp extends JFrame {
 		rotatePositionDisplay.setForeground(Color.BLACK);
 		rotatePositionDisplay.setBounds(310, 483, 128, 25);
 		contentPane.add(rotatePositionDisplay);
+	}
+
+	@Override
+	public void present(SimulationResult result) throws InterruptedException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package experiments;
+package base;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -10,18 +10,18 @@ import java.util.concurrent.BlockingQueue;
  * @author 
  *
  */
-public class MasterController extends PausableStoppable {
+public class MasterControllerInitiative extends PausableStoppable {
 	
 	private BlockingQueue<SimulationResult> mSharedQueue;
-	private Simulation mSim;
-	private Presentation mPres;
+	private SimulationInitiative mSim;
+	private PresentationInitiative mPres;
 	private boolean mAsyncPresentation;
 	private boolean mAsyncSimulation;
 	
-	public MasterController(int bufferSize, boolean asyncSimulation, boolean asyncPresentation, SimulationMethod simulationMethod, PresentationMethod presentationMethod) {
+	public MasterControllerInitiative(int bufferSize, boolean asyncSimulation, boolean asyncPresentation, SimulationMethod simulationMethod, PresentationMethod presentationMethod) {
 		mSharedQueue = new ArrayBlockingQueue<>(bufferSize);
-		mSim = new Simulation(mSharedQueue, simulationMethod);
-		mPres = new Presentation(mSharedQueue, presentationMethod);
+		mSim = new SimulationInitiative(mSharedQueue, simulationMethod);
+		mPres = new PresentationInitiative(mSharedQueue, presentationMethod);
 		mAsyncPresentation = asyncPresentation;
 		mAsyncSimulation = asyncSimulation;
 	}

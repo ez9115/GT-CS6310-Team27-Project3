@@ -1,6 +1,6 @@
-package experiments;
+package base;
 
-import cs6310.gui.widget.earth.TemperatureGrid;
+import GUI.widget.earth.TemperatureGrid;
 
 public class SimulationResult implements TemperatureGrid {
 	

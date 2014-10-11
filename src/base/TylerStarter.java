@@ -1,4 +1,4 @@
-package experiments;
+package base;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -37,7 +37,7 @@ public class TylerStarter {
 	}
 	
 	private static PausableStoppable masterController() {
-		MasterController controller = new MasterController(MAX_BUFFER_SIZE, ASYNC_SIMULATION, ASYNC_PRESENTATION, SIMULATION_METHOD, PRESENTATION_METHOD);
+		MasterControllerInitiative controller = new MasterControllerInitiative(MAX_BUFFER_SIZE, ASYNC_SIMULATION, ASYNC_PRESENTATION, SIMULATION_METHOD, PRESENTATION_METHOD);
 		try {
 			controller.start();
 		} catch (Exception e) {
@@ -49,8 +49,8 @@ public class TylerStarter {
 	private static PausableStoppable presentationInitiative() {
 		
 		BlockingQueue<SimulationResult> queue = new ArrayBlockingQueue<>(MAX_BUFFER_SIZE);
-		Presentation presentation = new Presentation(queue, PRESENTATION_METHOD);
-		final Simulation simulation = new Simulation(queue, SIMULATION_METHOD);
+		PresentationInitiative presentation = new PresentationInitiative(queue, PRESENTATION_METHOD);
+		final SimulationInitiative simulation = new SimulationInitiative(queue, SIMULATION_METHOD);
 		presentation.setOnStopListener(new OnStop() {
 			
 			@Override
@@ -77,8 +77,8 @@ public class TylerStarter {
 	private static PausableStoppable simulationInitiative() {
 
 		BlockingQueue<SimulationResult> queue = new ArrayBlockingQueue<>(MAX_BUFFER_SIZE);
-		final Presentation presentation = new Presentation(queue, PRESENTATION_METHOD);
-		Simulation simulation = new Simulation(queue, SIMULATION_METHOD);
+		final PresentationInitiative presentation = new PresentationInitiative(queue, PRESENTATION_METHOD);
+		SimulationInitiative simulation = new SimulationInitiative(queue, SIMULATION_METHOD);
 		simulation.setOnStopListener(new OnStop() {
 			
 			@Override
