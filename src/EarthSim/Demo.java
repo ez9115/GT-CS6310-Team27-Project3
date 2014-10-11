@@ -25,7 +25,7 @@ public class Demo {
 	
 	public static void main(String[] args) {
 		
-		GUIApp presentation = new GUIApp();
+		final GUIApp presentation = new GUIApp();
 		
 		PausableStoppable process = masterController(presentation);
 //		PausableStoppable process = presentationInitiative();
