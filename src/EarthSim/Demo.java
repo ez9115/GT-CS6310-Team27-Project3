@@ -23,7 +23,7 @@ public class Demo {
 	static final boolean ASYNC_SIMULATION = true;
 	static final boolean ASYNC_PRESENTATION = true;
 	
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		
 		GUIApp presentation = new GUIApp();
 		
