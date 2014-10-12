@@ -10,6 +10,10 @@ public class SimulationResult implements TemperatureGrid {
 		mCounter = counter;
 	}
 
+	public SimulationResult(int i, int j) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public double getTemperature(int x, int y) {
 		// TODO Auto-generated method stub
