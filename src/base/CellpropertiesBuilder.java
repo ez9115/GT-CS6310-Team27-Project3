@@ -286,7 +286,7 @@ public static void main(String[] args) {
 
         //ouput
         int sp = (int) sunPosition;
-        ArrayList<GridData> gridDataArraylist = new ArrayList<GridData>();
+        GridData[][] gridDataArraylist = new GridData[Rows][Cols];
 		double T_ave = 0.0;
 		for ( int i = 0; i < Rows; i++ )
         {
@@ -298,13 +298,15 @@ public static void main(String[] args) {
     			gridData.setTemp(Grid[ i ][ j ].T);
                 T_ave += Grid[ i ][ j ].T;
                 System.out.println("sunPositon" + sp + ",  i,j" +i + ":"+j +"=t="+ Grid[ i ][ j ].T);
-                gridDataArraylist.add(gridData);
+                gridDataArraylist[i][j] = gridData;
             }
             
         }
 		T_ave = T_ave /( Rows * Cols );
 		System.out.println("T_eve" + T_ave);
 		 
+		SimulationResult result = new SimulationResult(gridDataArraylist);
+		//return result
 		
  }
 }
