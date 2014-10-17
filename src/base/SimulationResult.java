@@ -17,7 +17,11 @@ public class SimulationResult implements TemperatureGrid {
 
 	@Override
 	public double getTemperature(int x, int y) {
-		return mResult[x][y].getTemp();
+		if (mResult != null) {
+			return mResult[x][y].getTemp();
+		} else {
+			return mCounter;
+		}
 	}
 
 	@Override

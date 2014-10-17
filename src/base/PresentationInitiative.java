@@ -7,6 +7,8 @@ public class PresentationInitiative extends PausableStoppable {
 	
 	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName()); 
 
+	private OnStart mOnStart;
+	private boolean mOnStartEnabled = true;
 	private OnStop mOnStop;
 	private PresentationMethod mPresentationMethod;
 	private BlockingQueue<SimulationResult> mQueue;
@@ -17,8 +19,20 @@ public class PresentationInitiative extends PausableStoppable {
 		LOGGER.info("Presentation initialized");
 	}
 	
+	public void disableOnStartListener() {
+		mOnStartEnabled = false;
+	}
+	
+	public void enableOnStartListener() {
+		mOnStartEnabled = true;
+	}
+	
 	public void present(SimulationResult simulationResult) throws InterruptedException {
 		mPresentationMethod.present(simulationResult);
+	}
+	
+	public void setOnStartListener(OnStart onStart) {
+		mOnStart = onStart;
 	}
 	
 	public void setOnStopListener(OnStop onStop) {
@@ -28,7 +42,11 @@ public class PresentationInitiative extends PausableStoppable {
 	@Override
 	public void start() throws Exception {
 		LOGGER.info("Starting presentation");
-		super.start();
+		if (mOnStart != null && mOnStartEnabled) {
+			mOnStart.onStart();
+		} else {
+			super.start();
+		}
 	}
 	
 	@Override

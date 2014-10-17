@@ -1,6 +1,6 @@
 package base;
 
-public class SimulationMethodImpl implements SimulationMethod{
+public class SimulationMethodImpl implements SimulationMethod {
 	public SimulationResult simulate() throws InterruptedException {
 		Thread.sleep(250);
 //		mCounter++;

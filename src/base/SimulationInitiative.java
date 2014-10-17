@@ -7,6 +7,8 @@ public class SimulationInitiative extends PausableStoppable {
 	
 	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName()); 
 
+	private OnStart mOnStart;
+	private boolean mOnStartEnabled = true;
 	private OnStop mOnStop;
 	private BlockingQueue<SimulationResult> mQueue;
 	private SimulationMethod mSimulationMethod;
@@ -15,6 +17,18 @@ public class SimulationInitiative extends PausableStoppable {
 		mQueue = queue;
 		mSimulationMethod = simulationMethod;
 		LOGGER.info("Simulation initialized");
+	}
+	
+	public void disableOnStartListener() {
+		mOnStartEnabled = false;
+	}
+	
+	public void enableOnStartListener() {
+		mOnStartEnabled = true;
+	}
+	
+	public void setOnStartListener(OnStart onStart) {
+		mOnStart = onStart;
 	}
 	
 	public void setOnStopListener(OnStop onStop) {
@@ -28,7 +42,11 @@ public class SimulationInitiative extends PausableStoppable {
 	@Override
 	public void start() throws Exception {
 		LOGGER.info("Starting simulation");
-		super.start();
+		if (mOnStart != null && mOnStartEnabled) {
+			mOnStart.onStart();
+		} else {
+			super.start();
+		}
 	}
 	
 	@Override
