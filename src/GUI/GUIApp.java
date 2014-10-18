@@ -166,6 +166,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		 * Jpanel for displaying the earth and simulation animation
 		 */
 		presentation_panel = new EarthPanel(new Dimension(30,100), new Dimension(30,100), new Dimension(30,100));
+		presentation_panel.moveSunPosition(-180f);
 		presentation_panel.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 		presentation_panel.setBounds(12, 18, 800, 400);
 		displayPanel.add(presentation_panel);
