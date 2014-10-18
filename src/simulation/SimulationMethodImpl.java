@@ -1,4 +1,7 @@
-package base;
+package simulation;
+
+import base.SimulationMethod;
+import base.SimulationResult;
 
 public class SimulationMethodImpl implements SimulationMethod {
 	public SimulationResult simulate() throws InterruptedException {

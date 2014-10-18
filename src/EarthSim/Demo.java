@@ -1,12 +1,13 @@
 package EarthSim;
 
+import initiatives.SimulationInitiative;
+
 import java.awt.EventQueue;
 import java.util.logging.Logger;
 
 import base.InitiativeType;
 import base.ObjectFactory;
 import base.PausableStoppable;
-import base.SimulationInitiative;
 import GUI.GUIApp;
 
 public class Demo {
@@ -20,7 +21,13 @@ public class Demo {
 	private static boolean simulationInitiative = true;
 	private static boolean masterInitiative = false;
 	
+	/**
+	 * Application entry point
+	 * @param args Command line arguments
+	 */
 	public static void main(String[] args) {
+		
+		parseArguments(args);
 		
 		final GUIApp presentation = new GUIApp();
 		

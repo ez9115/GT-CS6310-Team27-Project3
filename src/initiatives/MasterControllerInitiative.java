@@ -1,10 +1,16 @@
 /**
  * 
  */
-package base;
+package initiatives;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+
+import base.PausableStoppable;
+import base.PresentationMethod;
+import base.SimulationMethod;
+import base.SimulationResult;
+import base.Utils;
 
 /**
  * @author 

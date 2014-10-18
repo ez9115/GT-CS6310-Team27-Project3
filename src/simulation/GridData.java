@@ -1,4 +1,4 @@
-package base;
+package simulation;
 
 import java.awt.Color;
 

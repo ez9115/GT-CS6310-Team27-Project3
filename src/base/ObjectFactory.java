@@ -1,8 +1,24 @@
 package base;
 
+import initiatives.MasterControllerInitiative;
+import initiatives.PresentationInitiative;
+import initiatives.SimulationInitiative;
+
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import callbacks.OnStart;
+import callbacks.OnStop;
+import mock.MockSimulationMethod;
+
+/**
+ * ObjectFactory provides methods of creating implementations of interface objects.
+ * 
+ * This helps decouple the various pieces of the architecture by having a single location
+ * responsible for managing implementations.
+ * @author Tyler Benfield
+ *
+ */
 public abstract class ObjectFactory {
 
 	public static SimulationMethod getSimulationMethod() {

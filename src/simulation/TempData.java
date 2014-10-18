@@ -1,4 +1,4 @@
-package base;
+package simulation;
 
 public class TempData {
 	private int longitude;

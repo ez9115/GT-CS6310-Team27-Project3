@@ -1,5 +1,13 @@
-package base;
+package mock;
 
+import base.PresentationMethod;
+import base.SimulationResult;
+
+/**
+ * Mock presentation method for testing purposes.
+ * @author Tyler Benfield
+ *
+ */
 public class MockPresentationMethod implements PresentationMethod {
 
 	@Override

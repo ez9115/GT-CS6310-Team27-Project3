@@ -1,15 +1,20 @@
-package base;
+package mock;
 
 import java.util.Random;
 
+import base.SimulationMethod;
+import base.SimulationResult;
+
+/**
+ * Mock simulation method for testing purposes. 
+ * @author Tyler Benfield
+ *
+ */
 public class MockSimulationMethod implements SimulationMethod {
-	
-	private int mCounter = 0;
 
 	@Override
 	public SimulationResult simulate() throws InterruptedException {
 		Thread.sleep(250);
-//		mCounter++;
 		return new SimulationResult(randInt(-100,92)); //288k is the starting temp
 	}
 
