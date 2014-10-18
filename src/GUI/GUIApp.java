@@ -283,6 +283,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	@Override
 	public void present(SimulationResult result) throws InterruptedException {
 		presentation_panel.updateGrid(result);
+		presentation_panel.moveSunPosition(result.getSunPosition());
 		System.out.println(result.getTemperature(1, 1));
 	}
 
