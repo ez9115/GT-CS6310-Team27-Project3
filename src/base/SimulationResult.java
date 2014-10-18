@@ -48,12 +48,21 @@ public class SimulationResult implements TemperatureGrid {
 	}
 
 	/**
-	 * Retrieves the heigh to the specified grid cell.
+	 * Retrieves the height to the specified grid cell.
 	 */
 	@Override
 	public float getCellHeight(int x, int y) {
 		// TODO Auto-generated method stub
 		return mCounter;
+	}
+	
+	/**
+	 * Retrieves the position of the sun that produced this result data.
+	 * @return The position of the sun in degres
+	 */
+	public float getSunPosition() {
+		// Note that -180 is near Russia, 180 is near Alaska, 0 is center
+		return 90;
 	}
 
 }
