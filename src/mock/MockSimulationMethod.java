@@ -13,7 +13,7 @@ import base.SimulationResult;
 public class MockSimulationMethod implements SimulationMethod {
 
 	@Override
-	public SimulationResult simulate() throws InterruptedException {
+	public SimulationResult simulate(SimulationResult previousResults, int degreeSeparation, int time) throws InterruptedException {
 		Thread.sleep(250);
 		return new SimulationResult(randInt(-100,92)); //288k is the starting temp
 	}

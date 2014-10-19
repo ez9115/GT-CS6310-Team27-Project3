@@ -92,8 +92,8 @@ public class SimulationInitiative extends PausableStoppable {
 	 * @return The resulting simulation data. 
 	 * @throws InterruptedException Thrown if the current thread is interrupted while waiting for the queue to be available.
 	 */
-	public SimulationResult simulate() throws InterruptedException {
-		return mSimulationMethod.simulate();
+	public SimulationResult simulate(SimulationResult previousResults, int degreeSeparation, int time) throws InterruptedException {
+		return mSimulationMethod.simulate(previousResults, degreeSeparation, time);
 	}
 
 	/**
@@ -148,9 +148,11 @@ public class SimulationInitiative extends PausableStoppable {
 			@Override
 			public void run() {
 				try {
+					SimulationResult previousResult = null; //= new SimulationResult(); //288 degrees all-around
 					while(!mRunningThread.isInterrupted()) {
 						checkPaused();
-						mQueue.put(simulate());
+						previousResult = simulate(previousResult, 15, 15);
+						mQueue.put(previousResult);
 					}
 				} catch (InterruptedException e) {
 					LOGGER.info("Simulation stopped");

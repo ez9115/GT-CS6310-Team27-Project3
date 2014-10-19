@@ -6,19 +6,26 @@ import base.SimulationResult;
 public class SimulationMethodImpl implements SimulationMethod {
 	
 	// TODO: Maybe change this to public SimulationReseult simulate(SimulationResult previousResults, int degreeSeparation, int time)
-	public SimulationResult simulate() throws InterruptedException {
-		int degreeSeparation = 15; // 1 - 180
-		int time = 15; // 0 - 1440 minutes
+	public SimulationResult simulate(SimulationResult previousResults, int degreeSeparation, int sunPosition) throws InterruptedException {
+		
+		// Validate arguments
+		if (sunPosition < -180 || sunPosition > 180) {
+			throw new IllegalArgumentException("Sun position must be an integer from -180 to 180");
+		}
+		
+		if (degreeSeparation < 0 || degreeSeparation > 180) {
+			throw new IllegalArgumentException("Degrees of separation must be an integer from 0 to 180");
+		}
 		
 		int Cols = 360 / degreeSeparation;
 		int Rows = 360 / degreeSeparation;
 		
 		int tau = 30;
 		
-		int gs = 180 / Rows ;
+		int gs = 180 / Rows;
 		
 		double sunPosition_inc = -360.0 * (double)tau / 1440.0; //West is negative direction
-		double sunPosition = 0;  // initial position
+		//double sunPosition = 0;  // initial position
 		//int time = 0;
 		
 		CellpropertiesBuilder[][]  Grid= new CellpropertiesBuilder[ Rows ][ Cols ];
@@ -41,11 +48,11 @@ public class SimulationMethodImpl implements SimulationMethod {
 		}
 		
 	    for ( int time_step = 0; time_step < 4800; time_step++ ) {
-	    	time = time + tau;
+	    	//time = time + tau;
 	    	
 			double sunPosition_ave = sunPosition + sunPosition_inc / 2.0;
 			
-			sunPosition = sunPosition + sunPosition_inc;
+			sunPosition = (int) (sunPosition + sunPosition_inc);
 
 	        if ( sunPosition < -180.0  ) sunPosition = sunPosition + 360;  // keep  -180 < sunPosition < 180
 

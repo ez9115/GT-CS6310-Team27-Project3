@@ -103,8 +103,10 @@ public abstract class Utils {
 	 * @throws InterruptedException
 	 */
 	private static void runSimulationSynchronous(BlockingQueue<SimulationResult> queue, SimulationInitiative simulation) throws InterruptedException {
+		SimulationResult previousResult = null;
 		while(true) {
-			queue.put(simulation.simulate());
+			previousResult = simulation.simulate(previousResult, 15, 15);
+			queue.put(previousResult);
 		}
 	}
 	
@@ -115,9 +117,10 @@ public abstract class Utils {
 	 * @throws InterruptedException
 	 */
 	private static void runPresentationAndSimulationSynchronous(PresentationInitiative presentation, SimulationInitiative simulation) throws InterruptedException {
+		SimulationResult previousResult = null;
 		while(true) {
-			SimulationResult result = simulation.simulate();
-			presentation.present(result);
+			previousResult = simulation.simulate(previousResult, 15, 15);
+			presentation.present(previousResult);
 		}
 	}
 	

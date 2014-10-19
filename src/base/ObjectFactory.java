@@ -7,6 +7,7 @@ import initiatives.SimulationInitiative;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import simulation.GridData;
 import simulation.SimulationMethodImpl;
 import callbacks.OnStart;
 import callbacks.OnStop;
@@ -21,6 +22,28 @@ import mock.MockSimulationMethod;
  *
  */
 public abstract class ObjectFactory {
+	
+	/**
+	 * Generates a 
+	 * @param degreeSeparation
+	 * @return
+	 */
+	public static SimulationResult getInitialGrid(int degreeSeparation) {
+		int Cols = 360 / degreeSeparation;
+		int Rows = 360 / degreeSeparation;
+		
+		GridData[][] data = new GridData[Cols][];
+		for (int i = 0; i < data.length; i++) {
+			data[i] = new GridData[Rows];
+			for (int j = 0; j < data[i].length; j++) {
+				GridData d = new GridData();
+				d.setTemp(288);
+				data[i][j] = d;
+			}
+		}
+		
+		return new SimulationResult(data, 0);
+	}
 
 	public static SimulationMethod getSimulationMethod() {
 		//return new MockSimulationMethod();
