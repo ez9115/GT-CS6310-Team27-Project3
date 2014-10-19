@@ -5,9 +5,11 @@ import java.util.logging.Logger;
 
 import callbacks.OnStart;
 import callbacks.OnStop;
+import base.ObjectFactory;
 import base.PausableStoppable;
 import base.SimulationMethod;
 import base.SimulationResult;
+import base.Utils;
 
 /**
  * SimulationInitiative serves as both the initiative when the simulation has initiative or the simulation controller
@@ -17,7 +19,9 @@ import base.SimulationResult;
  */
 public class SimulationInitiative extends PausableStoppable {
 	
-	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName()); 
+	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName());
+	
+	private final static int STABILIZATION_DELTA = 1;
 
 	/**
 	 * OnStart callback to execute IN PLACE OF the standard start call.
@@ -92,20 +96,22 @@ public class SimulationInitiative extends PausableStoppable {
 	 * @return The resulting simulation data. 
 	 * @throws InterruptedException Thrown if the current thread is interrupted while waiting for the queue to be available.
 	 */
-	public SimulationResult simulate(SimulationResult previousResults, int degreeSeparation, int time) throws InterruptedException {
-		return mSimulationMethod.simulate(previousResults, degreeSeparation, time);
+	public SimulationResult simulate(SimulationResult previousResults, int degreeSeparation, float sunPosition) throws InterruptedException {
+		return mSimulationMethod.simulate(previousResults, degreeSeparation, sunPosition);
 	}
 
 	/**
 	 * Begins the simulation process on a thread.
 	 */
 	@Override
-	public void start() throws Exception {
+	public void start(int degreeSeparation, int timeStep) throws Exception {
 		LOGGER.info("Starting simulation");
 		if (mOnStart != null && mOnStartEnabled) {
-			mOnStart.onStart();
+			mDegreeSeparation = degreeSeparation;
+			mTimeStep = timeStep;
+			mOnStart.onStart(degreeSeparation, timeStep);
 		} else {
-			super.start();
+			super.start(degreeSeparation, timeStep);
 		}
 	}
 	
@@ -148,11 +154,35 @@ public class SimulationInitiative extends PausableStoppable {
 			@Override
 			public void run() {
 				try {
-					SimulationResult previousResult = null; //= new SimulationResult(); //288 degrees all-around
+					float sunPosition = 0;
+					SimulationResult.MinMaxTemp minMaxTemp = null;
+					int numberOfIterationsToStabilization = 0;
+					boolean stabilizationAchieved = false;
+					SimulationResult previousResult = ObjectFactory.getInitialGrid(mDegreeSeparation);
 					while(!mRunningThread.isInterrupted()) {
 						checkPaused();
-						previousResult = simulate(previousResult, 15, 15);
-						mQueue.put(previousResult);
+						SimulationResult newResult = simulate(previousResult, mDegreeSeparation, sunPosition);
+						
+						// Determine if we have stabilized
+						if (!stabilizationAchieved) {
+							numberOfIterationsToStabilization++;
+							SimulationResult.MinMaxTemp newMinMaxTemp = newResult.getMinMaxTemperature();
+							if (minMaxTemp != null && !stabilizationAchieved) {
+								if (Math.abs(newMinMaxTemp.Max - minMaxTemp.Max) <= STABILIZATION_DELTA && Math.abs(newMinMaxTemp.Min - minMaxTemp.Min) <= STABILIZATION_DELTA) {
+									System.out.println("Stabilization achieved");
+									stabilizationAchieved = true;
+								}
+							}
+							minMaxTemp = newMinMaxTemp;
+						}
+
+						if (stabilizationAchieved) {
+							System.out.println("Stabilization achieved at " + numberOfIterationsToStabilization + " iterations");
+						}
+
+						mQueue.put(newResult);
+						previousResult = newResult;
+						sunPosition = Utils.incrementSunPosition(sunPosition, mTimeStep);
 					}
 				} catch (InterruptedException e) {
 					LOGGER.info("Simulation stopped");

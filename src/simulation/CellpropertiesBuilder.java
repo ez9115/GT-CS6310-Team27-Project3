@@ -102,9 +102,10 @@ void setNeighbors( int num , CellpropertiesBuilder cell )
 }
 
 
-void init( int i_lat, int i_lon, int cols, int rows, int gs )
+void init( int i_lat, int i_lon, int cols, int rows, int gs, double startingTemp )
 {
-    T = 288.0;
+    //T = 288.0;
+	T = startingTemp;
     //System.out.println( " AM I IN " );
 
     lat = ( i_lat - rows / 2 ) * gs;
@@ -210,8 +211,9 @@ void updateTemperature()
 
 public static void main(String[] args) {
 {
-	int Cols =24;
-	int  Rows = 12;
+	int degreeSeparation = 15;
+	int Cols = 360 / degreeSeparation;
+	int  Rows = 360 / degreeSeparation;
 
    // diag = fopen( "diag.txt", "w");
     int tau = 30;
@@ -231,7 +233,7 @@ public static void main(String[] args) {
         for ( int j = 0; j < Cols; j++ )
         {
         	Grid[ i ][ j ] = new CellpropertiesBuilder();
-            Grid[ i ][ j ].init( i, j, Cols, Rows, gs);
+            Grid[ i ][ j ].init( i, j, Cols, Rows, gs, 288.0);
         }
     }
 

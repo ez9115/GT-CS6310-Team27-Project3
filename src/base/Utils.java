@@ -30,11 +30,11 @@ public abstract class Utils {
 			return new OnStart() {
 				
 				@Override
-				public void onStart() throws Exception {
+				public void onStart(int degreeSeparation, int timeStep) throws Exception {
 					presentation.disableOnStartListener();
 					simulation.disableOnStartListener();
-					simulation.start();
-					presentation.start();
+					simulation.start(degreeSeparation, timeStep);
+					presentation.start(degreeSeparation, timeStep);
 					presentation.enableOnStartListener();
 					simulation.enableOnStartListener();
 				}
@@ -44,10 +44,10 @@ public abstract class Utils {
 			return new OnStart() {
 				
 				@Override
-				public void onStart() throws Exception {
+				public void onStart(int degreeSeparation, int timeStep) throws Exception {
 					presentation.disableOnStartListener();
 					simulation.disableOnStartListener();
-					simulation.start();
+					simulation.start(degreeSeparation, timeStep);
 					runPresentationSynchronous(queue, presentation);
 					presentation.enableOnStartListener();
 					simulation.enableOnStartListener();
@@ -58,11 +58,11 @@ public abstract class Utils {
 			return new OnStart() {
 				
 				@Override
-				public void onStart() throws Exception {
+				public void onStart(int degreeSeparation, int timeStep) throws Exception {
 					presentation.disableOnStartListener();
 					simulation.disableOnStartListener();
-					presentation.start();
-					runSimulationSynchronous(queue, simulation);
+					presentation.start(degreeSeparation, timeStep);
+					runSimulationSynchronous(queue, simulation, degreeSeparation, timeStep);
 					presentation.enableOnStartListener();
 					simulation.enableOnStartListener();
 				}
@@ -72,10 +72,10 @@ public abstract class Utils {
 			return new OnStart() {
 				
 				@Override
-				public void onStart() throws InterruptedException {
+				public void onStart(int degreeSeparation, int timeStep) throws InterruptedException {
 					presentation.disableOnStartListener();
 					simulation.disableOnStartListener();
-					runPresentationAndSimulationSynchronous(presentation, simulation);
+					runPresentationAndSimulationSynchronous(presentation, simulation, degreeSeparation, timeStep);
 					presentation.enableOnStartListener();
 					simulation.enableOnStartListener();
 				}
@@ -102,11 +102,13 @@ public abstract class Utils {
 	 * @param simulation The simulation method to use.
 	 * @throws InterruptedException
 	 */
-	private static void runSimulationSynchronous(BlockingQueue<SimulationResult> queue, SimulationInitiative simulation) throws InterruptedException {
+	private static void runSimulationSynchronous(BlockingQueue<SimulationResult> queue, SimulationInitiative simulation, int degreeSeparation, int timeStep) throws InterruptedException {
 		SimulationResult previousResult = null;
+		float sunPosition = 0;
 		while(true) {
-			previousResult = simulation.simulate(previousResult, 15, 15);
+			previousResult = simulation.simulate(previousResult, degreeSeparation, sunPosition);
 			queue.put(previousResult);
+			sunPosition = incrementSunPosition(sunPosition, timeStep);
 		}
 	}
 	
@@ -116,12 +118,41 @@ public abstract class Utils {
 	 * @param simulation The simulation method to use.
 	 * @throws InterruptedException
 	 */
-	private static void runPresentationAndSimulationSynchronous(PresentationInitiative presentation, SimulationInitiative simulation) throws InterruptedException {
+	private static void runPresentationAndSimulationSynchronous(PresentationInitiative presentation, SimulationInitiative simulation, int degreeSeparation, int timeStep) throws InterruptedException {
 		SimulationResult previousResult = null;
+		float sunPosition = 0;
 		while(true) {
-			previousResult = simulation.simulate(previousResult, 15, 15);
+			previousResult = simulation.simulate(previousResult, degreeSeparation, sunPosition);
 			presentation.present(previousResult);
+			sunPosition = incrementSunPosition(sunPosition, timeStep);
 		}
+	}
+	
+	/**
+	 * Converts a time step into change in degrees.
+	 * @param timeStep
+	 * @return
+	 */
+	public static float convertTimeToDegrees(int timeStep) {
+		return (float) (-360.0 * timeStep / 1440.0);
+	}
+	
+	/**
+	 * Increments the sun position, rolling over at 180 degrees.
+	 * @param sunPosition
+	 * @param increment
+	 * @return
+	 */
+	public static float incrementSunPosition(float sunPosition, int timeStep) {
+		float increment = convertTimeToDegrees(timeStep);
+		sunPosition += increment;
+		if (sunPosition > 180) {
+			sunPosition -= 360;
+		}
+		else if (sunPosition < -180) {
+			sunPosition += 360;
+		}
+		return sunPosition;
 	}
 	
 }

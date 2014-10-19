@@ -21,6 +21,16 @@ public abstract class PausableStoppable {
 	protected Boolean mPaused = false;
 	
 	/**
+	 * Holds the specified degrees of separation
+	 */
+	protected int mDegreeSeparation = 15;
+	
+	/**
+	 * Holds the specified time step 
+	 */
+	protected int mTimeStep = 1;
+	
+	/**
 	 * Pauses the underlying thread if it is executing.  Throws an exception if the thread has not been started.
 	 * @throws Exception Thrown if the thread has not been started.
 	 */
@@ -55,8 +65,10 @@ public abstract class PausableStoppable {
 	 * pause/resume/stop process.
 	 * @throws Exception Thrown if the thread has already been started.
 	 */
-	public void start() throws Exception {
+	public void start(int degreeSeparation, int timeStep) throws Exception {
 		if (mRunningThread == null) {
+			mDegreeSeparation = degreeSeparation;
+			mTimeStep = timeStep;
 			mRunningThread = new Thread(getRunnableAction());
 			mRunningThread.start();
 		} else {

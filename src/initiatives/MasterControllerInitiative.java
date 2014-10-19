@@ -33,9 +33,9 @@ public class MasterControllerInitiative extends PausableStoppable {
 	}
 
 	@Override
-	public void start() throws Exception {
+	public void start(int degreeSeparation, int timeStep) throws Exception {
 		//TODO: Pause, resume, and stop need to be implemented here as well
-		Utils.startSimulationProcess(mAsyncPresentation, mAsyncSimulation, mSharedQueue, mPres, mSim).onStart();
+		Utils.startSimulationProcess(mAsyncPresentation, mAsyncSimulation, mSharedQueue, mPres, mSim).onStart(degreeSeparation, timeStep);
 	}
 
 	@Override

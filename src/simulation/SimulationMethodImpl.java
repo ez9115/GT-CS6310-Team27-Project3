@@ -1,12 +1,16 @@
 package simulation;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+
 import base.SimulationMethod;
 import base.SimulationResult;
 
 public class SimulationMethodImpl implements SimulationMethod {
 	
 	// TODO: Maybe change this to public SimulationReseult simulate(SimulationResult previousResults, int degreeSeparation, int time)
-	public SimulationResult simulate(SimulationResult previousResults, int degreeSeparation, int sunPosition) throws InterruptedException {
+	public SimulationResult simulate(SimulationResult previousResults, int degreeSeparation, float sunPosition) throws InterruptedException {
 		
 		// Validate arguments
 		if (previousResults == null) {
@@ -34,10 +38,14 @@ public class SimulationMethodImpl implements SimulationMethod {
 		
 		CellpropertiesBuilder[][]  Grid= new CellpropertiesBuilder[ Rows ][ Cols ];
 		
+		String fileName ="../TempMatrix.";
+		File logFile = new File(fileName);
+		StringBuffer buff = new StringBuffer();
+		
 		for ( int i = 0; i < Rows; i++ ) {
 		    for ( int j = 0; j < Cols; j++ ) {
 		    	Grid[ i ][ j ] = new CellpropertiesBuilder();
-		        Grid[ i ][ j ].init( i, j, Cols, Rows, gs);
+		        Grid[ i ][ j ].init( i, j, Cols, Rows, gs, previousResults.getTemperature(i, j));
 		    }
 		}
 		
@@ -51,18 +59,18 @@ public class SimulationMethodImpl implements SimulationMethod {
 			}
 		}
 		
-	    for ( int time_step = 0; time_step < 4800; time_step++ ) {
-	    	//time = time + tau;
-	    	
-			double sunPosition_ave = sunPosition + sunPosition_inc / 2.0;
-			
-			sunPosition = (int) (sunPosition + sunPosition_inc);
-
-	        if ( sunPosition < -180.0  ) sunPosition = sunPosition + 360;  // keep  -180 < sunPosition < 180
+//	    for ( int time_step = 0; time_step < 4800; time_step++ ) {
+//	    	//time = time + tau;
+//	    	
+//			double sunPosition_ave = sunPosition + sunPosition_inc / 2.0;
+//			
+//			sunPosition = (int) (sunPosition + sunPosition_inc);
+//
+//	        if ( sunPosition < -180.0  ) sunPosition = sunPosition + 360;  // keep  -180 < sunPosition < 180
 
 	        for ( int i = 0; i < Rows; i++ ) {
 	            for ( int j = 0; j < Cols; j++ ) {
-	                Grid[ i ][ j ].calculateTempIncrement( sunPosition_ave, tau );
+	                Grid[ i ][ j ].calculateTempIncrement( sunPosition, tau );
 	            }
 	        }
 	        
@@ -71,7 +79,7 @@ public class SimulationMethodImpl implements SimulationMethod {
 	                Grid[ i ][ j ].updateTemperature( );
 	            }
 	        }
-	    }
+//	    }
 
         //ouput
         int sp = (int) sunPosition;
@@ -88,6 +96,24 @@ public class SimulationMethodImpl implements SimulationMethod {
             }
 
         }
+		
+		buff.append("\n\n sunPosition = "+  sp +" T_ave = " +T_ave +"\n    \t\t\t");
+		for ( int it = 0; it < Cols; it++ ) {
+			buff.append(Grid[ 0 ][ it ].lon+"\t" );
+		}
+
+		buff.append("\n");
+
+		for ( int i = 0; i < Rows; i ++ ) {
+			buff.append("c_lat="+Grid[ i ][ 0 ].c_lat+"\t\t");
+
+			for ( int j = 0; j < Cols; j ++ ) {
+				int tt = (int) Grid[ i ][ j ].T ;
+				buff.append(tt+"\t");
+			}
+			buff.append("\n" );
+		}
+		addToFile(buff.toString(), logFile, fileName);
 		
 		T_ave = T_ave /( Rows * Cols );
 		//System.out.println("T_eve" + T_ave);
@@ -106,5 +132,30 @@ public class SimulationMethodImpl implements SimulationMethod {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private static void addToFile(String str, File logFile, String fileName){
+		 BufferedWriter writer = null;
+		
+	       try {
+	           //create a temporary file
+	          // String fileName ="../DB/propertiesList."+tag;
+	         //  File logFile = new File(fileName);
 
+	           // This will output the full path where the file will be written to...
+	          // System.out.println(logFile.getCanonicalPath());
+
+	           writer = new BufferedWriter(new FileWriter(logFile));
+	     
+	           writer.write(str);
+	       } catch (Exception e) {
+	           e.printStackTrace();
+	       } finally {
+	           try {
+	               // Close the writer regardless of what happens...
+	               writer.close();
+	           } catch (Exception e) {
+	           }
+	       }
+	      
+	}
 }

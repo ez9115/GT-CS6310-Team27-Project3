@@ -11,6 +11,6 @@ public interface OnStart {
 	 * Called when the caller is started.
 	 * @throws Exception
 	 */
-	public void onStart() throws Exception;
+	public void onStart(int degreeSeparation, int timeStep) throws Exception;
 	
 }

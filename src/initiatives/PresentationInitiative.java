@@ -94,12 +94,14 @@ public class PresentationInitiative extends PausableStoppable {
 	 * Begins the presentation process on a thread.
 	 */
 	@Override
-	public void start() throws Exception {
+	public void start(int degreeSeparation, int timeStep) throws Exception {
 		LOGGER.info("Starting presentation");
 		if (mOnStart != null && mOnStartEnabled) {
-			mOnStart.onStart();
+			mDegreeSeparation = degreeSeparation;
+			mTimeStep = timeStep;
+			mOnStart.onStart(degreeSeparation, timeStep);
 		} else {
-			super.start();
+			super.start(degreeSeparation, timeStep);
 		}
 	}
 
@@ -144,6 +146,7 @@ public class PresentationInitiative extends PausableStoppable {
 				try {
 					while(!mRunningThread.isInterrupted()) {
 						checkPaused();
+						// TODO: Skip based on presentation step
 						present(mQueue.take());
 						LOGGER.info("Buffer size: " + mQueue.size());
 					}

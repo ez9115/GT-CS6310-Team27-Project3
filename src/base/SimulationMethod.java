@@ -13,11 +13,11 @@ public interface SimulationMethod {
 	 * Algorithm for executing a single simulation run.
 	 * @param previousResults The results from the previous simulation execution that serve as a starting point for this execution
 	 * @param degreeSeparation The degree of separation between grid cells (0 - 180)
-	 * @param time The current time of day in minutes (0 - 1440)
+	 * @param sunPosition The current sun position (-180 - 180)
 	 * @return Resulting simulation data
 	 * @throws InterruptedException Thrown if the thread executing the simulation is interrupted.
 	 */
-	public SimulationResult simulate(SimulationResult previousResults, int degreeSeparation, int time) throws InterruptedException;
+	public SimulationResult simulate(SimulationResult previousResults, int degreeSeparation, float sunPosition) throws InterruptedException;
 
 	/**
 	 * Optional method of pausing mid-simulation.
