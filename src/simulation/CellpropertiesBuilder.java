@@ -252,15 +252,17 @@ public static void main(String[] args) {
 
 
 
-    //FILE * f_out = fopen ( "temp.txt", "w" );
+   String fileName ="../TempMatrix.";
+   File logFile = new File(fileName);
+   StringBuffer buff = new StringBuffer();
     for ( int time_step = 0; time_step < 4800; time_step++ )
     {
         time = time + tau;
 
 		double sunPosition_ave = sunPosition + sunPosition_inc / 2.0;
-
+        
 		sunPosition = sunPosition + sunPosition_inc;
-
+		
         if ( sunPosition < -180.0  ) sunPosition = sunPosition + 360;  // keep  -180 < sunPosition < 180
 
         if ( time_step == 300 )
@@ -287,53 +289,83 @@ public static void main(String[] args) {
         }
 
         //ouput
+       
         int sp = (int) sunPosition;
-        GridData[][] gridDataArraylist = new GridData[Rows][Cols];
+        ArrayList<GridData> gridDataArraylist = new ArrayList<GridData>();
 		double T_ave = 0.0;
 		for ( int i = 0; i < Rows; i++ )
         {
-
+			
             for ( int j = 0; j < Cols; j++ )
             {
             	GridData gridData = new GridData();
-    			gridData.setLatitude(i);
+    			gridData.setLatitude(i); 
     			gridData.setTemp(Grid[ i ][ j ].T);
                 T_ave += Grid[ i ][ j ].T;
-                System.out.println("sunPositon" + sp + ",  i,j" +i + ":"+j +"=t="+ Grid[ i ][ j ].T);
-                gridDataArraylist[i][j] = gridData;
+              //  System.out.println("sunPositon" + sp + ",  i,j" +i + ":"+j +"=t="+ Grid[ i ][ j ].T);
+                gridDataArraylist.add(gridData);
             }
-
+            
         }
 		T_ave = T_ave /( Rows * Cols );
-		System.out.println("T_eve" + T_ave);
+		
+		//SimulationResult result = new SimulationResult(gridDataArraylist, (float) sunPosition);
+		
+	   
+	    buff.append("\n\n Time = "+ time +"\t\t sunPosition = "+  sp +" T_ave = " +T_ave +"\n    \t\t\t");
+		for ( int it = 0; it < Cols; it++ )
+	          
+			buff.append(Grid[ 0 ][ it ].lon+"\t" );
+			
+	     buff.append("\n");
+     
+      
+	        for ( int i = 0; i < Rows; i ++ )
+	        {
+	           
+	        	buff.append("c_lat="+Grid[ i ][ 0 ].c_lat+"\t\t");
+	        	
+	            for ( int j = 0; j < Cols; j ++ )
+	            {
+	                int tt = (int) Grid[ i ][ j ].T ;
+	              // System.out.println ( "TT"+tt);
+	                buff.append(tt+"\t");
+	            }
+	            buff.append("\n" );
+	           
+	        }
+	      
+    }
+    addToFile(buff.toString(), logFile, fileName);        
+    System.out.println("Konez");
+    }
 
-		SimulationResult result = new SimulationResult(gridDataArraylist, (float) sunPosition);
-		//return result
 
- }
+
+    
 }
 
 
-
-
-}
-
+       
 
 
 
-public static void addToFile(String str, String tag ){
+    
+
+
+public static void addToFile(String str, File logFile, String fileName){
 	 BufferedWriter writer = null;
-
+	
        try {
            //create a temporary file
-           String fileName ="../DB/propertiesList."+tag;
-           File logFile = new File(fileName);
+          // String fileName ="../DB/propertiesList."+tag;
+         //  File logFile = new File(fileName);
 
            // This will output the full path where the file will be written to...
-           System.out.println(logFile.getCanonicalPath());
+          // System.out.println(logFile.getCanonicalPath());
 
            writer = new BufferedWriter(new FileWriter(logFile));
-
+     
            writer.write(str);
        } catch (Exception e) {
            e.printStackTrace();
@@ -344,5 +376,7 @@ public static void addToFile(String str, String tag ){
            } catch (Exception e) {
            }
        }
+      
 	}
 }
+
