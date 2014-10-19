@@ -17,7 +17,7 @@ public class CellpropertiesBuilder {
 	//Stefan-Boltzmann constant
 	double SB =5.67E-8;
 
-	//thermal conductivity of the water, in W/(m*k) 
+	//thermal conductivity of the water, in W/(m*k)
 	double k =38.0;
 
 	//Specific heat capacity for water in J/(kg * K )
@@ -53,7 +53,7 @@ public class CellpropertiesBuilder {
 
 	class Neighbor
 	{
-	    
+
 	        int i_lat, i_lon;
 	        double p; //this is the ration of l/d, i.e. the common border to the distance between centers of the adjacent cells
 	        CellpropertiesBuilder cell;
@@ -61,7 +61,7 @@ public class CellpropertiesBuilder {
 
 	public   CellpropertiesBuilder()
 	{
- 
+
 	/*	int lat, lon; //coordinates of the left bottom corner of the cell in degrees
 		int c_lat, c_lon; // coordinates of the center of the cell in degrees
 		double T, T_inc, lat_attenuation, area;
@@ -73,7 +73,7 @@ public class CellpropertiesBuilder {
 		//Neighbor[] neighbor = new  Neighbor[4];*/
 
 	   /* init(  i_lat,  i_lon,  cols,   rows,   gs ) ;
-		 
+
 		void Calculate_T_inc( double sunPosition, int tau );
 		void T_Update();
 		void setNeighbors( int num, Cell cell );*/
@@ -84,7 +84,7 @@ public class CellpropertiesBuilder {
 
 void setNeighbors( int num , CellpropertiesBuilder cell )
 {
- 
+
     neighbor[ num ].cell = this;
 
 	switch ( num )
@@ -105,7 +105,7 @@ void setNeighbors( int num , CellpropertiesBuilder cell )
 void init( int i_lat, int i_lon, int cols, int rows, int gs )
 {
     T = 288.0;
-    System.out.println( " AM I IN " );
+    //System.out.println( " AM I IN " );
 
     lat = ( i_lat - rows / 2 ) * gs;
 
@@ -121,7 +121,7 @@ void init( int i_lat, int i_lon, int cols, int rows, int gs )
     l_b = Math.cos( lat * PI / 180.0 ) * l_v;  //length of the base of the cell
     l_t = Math.cos( ( lat + gs ) * PI / 180.0 ) * l_v;  // length of the top of the cell
     h =   Math.sqrt( l_v * l_v - 0.25 * ( l_b - l_t ) * ( l_b - l_t ) ); //height of the cell
- 
+
     area = 0.5 * ( l_t + l_b ) * h;
 
     lat_attenuation = Math.cos( c_lat * PI / 180.0 );
@@ -134,7 +134,7 @@ void init( int i_lat, int i_lon, int cols, int rows, int gs )
     //North neighbor
     if ( i_lat < ( rows - 1 ) )
     {
-    	
+
         neighbor[ 0 ].i_lat = i_lat + 1;
         neighbor[ 0 ].i_lon = i_lon;
     }
@@ -145,7 +145,7 @@ void init( int i_lat, int i_lon, int cols, int rows, int gs )
     }
 
     //West neighbor
-   
+
     neighbor[ 1 ].i_lat = i_lat;
     neighbor[ 1 ].i_lon = ( i_lon + 1 ) % cols;
 
@@ -162,7 +162,7 @@ void init( int i_lat, int i_lon, int cols, int rows, int gs )
     }
 
     //East neighbor
-    
+
     neighbor[ 3 ].i_lat = i_lat;
     neighbor[ 3 ].i_lon = ( i_lon - 1 + cols ) % cols;
 }
@@ -222,7 +222,7 @@ public static void main(String[] args) {
     double sunPosition = 0;  // initial position
     int time = 0;
   //CellpropertiesBuilder// cell = new CellpropertiesBuilder();
-  
+
 
   CellpropertiesBuilder[][]  Grid= new CellpropertiesBuilder[ Rows ][ Cols ];
 
@@ -258,9 +258,9 @@ public static void main(String[] args) {
         time = time + tau;
 
 		double sunPosition_ave = sunPosition + sunPosition_inc / 2.0;
-        
+
 		sunPosition = sunPosition + sunPosition_inc;
-		
+
         if ( sunPosition < -180.0  ) sunPosition = sunPosition + 360;  // keep  -180 < sunPosition < 180
 
         if ( time_step == 300 )
@@ -292,38 +292,38 @@ public static void main(String[] args) {
 		double T_ave = 0.0;
 		for ( int i = 0; i < Rows; i++ )
         {
-			
+
             for ( int j = 0; j < Cols; j++ )
             {
             	GridData gridData = new GridData();
-    			gridData.setLatitude(i); 
+    			gridData.setLatitude(i);
     			gridData.setTemp(Grid[ i ][ j ].T);
                 T_ave += Grid[ i ][ j ].T;
                 System.out.println("sunPositon" + sp + ",  i,j" +i + ":"+j +"=t="+ Grid[ i ][ j ].T);
                 gridDataArraylist[i][j] = gridData;
             }
-            
+
         }
 		T_ave = T_ave /( Rows * Cols );
 		System.out.println("T_eve" + T_ave);
-		 
-		SimulationResult result = new SimulationResult(gridDataArraylist);
+
+		SimulationResult result = new SimulationResult(gridDataArraylist, (float) sunPosition);
 		//return result
-		
+
  }
 }
 
 
-       
+
 
 }
 
-    
+
 
 
 public static void addToFile(String str, String tag ){
 	 BufferedWriter writer = null;
-	
+
        try {
            //create a temporary file
            String fileName ="../DB/propertiesList."+tag;
@@ -333,7 +333,7 @@ public static void addToFile(String str, String tag ){
            System.out.println(logFile.getCanonicalPath());
 
            writer = new BufferedWriter(new FileWriter(logFile));
-     
+
            writer.write(str);
        } catch (Exception e) {
            e.printStackTrace();

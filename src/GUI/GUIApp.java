@@ -1,5 +1,7 @@
 package GUI;
 
+import initiatives.SimulationInitiative;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -9,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -31,6 +34,7 @@ import base.SimulationResult;
 
 public class GUIApp extends JFrame implements PresentationMethod{
 
+	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName());
 	private static final long serialVersionUID = -1873444547097063288L;
 	
 	private JPanel contentPane;
@@ -92,6 +96,8 @@ public class GUIApp extends JFrame implements PresentationMethod{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					int degreeSeparation = 15;
+					presentation_panel.drawGrid(degreeSeparation);
 					initiative.start();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -284,6 +290,8 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		presentation_panel.updateGrid(result);
 		presentation_panel.moveSunPosition(result.getSunPosition());
 		System.out.println(result.getTemperature(1, 1));
+		LOGGER.info("Temperature (1,1): " + result.getTemperature(1, 1));
+		LOGGER.info("Sun position: " + result.getSunPosition());
 	}
 
 	@Override

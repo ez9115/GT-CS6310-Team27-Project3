@@ -7,6 +7,7 @@ import initiatives.SimulationInitiative;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import simulation.SimulationMethodImpl;
 import callbacks.OnStart;
 import callbacks.OnStop;
 import mock.MockSimulationMethod;
@@ -22,7 +23,8 @@ import mock.MockSimulationMethod;
 public abstract class ObjectFactory {
 
 	public static SimulationMethod getSimulationMethod() {
-		return new MockSimulationMethod();
+		//return new MockSimulationMethod();
+		return new SimulationMethodImpl();
 	}
 	
 	public static PausableStoppable getInitiative(InitiativeType initiativeType, int bufferSize, boolean asyncSimulation, boolean asyncPresentation, PresentationMethod presentationMethod) throws Exception {

@@ -21,11 +21,17 @@ public class SimulationResult implements TemperatureGrid {
 	private GridData[][] mResult;
 	
 	/**
+	 * Sun position
+	 */
+	private float mSunPosition;
+	
+	/**
 	 * Constructs a new SimulationResult with the specified result data.
 	 * @param result Data resulting from simulation execution.
 	 */
-	public SimulationResult(GridData[][] result) {
+	public SimulationResult(GridData[][] result, float sunPosition) {
 		mResult = result;
+		mSunPosition = sunPosition;
 	}
 	
 	/**
@@ -58,11 +64,11 @@ public class SimulationResult implements TemperatureGrid {
 	
 	/**
 	 * Retrieves the position of the sun that produced this result data.
-	 * @return The position of the sun in degres
+	 * @return The position of the sun in degrees
 	 */
 	public float getSunPosition() {
 		// Note that -180 is near Russia, 180 is near Alaska, 0 is center
-		return 90;
+		return mSunPosition;
 	}
 
 }

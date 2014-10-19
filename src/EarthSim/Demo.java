@@ -13,28 +13,28 @@ import GUI.GUIApp;
 public class Demo {
 
 	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName());
-	
-	private static int buffersize = 1; 
+
+	private static int buffersize = 1;
 	private static boolean presentationThread = true;
 	private static boolean simulationThread = true;
 	private static boolean presentationInitiative = false;
 	private static boolean simulationInitiative = true;
 	private static boolean masterInitiative = false;
-	
+
 	/**
 	 * Application entry point
 	 * @param args Command line arguments
 	 */
 	public static void main(String[] args) {
-		
+
 		parseArguments(args);
-		
+
 		final GUIApp presentation = new GUIApp();
-		
+
 		PausableStoppable initiative;
 		try {
 			initiative = ObjectFactory.getInitiative(getInitiativeType(), buffersize, presentationThread, simulationThread, presentation);
-			
+
 			presentation.setInitiative(initiative);
 
 			EventQueue.invokeLater(new Runnable() {
@@ -50,9 +50,9 @@ public class Demo {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
+
 	}
-	
+
 	private static InitiativeType getInitiativeType() {
 		if (presentationInitiative) {
 			return InitiativeType.Presentation;
@@ -62,17 +62,17 @@ public class Demo {
 		}
 		return InitiativeType.MasterController;
 	}
-	
+
 	private static void parseArguments(String[] args) {
 
 		for (int loop = 0; loop < args.length; loop = loop + 1) {
-			switch (args[loop]) { 
+			switch (args[loop]) {
 			// buffersize
-			case "-b":	
+			case "-b":
 				buffersize = Integer.parseInt(args[loop + 1]);
 				loop = loop + 1;
 				break;
-				// Presentation runs in a thread	
+				// Presentation runs in a thread
 			case "-p":
 				presentationThread = true;
 				break;
@@ -90,7 +90,7 @@ public class Demo {
 				presentationInitiative = true;
 				masterInitiative = false;
 				break;
-				// unknown flag	
+				// unknown flag
 			default:
 				System.out.println("Invalid parameter specified");
 			}
@@ -102,7 +102,7 @@ public class Demo {
 		LOGGER.info("Arguments; Simulation initiative: " + simulationInitiative);
 		LOGGER.info("Arguments; Presentation initiative: " + presentationInitiative);
 		LOGGER.info("Arguments; Master initiative: " + masterInitiative);
-		
+
 	}
 
 }
