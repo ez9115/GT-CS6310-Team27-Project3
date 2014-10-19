@@ -9,6 +9,10 @@ public class SimulationMethodImpl implements SimulationMethod {
 	public SimulationResult simulate(SimulationResult previousResults, int degreeSeparation, int sunPosition) throws InterruptedException {
 		
 		// Validate arguments
+		if (previousResults == null) {
+			throw new IllegalArgumentException("Previous results cannot be null");
+		}
+		
 		if (sunPosition < -180 || sunPosition > 180) {
 			throw new IllegalArgumentException("Sun position must be an integer from -180 to 180");
 		}
