@@ -90,7 +90,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		 * Buttons to start/stop/pause/resume the application
 		 */
 		JButton startButton = new JButton("Start");
-		startButton.setBounds(261, 543, 117, 29);
+		startButton.setBounds(349, 543, 117, 29);
 		startButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -123,11 +123,11 @@ public class GUIApp extends JFrame implements PresentationMethod{
 				
 			}
 		});
-		resumeButton.setBounds(594, 543, 117, 29);
+		resumeButton.setBounds(682, 543, 117, 29);
 		contentPane.add(resumeButton);
 
 		JButton stopButton = new JButton("Stop");
-		stopButton.setBounds(371, 543, 117, 29);
+		stopButton.setBounds(459, 543, 117, 29);
 		stopButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -144,7 +144,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		contentPane.add(stopButton);
 
 		JButton pauseButton = new JButton("Pause");
-		pauseButton.setBounds(482, 543, 117, 29);
+		pauseButton.setBounds(570, 543, 117, 29);
 		pauseButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -176,6 +176,51 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		presentation_panel.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 		presentation_panel.setBounds(12, 18, 800, 400);
 		displayPanel.add(presentation_panel);
+		
+		JLabel lblZeroDegrees = new JLabel("0");
+		lblZeroDegrees.setHorizontalAlignment(SwingConstants.CENTER);
+		lblZeroDegrees.setBounds(393, 430, 35, 16);
+		displayPanel.add(lblZeroDegrees);
+		
+		JLabel lbl180degE = new JLabel("180 E");
+		lbl180degE.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl180degE.setBounds(793, 430, 35, 16);
+		displayPanel.add(lbl180degE);
+		
+		JLabel lbl90degE = new JLabel("90 E");
+		lbl90degE.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl90degE.setBounds(591, 430, 35, 16);
+		displayPanel.add(lbl90degE);
+		
+		JLabel lbl180degW = new JLabel("180 W");
+		lbl180degW.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl180degW.setBounds(0, 430, 39, 16);
+		displayPanel.add(lbl180degW);
+		
+		JLabel lbl90degW = new JLabel("90 W");
+		lbl90degW.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl90degW.setBounds(196, 430, 35, 16);
+		displayPanel.add(lbl90degW);
+		
+		JLabel lbl45degE = new JLabel("45 E");
+		lbl45degE.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl45degE.setBounds(493, 430, 35, 16);
+		displayPanel.add(lbl45degE);
+		
+		JLabel lbl135degW = new JLabel("135 W");
+		lbl135degW.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl135degW.setBounds(93, 430, 46, 16);
+		displayPanel.add(lbl135degW);
+		
+		JLabel lbl135degE = new JLabel("135 E");
+		lbl135degE.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl135degE.setBounds(685, 430, 46, 16);
+		displayPanel.add(lbl135degE);
+		
+		JLabel lbl45degW = new JLabel("45 W");
+		lbl45degW.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl45degW.setBounds(296, 430, 35, 16);
+		displayPanel.add(lbl45degW);
 
 		/**
 		 * Jpanel in top left area of gui for first set of user input
@@ -231,58 +276,63 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		botLeftPanel.setLayout(null);
 
 		JLabel lblInitiative = new JLabel("Initiative");
-		lblInitiative.setBounds(39, 106, 78, 16);
+		lblInitiative.setBounds(39, 131, 78, 16);
 		lblInitiative.setHorizontalAlignment(SwingConstants.CENTER);
 		botLeftPanel.add(lblInitiative);
 
 		iniativeEntry = new JTextField();
 		iniativeEntry.setHorizontalAlignment(SwingConstants.CENTER);
-		iniativeEntry.setBounds(20, 77, 114, 28);
+		iniativeEntry.setBounds(20, 102, 114, 28);
 		iniativeEntry.setText("Sim, Pre, GUI");
 		iniativeEntry.setColumns(5);
 		botLeftPanel.add(iniativeEntry);
 
 		JLabel lblBufferSize = new JLabel("Buffer Size");
-		lblBufferSize.setBounds(39, 166, 78, 16);
+		lblBufferSize.setBounds(39, 191, 78, 16);
 		lblBufferSize.setHorizontalAlignment(SwingConstants.CENTER);
 		botLeftPanel.add(lblBufferSize);
 
 		bufferSizeEntry = new JTextField();
 		bufferSizeEntry.setHorizontalAlignment(SwingConstants.CENTER);
-		bufferSizeEntry.setBounds(39, 134, 78, 28);
+		bufferSizeEntry.setBounds(39, 159, 78, 28);
 		bufferSizeEntry.setText(">= 1");
 		bufferSizeEntry.setColumns(5);
 		botLeftPanel.add(bufferSizeEntry);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Simulation Thread");
-		chckbxNewCheckBox.setBounds(20, 7, 114, 23);
+		JCheckBox chckbxNewCheckBox = new JCheckBox("Simulation");
+		chckbxNewCheckBox.setBounds(20, 30, 114, 23);
 		botLeftPanel.add(chckbxNewCheckBox);
 		
-		JCheckBox chckbxPresentationThread = new JCheckBox("Presentation Thread");
-		chckbxPresentationThread.setBounds(20, 33, 129, 23);
+		JCheckBox chckbxPresentationThread = new JCheckBox("Presentation");
+		chckbxPresentationThread.setBounds(20, 56, 129, 23);
 		botLeftPanel.add(chckbxPresentationThread);
+		
+		JLabel lblThreads = new JLabel("Thread(s)");
+		lblThreads.setHorizontalAlignment(SwingConstants.CENTER);
+		lblThreads.setBounds(20, 13, 114, 16);
+		botLeftPanel.add(lblThreads);
 
 		/**
 		 * display the 
 		 */
 		TextArea elapsedTimeDisplay = new TextArea();
 		elapsedTimeDisplay.setForeground(new Color(0, 0, 0));
-		elapsedTimeDisplay.setBounds(672, 483, 128, 25);
+		elapsedTimeDisplay.setBounds(764, 483, 128, 25);
 		contentPane.add(elapsedTimeDisplay);
 
 		JLabel elapsedTimeLabel = new JLabel("Time Elapsed");
 		elapsedTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		elapsedTimeLabel.setBounds(563, 483, 111, 25);
+		elapsedTimeLabel.setBounds(655, 483, 111, 25);
 		contentPane.add(elapsedTimeLabel);
 
 		JLabel rotatePositionLabel = new JLabel("Rotational Position");
 		rotatePositionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		rotatePositionLabel.setBounds(170, 483, 134, 25);
+		rotatePositionLabel.setBounds(262, 483, 134, 25);
 		contentPane.add(rotatePositionLabel);
 		
 		TextArea rotatePositionDisplay = new TextArea();
 		rotatePositionDisplay.setForeground(Color.BLACK);
-		rotatePositionDisplay.setBounds(310, 483, 128, 25);
+		rotatePositionDisplay.setBounds(402, 483, 128, 25);
 		contentPane.add(rotatePositionDisplay);
 	}
 
