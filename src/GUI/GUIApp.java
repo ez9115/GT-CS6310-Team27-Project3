@@ -97,9 +97,19 @@ public class GUIApp extends JFrame implements PresentationMethod{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int degreeSeparation = 15;
-					int timeStep = 1;
+					int simulationTimeStep = 1;
+					try {
+						degreeSeparation = Integer.parseInt(gridSpacing.getText());
+					} catch (NumberFormatException ex) {
+						gridSpacing.setText(Integer.toString(degreeSeparation));
+					}
+					try {
+						simulationTimeStep = Integer.parseInt(timeStep.getText());
+					} catch (NumberFormatException ex) {
+						timeStep.setText(Integer.toString(simulationTimeStep));
+					}
 					presentation_panel.drawGrid(degreeSeparation);
-					initiative.start(degreeSeparation, timeStep);
+					initiative.start(degreeSeparation, simulationTimeStep);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
