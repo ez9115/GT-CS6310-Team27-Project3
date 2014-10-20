@@ -25,7 +25,7 @@ public class MasterControllerInitiative extends PausableStoppable {
 	private boolean mAsyncSimulation;
 	
 	public MasterControllerInitiative(int bufferSize, boolean asyncSimulation, boolean asyncPresentation, SimulationMethod simulationMethod, PresentationMethod presentationMethod) {
-		mSharedQueue = new ArrayBlockingQueue<>(bufferSize);
+		mSharedQueue = new ArrayBlockingQueue<SimulationResult>(bufferSize);
 		mSim = new SimulationInitiative(mSharedQueue, simulationMethod);
 		mPres = new PresentationInitiative(mSharedQueue, presentationMethod);
 		mAsyncPresentation = asyncPresentation;
