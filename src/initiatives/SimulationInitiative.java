@@ -1,6 +1,5 @@
 package initiatives;
 
-import java.util.Date;
 import java.util.concurrent.BlockingQueue;
 import java.util.logging.Logger;
 
@@ -105,14 +104,14 @@ public class SimulationInitiative extends PausableStoppable {
 	 * Begins the simulation process on a thread.
 	 */
 	@Override
-	public void start(int degreeSeparation, int timeStep) throws Exception {
+	public void start(int degreeSeparation, int timeStep, int displayRate) throws Exception {
 		LOGGER.info("Starting simulation");
 		if (mOnStart != null && mOnStartEnabled) {
 			mDegreeSeparation = degreeSeparation;
 			mTimeStep = timeStep;
-			mOnStart.onStart(degreeSeparation, timeStep);
+			mOnStart.onStart(degreeSeparation, timeStep, displayRate);
 		} else {
-			super.start(degreeSeparation, timeStep);
+			super.start(degreeSeparation, timeStep, displayRate);
 		}
 	}
 	

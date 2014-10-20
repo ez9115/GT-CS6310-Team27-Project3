@@ -6,8 +6,6 @@ import java.awt.EventQueue;
 import java.util.logging.Logger;
 
 import base.InitiativeType;
-import base.ObjectFactory;
-import base.PausableStoppable;
 import GUI.GUIApp;
 
 public class Demo {

@@ -4,6 +4,7 @@ import initiatives.PresentationInitiative;
 import initiatives.SimulationInitiative;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.logging.Logger;
 
 import callbacks.OnStart;
 
@@ -13,6 +14,8 @@ import callbacks.OnStart;
  *
  */
 public abstract class Utils {
+	
+	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName()); 
 	
 	/**
 	 * Helper function for beginning the simulation process.
@@ -30,11 +33,11 @@ public abstract class Utils {
 			return new OnStart() {
 				
 				@Override
-				public void onStart(int degreeSeparation, int timeStep) throws Exception {
+				public void onStart(int degreeSeparation, int timeStep, int displayRate) throws Exception {
 					presentation.disableOnStartListener();
 					simulation.disableOnStartListener();
-					simulation.start(degreeSeparation, timeStep);
-					presentation.start(degreeSeparation, timeStep);
+					simulation.start(degreeSeparation, timeStep, displayRate);
+					presentation.start(degreeSeparation, timeStep, displayRate);
 					presentation.enableOnStartListener();
 					simulation.enableOnStartListener();
 				}
@@ -44,11 +47,11 @@ public abstract class Utils {
 			return new OnStart() {
 				
 				@Override
-				public void onStart(int degreeSeparation, int timeStep) throws Exception {
+				public void onStart(int degreeSeparation, int timeStep, int displayRate) throws Exception {
 					presentation.disableOnStartListener();
 					simulation.disableOnStartListener();
-					simulation.start(degreeSeparation, timeStep);
-					runPresentationSynchronous(queue, presentation);
+					simulation.start(degreeSeparation, timeStep, displayRate);
+					runPresentationSynchronous(queue, presentation, displayRate);
 					presentation.enableOnStartListener();
 					simulation.enableOnStartListener();
 				}
@@ -58,10 +61,10 @@ public abstract class Utils {
 			return new OnStart() {
 				
 				@Override
-				public void onStart(int degreeSeparation, int timeStep) throws Exception {
+				public void onStart(int degreeSeparation, int timeStep, int displayRate) throws Exception {
 					presentation.disableOnStartListener();
 					simulation.disableOnStartListener();
-					presentation.start(degreeSeparation, timeStep);
+					presentation.start(degreeSeparation, timeStep, displayRate);
 					runSimulationSynchronous(queue, simulation, degreeSeparation, timeStep);
 					presentation.enableOnStartListener();
 					simulation.enableOnStartListener();
@@ -72,10 +75,10 @@ public abstract class Utils {
 			return new OnStart() {
 				
 				@Override
-				public void onStart(int degreeSeparation, int timeStep) throws InterruptedException {
+				public void onStart(int degreeSeparation, int timeStep, int displayRate) throws InterruptedException {
 					presentation.disableOnStartListener();
 					simulation.disableOnStartListener();
-					runPresentationAndSimulationSynchronous(presentation, simulation, degreeSeparation, timeStep);
+					runPresentationAndSimulationSynchronous(presentation, simulation, degreeSeparation, timeStep, displayRate);
 					presentation.enableOnStartListener();
 					simulation.enableOnStartListener();
 				}
@@ -90,9 +93,24 @@ public abstract class Utils {
 	 * @param presentation The presentation method to use.
 	 * @throws InterruptedException
 	 */
-	private static void runPresentationSynchronous(BlockingQueue<SimulationResult> queue, PresentationInitiative presentation) throws InterruptedException {
+	private static void runPresentationSynchronous(BlockingQueue<SimulationResult> queue, PresentationInitiative presentation, int displayRate) throws InterruptedException {
+		// TODO: Would be nice to do some sort of timer check here to not have an infinite loop, but the single-threaded context makes it difficult
+		final float sunPositionChangeBetweenDisplay = Utils.convertTimeToDegrees(displayRate);
+		float degreesPassed = 0;
+		float previousSunPosition = 0;
 		while(true) {
-			presentation.present(queue.take());
+			SimulationResult result = queue.take();
+			
+			// Check if enough degrees have passed for our display threshold
+			degreesPassed += Math.abs(result.getSunPosition() - previousSunPosition); 
+			if (degreesPassed >= sunPositionChangeBetweenDisplay) {
+				degreesPassed = degreesPassed - sunPositionChangeBetweenDisplay;
+				previousSunPosition = result.getSunPosition();
+				presentation.present(result);
+			} else {
+				LOGGER.info("SimulationResult skipped");
+			}
+			
 		}
 	}
 	
@@ -105,6 +123,8 @@ public abstract class Utils {
 	private static void runSimulationSynchronous(BlockingQueue<SimulationResult> queue, SimulationInitiative simulation, int degreeSeparation, int timeStep) throws InterruptedException {
 		SimulationResult previousResult = ObjectFactory.getInitialGrid(degreeSeparation);
 		float sunPosition = 0;
+		
+		// TODO: Would be nice to do some sort of timer check here to not have an infinite loop, but the single-threaded context makes it difficult
 		while(true) {
 			previousResult = simulation.simulate(previousResult, degreeSeparation, sunPosition);
 			queue.put(previousResult);
@@ -118,20 +138,34 @@ public abstract class Utils {
 	 * @param simulation The simulation method to use.
 	 * @throws InterruptedException
 	 */
-	private static void runPresentationAndSimulationSynchronous(PresentationInitiative presentation, SimulationInitiative simulation, int degreeSeparation, int timeStep) throws InterruptedException {
+	private static void runPresentationAndSimulationSynchronous(PresentationInitiative presentation, SimulationInitiative simulation, int degreeSeparation, int timeStep, int displayRate) throws InterruptedException {
 		SimulationResult previousResult = ObjectFactory.getInitialGrid(degreeSeparation);
+		final float sunPositionChangeBetweenDisplay = Utils.convertTimeToDegrees(displayRate);
+		float degreesPassed = 0;
+		float previousSunPosition = 0;
 		float sunPosition = 0;
+		
+		// TODO: Would be nice to do some sort of timer check here to not have an infinite loop, but the single-threaded context makes it difficult
 		while(true) {
 			previousResult = simulation.simulate(previousResult, degreeSeparation, sunPosition);
-			presentation.present(previousResult);
+			
+			// Check if enough degrees have passed for our display threshold
+			degreesPassed += Math.abs(previousResult.getSunPosition() - previousSunPosition); 
+			if (degreesPassed >= sunPositionChangeBetweenDisplay) {
+				degreesPassed = degreesPassed - sunPositionChangeBetweenDisplay;
+				previousSunPosition = previousResult.getSunPosition();
+				presentation.present(previousResult);
+			} else {
+				LOGGER.info("SimulationResult skipped");
+			}
 			sunPosition = incrementSunPosition(sunPosition, timeStep);
 		}
 	}
 	
 	/**
 	 * Converts a time step into change in degrees.
-	 * @param timeStep
-	 * @return
+	 * @param timeStep Time step in minutes
+	 * @return Degrees the earth would rotate in the amount of time from -180 to 180
 	 */
 	public static float convertTimeToDegrees(int timeStep) {
 		return (float) (-360.0 * timeStep / 1440.0);
@@ -153,6 +187,16 @@ public abstract class Utils {
 			sunPosition += 360;
 		}
 		return sunPosition;
+	}
+	
+	/**
+	 * Converts a degree of rotation to a time step in seconds.
+	 * @param degrees The degree of rotation
+	 * @return The amount of time in seconds that passes when the earth rotates the specified number of degrees
+	 */
+	public static double convertDegreesToTime(float degrees) {
+		float portionOfDayElapsed = Math.abs(degrees) / 360;
+		return portionOfDayElapsed * 86400.0;
 	}
 	
 }

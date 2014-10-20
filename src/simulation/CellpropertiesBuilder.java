@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-import base.SimulationResult;
-
 public class CellpropertiesBuilder {
 	//Earth Circumference in m
 	double C= 4.003014E7;

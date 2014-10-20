@@ -29,6 +29,7 @@ import base.PausableStoppable;
 import base.PresentationMethod;
 import base.SimulationResult;
 import base.ObjectFactory;
+import base.Utils;
 
 public class GUIApp extends JFrame implements PresentationMethod{
 
@@ -134,10 +135,16 @@ public class GUIApp extends JFrame implements PresentationMethod{
 						timeStep.setText(Integer.toString(simulationTimeStep));
 					}
 					
+					int presentationTimeStep = 1;
+					try {
+						presentationTimeStep = Integer.parseInt(displayRate.getText());
+					} catch (NumberFormatException ex) {
+						displayRate.setText(Integer.toString(presentationTimeStep));
+					}
 					// TODO: Retrieve presentation time step
 					
 					presentation_panel.drawGrid(degreeSeparation);
-					initiative.start(degreeSeparation, simulationTimeStep);
+					initiative.start(degreeSeparation, simulationTimeStep, presentationTimeStep);
 					stopButton.setEnabled(true);
 					pauseButton.setEnabled(true);
 				} catch (Exception e1) {
@@ -418,8 +425,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	}
 	
 	private void incrementTimeElapsed(float sunPosition) {
-		float portionOfDayElapsed = Math.abs(previousSunPosition - sunPosition) / 360;
-		secondsElapsed += portionOfDayElapsed * 86400.0;
+		secondsElapsed += Utils.convertDegreesToTime(previousSunPosition - sunPosition);
 		
 		int yearsElapsed = (int) Math.floor(secondsElapsed / 31560000.0);
 		int remainingSeconds = (int) (secondsElapsed % 31560000.0);

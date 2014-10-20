@@ -8,6 +8,7 @@ import callbacks.OnStop;
 import base.PausableStoppable;
 import base.PresentationMethod;
 import base.SimulationResult;
+import base.Utils;
 
 public class PresentationInitiative extends PausableStoppable {
 	
@@ -94,14 +95,14 @@ public class PresentationInitiative extends PausableStoppable {
 	 * Begins the presentation process on a thread.
 	 */
 	@Override
-	public void start(int degreeSeparation, int timeStep) throws Exception {
+	public void start(int degreeSeparation, int timeStep, int displayRate) throws Exception {
 		LOGGER.info("Starting presentation");
 		if (mOnStart != null && mOnStartEnabled) {
 			mDegreeSeparation = degreeSeparation;
 			mTimeStep = timeStep;
-			mOnStart.onStart(degreeSeparation, timeStep);
+			mOnStart.onStart(degreeSeparation, timeStep, displayRate);
 		} else {
-			super.start(degreeSeparation, timeStep);
+			super.start(degreeSeparation, timeStep, displayRate);
 		}
 	}
 
@@ -144,10 +145,22 @@ public class PresentationInitiative extends PausableStoppable {
 			@Override
 			public void run() {
 				try {
+					final float sunPositionChangeBetweenDisplay = Math.abs(Utils.convertTimeToDegrees(mDisplayRate));
+					float degreesPassed = 0;
+					float previousSunPosition = 0;
 					while(!mRunningThread.isInterrupted()) {
 						checkPaused();
-						// TODO: Skip based on presentation step
-						present(mQueue.take());
+						SimulationResult result = mQueue.take();
+						
+						// Check if enough degrees have passed for our display threshold
+						degreesPassed += Math.abs(result.getSunPosition() - previousSunPosition); 
+						if (degreesPassed >= sunPositionChangeBetweenDisplay) {
+							degreesPassed = degreesPassed - sunPositionChangeBetweenDisplay;
+							present(result);
+						} else {
+							LOGGER.info("SimulationResult skipped");
+						}
+						previousSunPosition = result.getSunPosition();
 						LOGGER.info("Buffer size: " + mQueue.size());
 					}
 				} catch (InterruptedException e) {

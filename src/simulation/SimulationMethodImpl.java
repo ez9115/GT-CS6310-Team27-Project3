@@ -32,10 +32,6 @@ public class SimulationMethodImpl implements SimulationMethod {
 		
 		int gs = 180 / Rows;
 		
-		double sunPosition_inc = -360.0 * (double)tau / 1440.0; //West is negative direction
-		//double sunPosition = 0;  // initial position
-		//int time = 0;
-		
 		CellpropertiesBuilder[][]  Grid= new CellpropertiesBuilder[ Rows ][ Cols ];
 		
 		String fileName ="../TempMatrix.";
@@ -59,28 +55,18 @@ public class SimulationMethodImpl implements SimulationMethod {
 			}
 		}
 		
-//	    for ( int time_step = 0; time_step < 4800; time_step++ ) {
-//	    	//time = time + tau;
-//	    	
-//			double sunPosition_ave = sunPosition + sunPosition_inc / 2.0;
-//			
-//			sunPosition = (int) (sunPosition + sunPosition_inc);
-//
-//	        if ( sunPosition < -180.0  ) sunPosition = sunPosition + 360;  // keep  -180 < sunPosition < 180
-
-	        for ( int i = 0; i < Rows; i++ ) {
-	            for ( int j = 0; j < Cols; j++ ) {
-	                Grid[ i ][ j ].calculateTempIncrement( sunPosition, tau );
-	            }
-	        }
-	        
-	        for ( int i = 0; i < Rows; i++ ) {
-	            for ( int j = 0; j < Cols; j++ ) {
-	                Grid[ i ][ j ].updateTemperature( );
-	            }
-	        }
-//	    }
-
+        for ( int i = 0; i < Rows; i++ ) {
+            for ( int j = 0; j < Cols; j++ ) {
+                Grid[ i ][ j ].calculateTempIncrement( sunPosition, tau );
+            }
+        }
+        
+        for ( int i = 0; i < Rows; i++ ) {
+            for ( int j = 0; j < Cols; j++ ) {
+                Grid[ i ][ j ].updateTemperature( );
+            }
+        }
+	    
         //ouput
         int sp = (int) sunPosition;
         GridData[][] gridDataArraylist = new GridData[Rows][Cols];

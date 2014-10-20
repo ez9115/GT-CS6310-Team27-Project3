@@ -11,7 +11,6 @@ import simulation.GridData;
 import simulation.SimulationMethodImpl;
 import callbacks.OnStart;
 import callbacks.OnStop;
-import mock.MockSimulationMethod;
 
 /**
  * ObjectFactory provides methods of creating implementations of interface objects.

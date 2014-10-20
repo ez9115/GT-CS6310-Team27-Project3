@@ -26,6 +26,11 @@ public abstract class PausableStoppable {
 	protected int mDegreeSeparation = 15;
 	
 	/**
+	 * Holds the specified presentation display rate
+	 */
+	protected int mDisplayRate = 1;
+	
+	/**
 	 * Holds the specified time step 
 	 */
 	protected int mTimeStep = 1;
@@ -65,9 +70,10 @@ public abstract class PausableStoppable {
 	 * pause/resume/stop process.
 	 * @throws Exception Thrown if the thread has already been started.
 	 */
-	public void start(int degreeSeparation, int timeStep) throws Exception {
+	public void start(int degreeSeparation, int timeStep, int displayRate) throws Exception {
 		if (mRunningThread == null) {
 			mDegreeSeparation = degreeSeparation;
+			mDisplayRate = displayRate;
 			mTimeStep = timeStep;
 			mRunningThread = new Thread(getRunnableAction());
 			mRunningThread.start();
