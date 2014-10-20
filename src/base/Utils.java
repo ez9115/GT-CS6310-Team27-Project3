@@ -103,7 +103,7 @@ public abstract class Utils {
 	 * @throws InterruptedException
 	 */
 	private static void runSimulationSynchronous(BlockingQueue<SimulationResult> queue, SimulationInitiative simulation, int degreeSeparation, int timeStep) throws InterruptedException {
-		SimulationResult previousResult = null;
+		SimulationResult previousResult = ObjectFactory.getInitialGrid(degreeSeparation);
 		float sunPosition = 0;
 		while(true) {
 			previousResult = simulation.simulate(previousResult, degreeSeparation, sunPosition);
@@ -119,7 +119,7 @@ public abstract class Utils {
 	 * @throws InterruptedException
 	 */
 	private static void runPresentationAndSimulationSynchronous(PresentationInitiative presentation, SimulationInitiative simulation, int degreeSeparation, int timeStep) throws InterruptedException {
-		SimulationResult previousResult = null;
+		SimulationResult previousResult = ObjectFactory.getInitialGrid(degreeSeparation);
 		float sunPosition = 0;
 		while(true) {
 			previousResult = simulation.simulate(previousResult, degreeSeparation, sunPosition);

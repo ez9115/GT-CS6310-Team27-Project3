@@ -29,14 +29,8 @@ public class Demo {
 
 		parseArguments(args);
 
-		final GUIApp presentation = new GUIApp();
-
-		PausableStoppable initiative;
+		final GUIApp presentation = new GUIApp(buffersize, presentationThread, simulationThread, getInitiativeType());
 		try {
-			initiative = ObjectFactory.getInitiative(getInitiativeType(), buffersize, presentationThread, simulationThread, presentation);
-
-			presentation.setInitiative(initiative);
-
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
