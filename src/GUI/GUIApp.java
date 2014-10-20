@@ -4,17 +4,11 @@ import initiatives.SimulationInitiative;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.logging.Logger;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -50,19 +44,18 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	private JCheckBox chckbxNewCheckBox;
 	private JCheckBox chckbxPresentationThread;
 	
+	private JButton pauseButton;
+	private JButton resumeButton;
+	private JButton stopButton;
+	private JButton startButton;
+	
+	private TextArea elapsedTimeDisplay;
+	
 	private EarthPanel presentation_panel;
 	private PausableStoppable initiative;
-	private int daysElapsed;
-	private int hoursElapsed;
-	private int minutesElapsed;
-	private int secondsElapsed;
-	private float previousSunPosition;
+	private float secondsElapsed;
+	private float previousSunPosition = 180;
 	
-	/**
-	 * @wbp.nonvisual location=-141,459
-	 */
-	private final JCheckBox checkBox = new JCheckBox("New check box");
-
 	/**
 	 * Create the frame.
 	 */
@@ -80,13 +73,16 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		/**
 		 * Buttons to start/stop/pause/resume the application
 		 */
-		JButton startButton = new JButton("Start");
+		startButton = new JButton("Start");
 		startButton.setBounds(349, 543, 117, 29);
 		startButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					setInputsEnabled(false);
+					startButton.setEnabled(false);
+					
 					// Retrieve buffer size
 					int bufferSize = 1;
 					try {
@@ -142,6 +138,8 @@ public class GUIApp extends JFrame implements PresentationMethod{
 					
 					presentation_panel.drawGrid(degreeSeparation);
 					initiative.start(degreeSeparation, simulationTimeStep);
+					stopButton.setEnabled(true);
+					pauseButton.setEnabled(true);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -151,13 +149,16 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		});
 		contentPane.add(startButton);
 
-		JButton resumeButton = new JButton("Resume");
+		resumeButton = new JButton("Resume");
+		resumeButton.setEnabled(false);
 		resumeButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					initiative.resume();
+					resumeButton.setEnabled(false);
+					pauseButton.setEnabled(true);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -168,14 +169,21 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		resumeButton.setBounds(682, 543, 117, 29);
 		contentPane.add(resumeButton);
 
-		JButton stopButton = new JButton("Stop");
+		stopButton = new JButton("Stop");
 		stopButton.setBounds(459, 543, 117, 29);
+		stopButton.setEnabled(false);
 		stopButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					initiative.stop();
+					presentation_panel.reset();
+					setInputsEnabled(true);
+					stopButton.setEnabled(false);
+					resumeButton.setEnabled(false);
+					pauseButton.setEnabled(false);
+					startButton.setEnabled(true);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -185,13 +193,16 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		});
 		contentPane.add(stopButton);
 
-		JButton pauseButton = new JButton("Pause");
+		pauseButton = new JButton("Pause");
 		pauseButton.setBounds(570, 543, 117, 29);
+		pauseButton.setEnabled(false);
 		pauseButton.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					pauseButton.setEnabled(false);
+					resumeButton.setEnabled(true);
 					initiative.pause();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
@@ -369,7 +380,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		/**
 		 * display the 
 		 */
-		TextArea elapsedTimeDisplay = new TextArea();
+		elapsedTimeDisplay = new TextArea();
 		elapsedTimeDisplay.setForeground(new Color(0, 0, 0));
 		elapsedTimeDisplay.setBounds(764, 483, 128, 25);
 		contentPane.add(elapsedTimeDisplay);
@@ -408,7 +419,22 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	
 	private void incrementTimeElapsed(float sunPosition) {
 		float portionOfDayElapsed = Math.abs(previousSunPosition - sunPosition) / 360;
-		// TODO: Update time elapsed
+		secondsElapsed += portionOfDayElapsed * 86400.0;
+		
+		int yearsElapsed = (int) Math.floor(secondsElapsed / 31560000.0);
+		int remainingSeconds = (int) (secondsElapsed % 31560000.0);
+		
+		int daysElapsed = (int) Math.floor(remainingSeconds / 86400.0);
+		remainingSeconds = (int) (remainingSeconds % 86400.0);
+		
+		int hoursElapsed = (int) Math.floor(remainingSeconds / 3600.0);
+		remainingSeconds = (int) (remainingSeconds % 3600.0);
+		
+		int minutesElapsed = (int) Math.floor(remainingSeconds / 60.0);
+		
+		int displaySecondsElapsed = remainingSeconds;
+		
+		elapsedTimeDisplay.setText(String.format("%d years, %d days, %d hours, %d minutes, %d seconds", yearsElapsed, daysElapsed, hoursElapsed, minutesElapsed, displaySecondsElapsed));
 	}
 
 	@Override
@@ -421,5 +447,15 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	public void resume() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void setInputsEnabled(boolean value) {
+		gridSpacing.setEnabled(value);
+		timeStep.setEnabled(value);
+		displayRate.setEnabled(value);
+		iniativeEntry.setEnabled(value);
+		bufferSizeEntry.setEditable(value);
+		chckbxNewCheckBox.setEnabled(value);
+		chckbxPresentationThread.setEnabled(value);
 	}
 }
