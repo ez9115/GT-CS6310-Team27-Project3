@@ -66,32 +66,26 @@ public class Demo {
 	private static void parseArguments(String[] args) {
 
 		for (int loop = 0; loop < args.length; loop = loop + 1) {
-			switch (args[loop]) {
-			// buffersize
-			case "-b":
+			if (args[loop] == "-b") {
+				// buffersize
 				buffersize = Integer.parseInt(args[loop + 1]);
 				loop = loop + 1;
-				break;
+			} else if (args[loop] == "-p") {
 				// Presentation runs in a thread
-			case "-p":
 				presentationThread = true;
-				break;
+			} else if (args[loop] == "-s") {
 				// Simulation runs in a thread
-			case "-s":
 				simulationThread = true;
-				break;
+			} else if (args[loop] == "-t") {
 				// Simulation has initiative
-			case "-t":
 				simulationInitiative = true;
 				masterInitiative = false;
-				break;
+			} else if (args[loop] == "-r") {
 				// Presentation has initiative
-			case "-r":
 				presentationInitiative = true;
 				masterInitiative = false;
-				break;
+			} else {
 				// unknown flag
-			default:
 				System.out.println("Invalid parameter specified");
 			}
 		}
