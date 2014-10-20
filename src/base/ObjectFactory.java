@@ -69,7 +69,7 @@ public abstract class ObjectFactory {
 	
 	private static PausableStoppable presentationInitiative(PresentationMethod presentationMethod, int bufferSize, boolean asyncSimulation, boolean asyncPresentation) {
 		
-		BlockingQueue<SimulationResult> queue = new ArrayBlockingQueue<>(bufferSize);
+		BlockingQueue<SimulationResult> queue = new ArrayBlockingQueue<SimulationResult>(bufferSize);
 		PresentationInitiative presentation = new PresentationInitiative(queue, presentationMethod);
 		final SimulationInitiative simulation = new SimulationInitiative(queue, getSimulationMethod());
 		presentation.setOnStopListener(new OnStop() {
@@ -98,7 +98,7 @@ public abstract class ObjectFactory {
 	
 	private static PausableStoppable simulationInitiative(PresentationMethod presentationMethod, int bufferSize, boolean asyncSimulation, boolean asyncPresentation) {
 
-		BlockingQueue<SimulationResult> queue = new ArrayBlockingQueue<>(bufferSize);
+		BlockingQueue<SimulationResult> queue = new ArrayBlockingQueue<SimulationResult>(bufferSize);
 		final PresentationInitiative presentation = new PresentationInitiative(queue, presentationMethod);
 		SimulationInitiative simulation = new SimulationInitiative(queue, getSimulationMethod());
 		simulation.setOnStopListener(new OnStop() {
