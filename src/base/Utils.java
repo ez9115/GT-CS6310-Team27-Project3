@@ -273,8 +273,8 @@ public abstract class Utils {
 	}
 
 	public static String convertSecondsToTimeString(float secondsElapsed) {
-		int yearsElapsed = (int) Math.floor(secondsElapsed / 31560000.0);
-		int remainingSeconds = (int) (secondsElapsed % 31560000.0);
+		int yearsElapsed = (int) Math.floor(secondsElapsed / 31536000.0);
+		double remainingSeconds = secondsElapsed % 31536000.0;
 
 		int daysElapsed = (int) Math.floor(remainingSeconds / 86400.0);
 		remainingSeconds = (int) (remainingSeconds % 86400.0);

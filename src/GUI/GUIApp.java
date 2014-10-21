@@ -54,7 +54,7 @@ public class GUIApp extends JFrame implements PresentationMethod {
 	private EarthPanel presentation_panel;
 	private PausableStoppable initiative;
 	private float secondsElapsed;
-	private float previousSunPosition = 180;
+	private int presentationTimeStep;
 	private JTextField elapsedTimeDisp;
 	private JTextField rotatePositionDisp;
 
@@ -145,7 +145,7 @@ public class GUIApp extends JFrame implements PresentationMethod {
 						timeStep.setText(Integer.toString(simulationTimeStep));
 					}
 
-					int presentationTimeStep = 1;
+					presentationTimeStep = 1;
 					try {
 						presentationTimeStep = Integer.parseInt(displayRate
 								.getText());
@@ -153,7 +153,6 @@ public class GUIApp extends JFrame implements PresentationMethod {
 						displayRate.setText(Integer
 								.toString(presentationTimeStep));
 					}
-					// TODO: Retrieve presentation time step
 
 					presentation_panel.drawGrid(degreeSeparation);
 					initiative.start(degreeSeparation, simulationTimeStep,
@@ -199,6 +198,7 @@ public class GUIApp extends JFrame implements PresentationMethod {
 				try {
 					initiative.stop();
 					presentation_panel.reset();
+					secondsElapsed = 0;
 					setInputsEnabled(true);
 					stopButton.setEnabled(false);
 					resumeButton.setEnabled(false);
@@ -425,19 +425,16 @@ public class GUIApp extends JFrame implements PresentationMethod {
 	public void present(SimulationResult result) throws InterruptedException {
 		presentation_panel.updateGrid(result);
 
-		// Shift sun position from -180 - 180 to 0 - 360
-		float sunPositionShifted = result.getSunPosition() + 180;
-		presentation_panel.moveSunPosition(sunPositionShifted);
-		incrementTimeElapsed(sunPositionShifted);
+		presentation_panel.moveSunPosition(-1 * Utils.convertTimeToDegrees(presentationTimeStep));
+		incrementTimeElapsed();
 		rotatePositionDisp.setText(String.format("%f", result.getSunPosition()));
-		previousSunPosition = sunPositionShifted;
 		System.out.println(result.getTemperature(1, 1));
 		LOGGER.info("Temperature (1,1): " + result.getTemperature(1, 1));
 		LOGGER.info("Sun position: " + result.getSunPosition());
 	}
 
-	private void incrementTimeElapsed(float sunPosition) {
-		secondsElapsed += Utils.convertDegreesToTime(previousSunPosition - sunPosition);
+	private void incrementTimeElapsed() {
+		secondsElapsed += presentationTimeStep * 60;
 		elapsedTimeDisp.setText(Utils.convertSecondsToTimeString(secondsElapsed));
 	}
 
