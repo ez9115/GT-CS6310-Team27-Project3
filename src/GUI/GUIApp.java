@@ -332,7 +332,7 @@ public class GUIApp extends JFrame implements PresentationMethod {
 
 		displayRate = new JTextField();
 		displayRate.setBounds(40, 113, 74, 28);
-		displayRate.setText("18 - 24");
+		displayRate.setText("1 to 1440");
 		displayRate.setColumns(5);
 		topLeftPanel.add(displayRate);
 
@@ -340,7 +340,8 @@ public class GUIApp extends JFrame implements PresentationMethod {
 		lblDisplayRate.setBounds(38, 146, 78, 16);
 		topLeftPanel.add(lblDisplayRate);
 
-		JLabel lblframesPerSecond = new JLabel("(frames per second)");
+		JLabel lblframesPerSecond = new JLabel("(minutes)");
+		lblframesPerSecond.setHorizontalAlignment(SwingConstants.CENTER);
 		lblframesPerSecond.setBounds(15, 167, 124, 16);
 		topLeftPanel.add(lblframesPerSecond);
 
