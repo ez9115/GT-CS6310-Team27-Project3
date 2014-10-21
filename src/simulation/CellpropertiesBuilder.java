@@ -35,7 +35,7 @@ public class CellpropertiesBuilder {
 	static int Cols = 24;
 	static int Rows = 12;
 
-	int tempPenetretionCoefficient = 20000;
+	int tempPenetrationCoefficient = 20000;
 	// class CellpropertiesBuilder cell= null;
 	// double T_sun = 278;
 	File diag;
@@ -86,24 +86,24 @@ public class CellpropertiesBuilder {
 
 		switch (num) {
 		case 0:
-			neighbor[num].p = l_t / tempPenetretionCoefficient;// ( 0.5 * (h +
+			neighbor[num].p = l_t / tempPenetrationCoefficient;// ( 0.5 * (h +
 																// cell.h ) );
 																// //North
 																// neighbor
 			break;
 		case 1:
-			neighbor[num].p = l_v / tempPenetretionCoefficient;// ( l_t + l_b );
+			neighbor[num].p = l_v / tempPenetrationCoefficient;// ( l_t + l_b );
 																// //West
 																// neighbor
 			break;
 		case 2:
-			neighbor[num].p = l_b / tempPenetretionCoefficient;// ( 0.5 * (h +
+			neighbor[num].p = l_b / tempPenetrationCoefficient;// ( 0.5 * (h +
 																// cell.h) );
 																// //South
 																// neighbor
 			break;
 		case 3:
-			neighbor[num].p = l_v / tempPenetretionCoefficient;// (l_t + l_b ) ;
+			neighbor[num].p = l_v / tempPenetrationCoefficient;// (l_t + l_b ) ;
 																// //East
 																// neighbor
 			break;
