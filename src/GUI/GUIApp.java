@@ -38,7 +38,7 @@ public class GUIApp extends JFrame implements PresentationMethod {
 	private static final long serialVersionUID = -1873444547097063288L;
 
 	private JPanel contentPane;
-	private JTextField gridSpacing;
+	private JComboBox gridSpacing;
 	private JTextField timeStep;
 	private JTextField displayRate;
 	private JComboBox initiativeEntry;
@@ -130,12 +130,8 @@ public class GUIApp extends JFrame implements PresentationMethod {
 					// Retrieve degree separation
 					int degreeSeparation = 15;
 					int simulationTimeStep = 1;
-					try {
-						degreeSeparation = Integer.parseInt(gridSpacing
-								.getText());
-					} catch (NumberFormatException ex) {
-						gridSpacing.setText(Integer.toString(degreeSeparation));
-					}
+
+					degreeSeparation = Integer.parseInt(gridSpacing.getSelectedItem().toString());
 
 					// Retrieve simulation time step
 					try {
@@ -304,11 +300,10 @@ public class GUIApp extends JFrame implements PresentationMethod {
 		contentPane.add(topLeftPanel);
 		topLeftPanel.setLayout(null);
 
-		gridSpacing = new JTextField();
+		gridSpacing = new JComboBox(new Integer[] { 1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180 });
 		gridSpacing.setBounds(40, 5, 74, 28);
-		gridSpacing.setText("1 to 180");
 		topLeftPanel.add(gridSpacing);
-		gridSpacing.setColumns(5);
+		//gridSpacing.setColumns(5);
 
 		JLabel lblNewLabel = new JLabel(" Grid Spacing (degrees)");
 		lblNewLabel.setBounds(5, 38, 144, 16);
