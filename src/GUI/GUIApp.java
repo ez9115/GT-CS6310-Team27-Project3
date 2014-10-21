@@ -137,9 +137,15 @@ public class GUIApp extends JFrame implements PresentationMethod {
 					try {
 						simulationTimeStep = Integer.parseInt(timeStep
 								.getText());
+						if (simulationTimeStep > 1440) { 
+							simulationTimeStep = 1440;
+						} else if (simulationTimeStep < 1) {
+							simulationTimeStep = 1;
+						}
 					} catch (NumberFormatException ex) {
-						timeStep.setText(Integer.toString(simulationTimeStep));
+						
 					}
+					timeStep.setText(Integer.toString(simulationTimeStep));
 
 					presentationTimeStep = 1;
 					try {
@@ -301,6 +307,7 @@ public class GUIApp extends JFrame implements PresentationMethod {
 		topLeftPanel.setLayout(null);
 
 		gridSpacing = new JComboBox(new Integer[] { 1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 30, 36, 45, 60, 90, 180 });
+		gridSpacing.setSelectedItem(15);
 		gridSpacing.setBounds(40, 5, 74, 28);
 		topLeftPanel.add(gridSpacing);
 		//gridSpacing.setColumns(5);
