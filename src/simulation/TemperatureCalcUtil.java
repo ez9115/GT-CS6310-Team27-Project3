@@ -2,7 +2,7 @@ package simulation;
 
 import java.util.ArrayList;
 
-public class TemeratureCalcUtil {
+public class TemperatureCalcUtil {
 
 	 
 		
