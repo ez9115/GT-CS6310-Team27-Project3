@@ -62,21 +62,21 @@ public class Demo {
 	private static void parseArguments(String[] args) {
 
 		for (int loop = 0; loop < args.length; loop = loop + 1) {
-			if (args[loop] == "-b") {
+			if (args[loop].equals("-b")) {
 				// buffersize
 				buffersize = Integer.parseInt(args[loop + 1]);
 				loop = loop + 1;
-			} else if (args[loop] == "-p") {
+			} else if (args[loop].equals("-p")) {
 				// Presentation runs in a thread
 				presentationThread = true;
-			} else if (args[loop] == "-s") {
+			} else if (args[loop].equals("-s")) {
 				// Simulation runs in a thread
 				simulationThread = true;
-			} else if (args[loop] == "-t") {
+			} else if (args[loop].equals("-t")) {
 				// Simulation has initiative
 				simulationInitiative = true;
 				masterInitiative = false;
-			} else if (args[loop] == "-r") {
+			} else if (args[loop].equals("-r")) {
 				// Presentation has initiative
 				presentationInitiative = true;
 				masterInitiative = false;
