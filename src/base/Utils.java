@@ -23,7 +23,7 @@ public abstract class Utils {
 	/**
 	 * The difference threshold allowed for stabilization.
 	 */
-	private final static double STABILIZATION_DELTA = 0.1;
+	private final static double STABILIZATION_DELTA = 0.01;
 
 	/**
 	 * Helper function for beginning the simulation process. Main responsibility

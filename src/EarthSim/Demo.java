@@ -17,8 +17,8 @@ public class Demo {
 	private static boolean presentationThread = true;
 	private static boolean simulationThread = true;
 	private static boolean presentationInitiative = false;
-	private static boolean simulationInitiative = true;
-	private static boolean masterInitiative = false;
+	private static boolean simulationInitiative = false;
+	private static boolean masterInitiative = true;
 
 	/**
 	 * Application entry point
@@ -88,7 +88,7 @@ public class Demo {
 
 		LOGGER.info("Arguments; Buffer size: " + buffersize);
 		LOGGER.info("Arguments; Presentation thread: " + presentationThread);
-		LOGGER.info("Arguments; Simulation thred: " + simulationThread);
+		LOGGER.info("Arguments; Simulation thread: " + simulationThread);
 		LOGGER.info("Arguments; Simulation initiative: " + simulationInitiative);
 		LOGGER.info("Arguments; Presentation initiative: "
 				+ presentationInitiative);
