@@ -18,6 +18,11 @@ public abstract class Utils {
 	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName()); 
 	
 	/**
+	 * The difference threshold allowed for stabilization.
+	 */
+	private final static double STABILIZATION_DELTA = 0.1;
+	
+	/**
 	 * Helper function for beginning the simulation process.
 	 * Main responsibility is to determine how to begin based on the specified parameters.
 	 * @param asyncPresentation Whether the presentation should be threaded.
@@ -197,6 +202,31 @@ public abstract class Utils {
 	public static double convertDegreesToTime(float degrees) {
 		float portionOfDayElapsed = Math.abs(degrees) / 360;
 		return portionOfDayElapsed * 86400.0;
+	}
+	
+	/**
+	 * Determines if a result has stabilized based on the previous results.
+	 * @param minMaxTemp The previous results
+	 * @param newMinMaxTemp The current results
+	 * @return Whether the results have stabilized
+	 */
+	public static boolean hasStabilized(SimulationResult.MinMaxTemp minMaxTemp, SimulationResult.MinMaxTemp newMinMaxTemp) {
+		return Math.abs(newMinMaxTemp.Max - minMaxTemp.Max) <= STABILIZATION_DELTA && Math.abs(newMinMaxTemp.Min - minMaxTemp.Min) <= STABILIZATION_DELTA;
+	}
+	
+	public static String convertSecondsToTimeString(float secondsElapsed) {
+		int yearsElapsed = (int) Math.floor(secondsElapsed / 31560000.0);
+		int remainingSeconds = (int) (secondsElapsed % 31560000.0);
+		
+		int daysElapsed = (int) Math.floor(remainingSeconds / 86400.0);
+		remainingSeconds = (int) (remainingSeconds % 86400.0);
+		
+		int hoursElapsed = (int) Math.floor(remainingSeconds / 3600.0);
+		remainingSeconds = (int) (remainingSeconds % 3600.0);
+
+		int minutesElapsed = (int) Math.floor(remainingSeconds / 60.0);
+		
+		return String.format("%d Yr, %d Day, %d Hr, %d Min", yearsElapsed, daysElapsed, hoursElapsed, minutesElapsed);
 	}
 	
 }

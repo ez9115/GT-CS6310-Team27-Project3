@@ -413,8 +413,9 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		float sunPositionShifted = result.getSunPosition() + 180;
 		presentation_panel.moveSunPosition(sunPositionShifted);
 		incrementTimeElapsed(sunPositionShifted);
-		//TODO: Display time elapsed
 		previousSunPosition = sunPositionShifted;
+		
+		rotatePositionDisp.setText(String.format("%f", result.getSunPosition()));
 		
 		System.out.println(result.getTemperature(1, 1));
 		LOGGER.info("Temperature (1,1): " + result.getTemperature(1, 1));
@@ -422,22 +423,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	}
 	
 	private void incrementTimeElapsed(float sunPosition) {
-		secondsElapsed += Utils.convertDegreesToTime(previousSunPosition - sunPosition);
-		
-		int yearsElapsed = (int) Math.floor(secondsElapsed / 31560000.0);
-		int remainingSeconds = (int) (secondsElapsed % 31560000.0);
-		
-		int daysElapsed = (int) Math.floor(remainingSeconds / 86400.0);
-		remainingSeconds = (int) (remainingSeconds % 86400.0);
-		
-		int hoursElapsed = (int) Math.floor(remainingSeconds / 3600.0);
-		remainingSeconds = (int) (remainingSeconds % 3600.0);
-		
-		int minutesElapsed = (int) Math.floor(remainingSeconds / 60.0);
-		
-		rotatePositionDisp.setText(String.format("%f", sunPosition));
-		
-		elapsedTimeDisp.setText(String.format("%d Yr, %d Day, %d Hr, %d Min", yearsElapsed, daysElapsed, hoursElapsed, minutesElapsed));
+		elapsedTimeDisp.setText(Utils.convertSecondsToTimeString(secondsElapsed));
 	}
 
 	@Override

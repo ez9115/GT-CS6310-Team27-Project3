@@ -99,7 +99,7 @@ void setNeighbors( int num , CellpropertiesBuilder cell )
 			break;
 	default: break;
 	}
-	System.out.println("We are in neighbor[ num ].p="+neighbor[ num ].cell.T + "     nun =" + num);
+	//System.out.println("We are in neighbor[ num ].p="+neighbor[ num ].cell.T + "     nun =" + num);
 }
 
 
@@ -200,7 +200,7 @@ void calculateTempIncrement( double sunPosition, int tau)
 	T_inc = ( T_radiation + T_neighbor ) * tau * 60 / ( CW * Ro ) ;
 
 
-   System.out.println( "c_lat ="+ c_lat +":"+"c_lon =" +c_lon +":" + "sunPosition ="+ sunPosition +":"+" T ="+T +":" +"T_neighbor ="+T_neighbor +":" + "T_radiation = "+ T_radiation+":" +"T_inc = "+T_inc + "   neighbor[ 2 ].cell.T =" +  ( neighbor[ 2 ].cell.T ) );
+	//System.out.println( "c_lat ="+ c_lat +":"+"c_lon =" +c_lon +":" + "sunPosition ="+ sunPosition +":"+" T ="+T +":" +"T_neighbor ="+T_neighbor +":" + "T_radiation = "+ T_radiation+":" +"T_inc = "+T_inc + "   neighbor[ 2 ].cell.T =" +  ( neighbor[ 2 ].cell.T ) );
 }
 
 void updateTemperature()

@@ -154,21 +154,27 @@ public class SimulationInitiative extends PausableStoppable {
 			@Override
 			public void run() {
 				try {
-					float sunPosition = 0;
+					float oldSunPosition = 0;
+					float secondsElapsed = 0;
 					SimulationResult.MinMaxTemp minMaxTemp = null;
 					int numberOfIterationsToStabilization = 0;
 					boolean stabilizationAchieved = false;
 					SimulationResult previousResult = ObjectFactory.getInitialGrid(mDegreeSeparation);
 					while(!mRunningThread.isInterrupted()) {
 						checkPaused();
-						SimulationResult newResult = simulate(previousResult, mDegreeSeparation, sunPosition);
+						
+						SimulationResult newResult = simulate(previousResult, mDegreeSeparation, oldSunPosition);
+						float newSunPosition = Utils.incrementSunPosition(oldSunPosition, mTimeStep);
 						
 						// Determine if we have stabilized
 						if (!stabilizationAchieved) {
 							numberOfIterationsToStabilization++;
+							
+							secondsElapsed += Utils.convertDegreesToTime(oldSunPosition - newSunPosition);
+							
 							SimulationResult.MinMaxTemp newMinMaxTemp = newResult.getMinMaxTemperature();
 							if (minMaxTemp != null && !stabilizationAchieved) {
-								if (Math.abs(newMinMaxTemp.Max - minMaxTemp.Max) <= STABILIZATION_DELTA && Math.abs(newMinMaxTemp.Min - minMaxTemp.Min) <= STABILIZATION_DELTA) {
+								if (Utils.hasStabilized(minMaxTemp, newMinMaxTemp)) {
 									System.out.println("Stabilization achieved");
 									stabilizationAchieved = true;
 								}
@@ -177,12 +183,12 @@ public class SimulationInitiative extends PausableStoppable {
 						}
 
 						if (stabilizationAchieved) {
-							System.out.println("Stabilization achieved at " + numberOfIterationsToStabilization + " iterations");
+							System.out.println("Stabilization achieved at " + Utils.convertSecondsToTimeString(secondsElapsed) + " (" + numberOfIterationsToStabilization + " iterations)");
 						}
 
 						mQueue.put(newResult);
 						previousResult = newResult;
-						sunPosition = Utils.incrementSunPosition(sunPosition, mTimeStep);
+						oldSunPosition = newSunPosition;
 					}
 				} catch (InterruptedException e) {
 					LOGGER.info("Simulation stopped");
