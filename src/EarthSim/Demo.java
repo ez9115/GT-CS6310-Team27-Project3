@@ -5,8 +5,8 @@ import initiatives.SimulationInitiative;
 import java.awt.EventQueue;
 import java.util.logging.Logger;
 
-import base.InitiativeType;
 import GUI.GUIApp;
+import base.InitiativeType;
 
 public class Demo {
 

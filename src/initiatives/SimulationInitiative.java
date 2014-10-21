@@ -3,13 +3,13 @@ package initiatives;
 import java.util.concurrent.BlockingQueue;
 import java.util.logging.Logger;
 
-import callbacks.OnStart;
-import callbacks.OnStop;
 import base.ObjectFactory;
 import base.PausableStoppable;
 import base.SimulationMethod;
 import base.SimulationResult;
 import base.Utils;
+import callbacks.OnStart;
+import callbacks.OnStop;
 
 /**
  * SimulationInitiative serves as both the initiative when the simulation has

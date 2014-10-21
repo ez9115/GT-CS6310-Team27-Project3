@@ -4,12 +4,12 @@ import initiatives.SimulationInitiative;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Logger;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,14 +21,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import GUI.widget.earth.EarthPanel;
-
-import javax.swing.JCheckBox;
-
 import base.InitiativeType;
+import base.ObjectFactory;
 import base.PausableStoppable;
 import base.PresentationMethod;
 import base.SimulationResult;
-import base.ObjectFactory;
 import base.Utils;
 
 public class GUIApp extends JFrame implements PresentationMethod {

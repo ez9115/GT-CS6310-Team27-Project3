@@ -2,6 +2,7 @@ package GUI.widget.earth;
 
 import java.awt.Component;
 import java.awt.Dimension;
+
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 

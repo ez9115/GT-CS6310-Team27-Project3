@@ -1,11 +1,11 @@
 package GUI;
 
-import javax.swing.JPanel;
-
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Color;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JPanel;
 
 /**
  * A class that demonstrates how to draw temperature grids in Java. Displays a

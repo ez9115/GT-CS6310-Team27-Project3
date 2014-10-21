@@ -3,12 +3,12 @@ package initiatives;
 import java.util.concurrent.BlockingQueue;
 import java.util.logging.Logger;
 
-import callbacks.OnStart;
-import callbacks.OnStop;
 import base.PausableStoppable;
 import base.PresentationMethod;
 import base.SimulationResult;
 import base.Utils;
+import callbacks.OnStart;
+import callbacks.OnStop;
 
 public class PresentationInitiative extends PausableStoppable {
 
