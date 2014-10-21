@@ -50,12 +50,12 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	private JButton stopButton;
 	private JButton startButton;
 	
-	private TextArea elapsedTimeDisplay;
-	
 	private EarthPanel presentation_panel;
 	private PausableStoppable initiative;
 	private float secondsElapsed;
 	private float previousSunPosition = 180;
+	private JTextField elapsedTimeDisp;
+	private JTextField rotatePositionDisp;
 	
 	/**
 	 * Create the frame.
@@ -384,14 +384,6 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		lblThreads.setBounds(20, 13, 114, 16);
 		botLeftPanel.add(lblThreads);
 
-		/**
-		 * display the 
-		 */
-		elapsedTimeDisplay = new TextArea();
-		elapsedTimeDisplay.setForeground(new Color(0, 0, 0));
-		elapsedTimeDisplay.setBounds(764, 483, 128, 25);
-		contentPane.add(elapsedTimeDisplay);
-
 		JLabel elapsedTimeLabel = new JLabel("Time Elapsed");
 		elapsedTimeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		elapsedTimeLabel.setBounds(655, 483, 111, 25);
@@ -402,10 +394,15 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		rotatePositionLabel.setBounds(262, 483, 134, 25);
 		contentPane.add(rotatePositionLabel);
 		
-		TextArea rotatePositionDisplay = new TextArea();
-		rotatePositionDisplay.setForeground(Color.BLACK);
-		rotatePositionDisplay.setBounds(402, 483, 128, 25);
-		contentPane.add(rotatePositionDisplay);
+		elapsedTimeDisp = new JTextField();
+		elapsedTimeDisp.setColumns(5);
+		elapsedTimeDisp.setBounds(759, 481, 172, 28);
+		contentPane.add(elapsedTimeDisp);
+		
+		rotatePositionDisp = new JTextField();
+		rotatePositionDisp.setColumns(5);
+		rotatePositionDisp.setBounds(395, 481, 172, 28);
+		contentPane.add(rotatePositionDisp);
 	}
 
 	@Override
