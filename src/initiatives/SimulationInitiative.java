@@ -12,99 +12,119 @@ import base.SimulationResult;
 import base.Utils;
 
 /**
- * SimulationInitiative serves as both the initiative when the simulation has initiative or the simulation controller
- * when another module has initiative.
+ * SimulationInitiative serves as both the initiative when the simulation has
+ * initiative or the simulation controller when another module has initiative.
+ *
  * @author Tyler Benfield
  *
  */
 public class SimulationInitiative extends PausableStoppable {
-	
-	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName());
-	
+
+	private final static Logger LOGGER = Logger
+			.getLogger(SimulationInitiative.class.getName());
+
 	private final static int STABILIZATION_DELTA = 1;
 
 	/**
 	 * OnStart callback to execute IN PLACE OF the standard start call.
 	 */
 	private OnStart mOnStart;
-	
+
 	/**
-	 * Whether the OnStart callback is enabled or disabled.
-	 * Useful when the OnStart callback contains a call to the start() method and you do not want an infinite loop.
+	 * Whether the OnStart callback is enabled or disabled. Useful when the
+	 * OnStart callback contains a call to the start() method and you do not
+	 * want an infinite loop.
 	 */
 	private boolean mOnStartEnabled = true;
-	
+
 	/**
 	 * OnStop callback to execute when the thread is stopped.
 	 */
 	private OnStop mOnStop;
-	
+
 	/**
 	 * The shared data queue to add simulation result data to.
 	 */
 	private BlockingQueue<SimulationResult> mQueue;
-	
+
 	/**
-	 * The simulation method implementation to execute on each simulation attempt.
+	 * The simulation method implementation to execute on each simulation
+	 * attempt.
 	 */
 	private SimulationMethod mSimulationMethod;
-	
+
 	/**
-	 * Creates a new SimulationInitiative with the specified shared data queue and simulation method implementation. 
-	 * @param queue The shared data queue. Result data will be added to this queue.
-	 * @param simulationMethod The simulation method implementation to execute when the simulation runs.
+	 * Creates a new SimulationInitiative with the specified shared data queue
+	 * and simulation method implementation.
+	 *
+	 * @param queue
+	 *            The shared data queue. Result data will be added to this
+	 *            queue.
+	 * @param simulationMethod
+	 *            The simulation method implementation to execute when the
+	 *            simulation runs.
 	 */
-	public SimulationInitiative(BlockingQueue<SimulationResult> queue, SimulationMethod simulationMethod) {
+	public SimulationInitiative(BlockingQueue<SimulationResult> queue,
+			SimulationMethod simulationMethod) {
 		mQueue = queue;
 		mSimulationMethod = simulationMethod;
 		LOGGER.info("Simulation initialized");
 	}
-	
+
 	/**
 	 * Disables the OnStart listener.
 	 */
 	public void disableOnStartListener() {
 		mOnStartEnabled = false;
 	}
-	
+
 	/**
 	 * Enables the OnStart listener.
 	 */
 	public void enableOnStartListener() {
 		mOnStartEnabled = true;
 	}
-	
+
 	/**
-	 * Sets the OnStart listener.
-	 * Note: This replaces the typical start() behavior.
+	 * Sets the OnStart listener. Note: This replaces the typical start()
+	 * behavior.
+	 *
 	 * @param onStart
 	 */
 	public void setOnStartListener(OnStart onStart) {
 		mOnStart = onStart;
 	}
-	
+
 	/**
 	 * Sets the OnStop listener.
+	 *
 	 * @param onStop
 	 */
 	public void setOnStopListener(OnStop onStop) {
 		mOnStop = onStop;
 	}
-	
+
 	/**
 	 * Executes a simulation and returns the result.
-	 * @return The resulting simulation data. 
-	 * @throws InterruptedException Thrown if the current thread is interrupted while waiting for the queue to be available.
+	 *
+	 * @return The resulting simulation data.
+	 * @throws InterruptedException
+	 *             Thrown if the current thread is interrupted while waiting for
+	 *             the queue to be available.
 	 */
-	public SimulationResult simulate(SimulationResult previousResults, int degreeSeparation, float sunPosition) throws InterruptedException {
-		return mSimulationMethod.simulate(previousResults, degreeSeparation, sunPosition);
+	public SimulationResult simulate(SimulationResult previousResults,
+			int degreeSeparation, float sunPosition)
+			throws InterruptedException {
+		return mSimulationMethod.simulate(previousResults, degreeSeparation,
+				sunPosition);
 	}
 
 	/**
 	 * Begins the simulation process on a thread.
 	 */
 	@Override
-	public void start(int degreeSeparation, int timeStep, int displayRate) throws Exception {
+	public void start(int degreeSeparation, int timeStep, int displayRate)
+			throws Exception {
 		LOGGER.info("Starting simulation");
 		if (mOnStart != null && mOnStartEnabled) {
 			mDegreeSeparation = degreeSeparation;
@@ -114,7 +134,7 @@ public class SimulationInitiative extends PausableStoppable {
 			super.start(degreeSeparation, timeStep, displayRate);
 		}
 	}
-	
+
 	/**
 	 * Pauses the simulation thread if it is executing.
 	 */
@@ -124,7 +144,7 @@ public class SimulationInitiative extends PausableStoppable {
 		super.pause();
 		mSimulationMethod.pause();
 	}
-	
+
 	/**
 	 * Resumes the simulation thread if it is paused.
 	 */
@@ -143,14 +163,14 @@ public class SimulationInitiative extends PausableStoppable {
 		LOGGER.info("Stopping simulation");
 		super.stop();
 	}
-	
+
 	/**
 	 * Returns the task to run inside of the thread. Used by the super class.
 	 */
 	@Override
 	protected Runnable getRunnableAction() {
 		return new Runnable() {
-			
+
 			@Override
 			public void run() {
 				try {
@@ -159,23 +179,24 @@ public class SimulationInitiative extends PausableStoppable {
 					SimulationResult.MinMaxTemp minMaxTemp = null;
 					int numberOfIterationsToStabilization = 0;
 					boolean stabilizationAchieved = false;
-					SimulationResult previousResult = ObjectFactory.getInitialGrid(mDegreeSeparation);
-					while(!mRunningThread.isInterrupted()) {
+					SimulationResult previousResult = ObjectFactory
+							.getInitialGrid(mDegreeSeparation);
+					while (!mRunningThread.isInterrupted()) {
 						checkPaused();
-						
-						SimulationResult newResult = simulate(previousResult, mDegreeSeparation, oldSunPosition);
+
+						SimulationResult newResult = simulate(previousResult,
+								mDegreeSeparation, oldSunPosition);
 						float newSunPosition = Utils.incrementSunPosition(oldSunPosition, mTimeStep);
-						
+
 						// Determine if we have stabilized
 						if (!stabilizationAchieved) {
 							numberOfIterationsToStabilization++;
-							
-							secondsElapsed += Utils.convertDegreesToTime(oldSunPosition - newSunPosition);
-							
-							SimulationResult.MinMaxTemp newMinMaxTemp = newResult.getMinMaxTemperature();
+							SimulationResult.MinMaxTemp newMinMaxTemp = newResult
+									.getMinMaxTemperature();
 							if (minMaxTemp != null && !stabilizationAchieved) {
 								if (Utils.hasStabilized(minMaxTemp, newMinMaxTemp)) {
-									System.out.println("Stabilization achieved");
+									System.out
+											.println("Stabilization achieved");
 									stabilizationAchieved = true;
 								}
 							}
@@ -199,8 +220,8 @@ public class SimulationInitiative extends PausableStoppable {
 					}
 				}
 			}
-			
+
 		};
 	}
-	
+
 }

@@ -10,7 +10,8 @@ import GUI.GUIApp;
 
 public class Demo {
 
-	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName());
+	private final static Logger LOGGER = Logger
+			.getLogger(SimulationInitiative.class.getName());
 
 	private static int buffersize = 1;
 	private static boolean presentationThread = true;
@@ -21,13 +22,16 @@ public class Demo {
 
 	/**
 	 * Application entry point
-	 * @param args Command line arguments
+	 * 
+	 * @param args
+	 *            Command line arguments
 	 */
 	public static void main(String[] args) {
 
 		parseArguments(args);
 
-		final GUIApp presentation = new GUIApp(buffersize, presentationThread, simulationThread, getInitiativeType());
+		final GUIApp presentation = new GUIApp(buffersize, presentationThread,
+				simulationThread, getInitiativeType());
 		try {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
@@ -86,7 +90,8 @@ public class Demo {
 		LOGGER.info("Arguments; Presentation thread: " + presentationThread);
 		LOGGER.info("Arguments; Simulation thred: " + simulationThread);
 		LOGGER.info("Arguments; Simulation initiative: " + simulationInitiative);
-		LOGGER.info("Arguments; Presentation initiative: " + presentationInitiative);
+		LOGGER.info("Arguments; Presentation initiative: "
+				+ presentationInitiative);
 		LOGGER.info("Arguments; Master initiative: " + masterInitiative);
 
 	}

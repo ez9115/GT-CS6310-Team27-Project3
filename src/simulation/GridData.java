@@ -8,48 +8,58 @@ public class GridData {
 	private int latitude;
 	private int sunPosition;
 	private Color color;
-	public int getLong(){
+
+	public int getLong() {
 		return this.longitude;
 	}
-	public void setLatitude(int latitude){
-		this.latitude=latitude;
+
+	public void setLatitude(int latitude) {
+		this.latitude = latitude;
 	}
-	public int getLatitude(){
+
+	public int getLatitude() {
 		return this.latitude;
 	}
-	public void setLongitude(int longitude){
-		this.longitude=longitude;
+
+	public void setLongitude(int longitude) {
+		this.longitude = longitude;
 	}
-	public double getTemp(){
+
+	public double getTemp() {
 		return this.temp;
 	}
-	public void setTemp(double t){
-		this.temp= t;
+
+	public void setTemp(double t) {
+		this.temp = t;
 	}
-	public void setColor ( Color color){
+
+	public void setColor(Color color) {
 		this.color = color;
 	}
-	public Color getColor(int temp){
+
+	public Color getColor(int temp) {
 		return this.color;
 	}
-	 
+
 	public int getSunPosition() {
 		return sunPosition;
 	}
+
 	public void setSunPosition(int sunPosition) {
 		this.sunPosition = sunPosition;
 	}
-	public String toString(){
-		   StringBuffer stringBuffer = new StringBuffer();
-		   stringBuffer.append("latidute: ");
-		   stringBuffer.append(this.latitude);
-		   stringBuffer.append(",longitude: ");
-		   stringBuffer.append(this.longitude);
-		   stringBuffer.append(",temp:");
-		   stringBuffer.append(this.temp);
-		   stringBuffer.append(", color:");
-		   stringBuffer.append(color.toString());
-		   stringBuffer.append(this.sunPosition);
-		   return stringBuffer.toString();
-			}
+
+	public String toString() {
+		StringBuffer stringBuffer = new StringBuffer();
+		stringBuffer.append("latidute: ");
+		stringBuffer.append(this.latitude);
+		stringBuffer.append(",longitude: ");
+		stringBuffer.append(this.longitude);
+		stringBuffer.append(",temp:");
+		stringBuffer.append(this.temp);
+		stringBuffer.append(", color:");
+		stringBuffer.append(color.toString());
+		stringBuffer.append(this.sunPosition);
+		return stringBuffer.toString();
+	}
 }

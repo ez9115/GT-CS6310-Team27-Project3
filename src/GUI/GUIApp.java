@@ -31,11 +31,12 @@ import base.SimulationResult;
 import base.ObjectFactory;
 import base.Utils;
 
-public class GUIApp extends JFrame implements PresentationMethod{
+public class GUIApp extends JFrame implements PresentationMethod {
 
-	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName());
+	private final static Logger LOGGER = Logger
+			.getLogger(SimulationInitiative.class.getName());
 	private static final long serialVersionUID = -1873444547097063288L;
-	
+
 	private JPanel contentPane;
 	private JTextField gridSpacing;
 	private JTextField timeStep;
@@ -44,25 +45,26 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	private JTextField bufferSizeEntry;
 	private JCheckBox chckbxNewCheckBox;
 	private JCheckBox chckbxPresentationThread;
-	
+
 	private JButton pauseButton;
 	private JButton resumeButton;
 	private JButton stopButton;
 	private JButton startButton;
-	
+
 	private EarthPanel presentation_panel;
 	private PausableStoppable initiative;
 	private float secondsElapsed;
 	private float previousSunPosition = 180;
 	private JTextField elapsedTimeDisp;
 	private JTextField rotatePositionDisp;
-	
+
 	/**
 	 * Create the frame.
 	 */
-	public GUIApp(int bufferSize, boolean presentationThread, boolean simulationThread, InitiativeType initiativeType) {
+	public GUIApp(int bufferSize, boolean presentationThread,
+			boolean simulationThread, InitiativeType initiativeType) {
 		final PresentationMethod presentationMethod = this;
-		
+
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(1, 1, 1006, 600);
@@ -77,13 +79,13 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		startButton = new JButton("Start");
 		startButton.setBounds(349, 543, 117, 29);
 		startButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					setInputsEnabled(false);
 					startButton.setEnabled(false);
-					
+
 					// Retrieve buffer size
 					int bufferSize = 1;
 					try {
@@ -91,10 +93,10 @@ public class GUIApp extends JFrame implements PresentationMethod{
 					} catch (NumberFormatException ex) {
 						bufferSizeEntry.setText("1");
 					}
-					
+
 					// Retrieve initiative type
 					InitiativeType initiativeType;
-					switch(initiativeEntry.getSelectedIndex()) {
+					switch (initiativeEntry.getSelectedIndex()) {
 					case 1:
 						initiativeType = InitiativeType.Presentation;
 						break;
@@ -105,53 +107,64 @@ public class GUIApp extends JFrame implements PresentationMethod{
 						initiativeType = InitiativeType.MasterController;
 						break;
 					}
-					
-					boolean presentationThreaded = chckbxNewCheckBox.isSelected();
-					boolean simulationThreaded = chckbxPresentationThread.isSelected();
+
+					boolean presentationThreaded = chckbxNewCheckBox
+							.isSelected();
+					boolean simulationThreaded = chckbxPresentationThread
+							.isSelected();
 					if (!presentationThreaded || !simulationThreaded) {
-						switch (JOptionPane.showConfirmDialog(null, "Warning: Executing the presentation or simulation on the main thread will cause the application to become unresponsive"))
-						{
+						switch (JOptionPane
+								.showConfirmDialog(
+										null,
+										"Warning: Executing the presentation or simulation on the main thread will cause the application to become unresponsive")) {
 						case JOptionPane.OK_OPTION:
 							break;
 						default:
 							return;
 						}
 					}
-					initiative = ObjectFactory.getInitiative(initiativeType, bufferSize, presentationThreaded, simulationThreaded, presentationMethod);
-					
+					initiative = ObjectFactory.getInitiative(initiativeType,
+							bufferSize, presentationThreaded,
+							simulationThreaded, presentationMethod);
+
 					// Retrieve degree separation
 					int degreeSeparation = 15;
 					int simulationTimeStep = 1;
 					try {
-						degreeSeparation = Integer.parseInt(gridSpacing.getText());
+						degreeSeparation = Integer.parseInt(gridSpacing
+								.getText());
 					} catch (NumberFormatException ex) {
 						gridSpacing.setText(Integer.toString(degreeSeparation));
 					}
-					
+
 					// Retrieve simulation time step
 					try {
-						simulationTimeStep = Integer.parseInt(timeStep.getText());
+						simulationTimeStep = Integer.parseInt(timeStep
+								.getText());
 					} catch (NumberFormatException ex) {
 						timeStep.setText(Integer.toString(simulationTimeStep));
 					}
-					
+
 					int presentationTimeStep = 1;
 					try {
-						presentationTimeStep = Integer.parseInt(displayRate.getText());
+						presentationTimeStep = Integer.parseInt(displayRate
+								.getText());
 					} catch (NumberFormatException ex) {
-						displayRate.setText(Integer.toString(presentationTimeStep));
+						displayRate.setText(Integer
+								.toString(presentationTimeStep));
 					}
 					// TODO: Retrieve presentation time step
-					
+
 					presentation_panel.drawGrid(degreeSeparation);
-					initiative.start(degreeSeparation, simulationTimeStep, presentationTimeStep);
+					initiative.start(degreeSeparation, simulationTimeStep,
+							presentationTimeStep);
 					stopButton.setEnabled(true);
 					pauseButton.setEnabled(true);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
 		contentPane.add(startButton);
@@ -159,7 +172,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		resumeButton = new JButton("Resume");
 		resumeButton.setEnabled(false);
 		resumeButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -170,7 +183,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
 		resumeButton.setBounds(682, 543, 117, 29);
@@ -180,7 +193,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		stopButton.setBounds(459, 543, 117, 29);
 		stopButton.setEnabled(false);
 		stopButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -195,7 +208,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
 		contentPane.add(stopButton);
@@ -204,7 +217,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		pauseButton.setBounds(570, 543, 117, 29);
 		pauseButton.setEnabled(false);
 		pauseButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -215,11 +228,11 @@ public class GUIApp extends JFrame implements PresentationMethod{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
 		contentPane.add(pauseButton);
-		
+
 		/**
 		 * Jpanel for holding display contents
 		 */
@@ -232,51 +245,52 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		/**
 		 * Jpanel for displaying the earth and simulation animation
 		 */
-		presentation_panel = new EarthPanel(new Dimension(30,100), new Dimension(30,100), new Dimension(30,100));
+		presentation_panel = new EarthPanel(new Dimension(30, 100),
+				new Dimension(30, 100), new Dimension(30, 100));
 		presentation_panel.setBorder(new LineBorder(Color.DARK_GRAY, 2, true));
 		presentation_panel.setBounds(12, 18, 800, 400);
 		displayPanel.add(presentation_panel);
-		
+
 		JLabel lblZeroDegrees = new JLabel("0");
 		lblZeroDegrees.setHorizontalAlignment(SwingConstants.CENTER);
 		lblZeroDegrees.setBounds(393, 430, 35, 16);
 		displayPanel.add(lblZeroDegrees);
-		
+
 		JLabel lbl180degE = new JLabel("180 E");
 		lbl180degE.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl180degE.setBounds(793, 430, 35, 16);
 		displayPanel.add(lbl180degE);
-		
+
 		JLabel lbl90degE = new JLabel("90 E");
 		lbl90degE.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl90degE.setBounds(591, 430, 35, 16);
 		displayPanel.add(lbl90degE);
-		
+
 		JLabel lbl180degW = new JLabel("180 W");
 		lbl180degW.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl180degW.setBounds(0, 430, 39, 16);
 		displayPanel.add(lbl180degW);
-		
+
 		JLabel lbl90degW = new JLabel("90 W");
 		lbl90degW.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl90degW.setBounds(196, 430, 35, 16);
 		displayPanel.add(lbl90degW);
-		
+
 		JLabel lbl45degE = new JLabel("45 E");
 		lbl45degE.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl45degE.setBounds(493, 430, 35, 16);
 		displayPanel.add(lbl45degE);
-		
+
 		JLabel lbl135degW = new JLabel("135 W");
 		lbl135degW.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl135degW.setBounds(93, 430, 46, 16);
 		displayPanel.add(lbl135degW);
-		
+
 		JLabel lbl135degE = new JLabel("135 E");
 		lbl135degE.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl135degE.setBounds(685, 430, 46, 16);
 		displayPanel.add(lbl135degE);
-		
+
 		JLabel lbl45degW = new JLabel("45 W");
 		lbl45degW.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl45degW.setBounds(296, 430, 35, 16);
@@ -301,7 +315,8 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		topLeftPanel.add(lblNewLabel);
 
 		/**
-		 * text fields for user input of grid spacing, display rate and time step 
+		 * text fields for user input of grid spacing, display rate and time
+		 * step
 		 */
 		timeStep = new JTextField();
 		timeStep.setBounds(40, 59, 74, 28);
@@ -326,7 +341,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		JLabel lblframesPerSecond = new JLabel("(frames per second)");
 		lblframesPerSecond.setBounds(15, 167, 124, 16);
 		topLeftPanel.add(lblframesPerSecond);
-		
+
 		/**
 		 * Jpanel in bottom left area of gui for second set of user input
 		 */
@@ -340,10 +355,11 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		lblInitiative.setHorizontalAlignment(SwingConstants.CENTER);
 		botLeftPanel.add(lblInitiative);
 
-		initiativeEntry = new JComboBox(new String[] { "Master", "Presentation", "Simulation" });
-		//iniativeEntry.setHorizontalAlignment(SwingConstants.CENTER);
+		initiativeEntry = new JComboBox(new String[] { "Master",
+				"Presentation", "Simulation" });
+		// iniativeEntry.setHorizontalAlignment(SwingConstants.CENTER);
 		initiativeEntry.setBounds(20, 102, 114, 28);
-		//iniativeEntry.setColumns(5);
+		// iniativeEntry.setColumns(5);
 		switch (initiativeType) {
 		case MasterController:
 			initiativeEntry.setSelectedItem("Master");
@@ -368,17 +384,17 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		bufferSizeEntry.setText(Integer.toString(bufferSize));
 		bufferSizeEntry.setColumns(5);
 		botLeftPanel.add(bufferSizeEntry);
-		
+
 		chckbxNewCheckBox = new JCheckBox("Simulation");
 		chckbxNewCheckBox.setBounds(20, 30, 114, 23);
 		chckbxNewCheckBox.setSelected(simulationThread);
 		botLeftPanel.add(chckbxNewCheckBox);
-		
+
 		chckbxPresentationThread = new JCheckBox("Presentation");
 		chckbxPresentationThread.setBounds(20, 56, 129, 23);
 		chckbxPresentationThread.setSelected(presentationThread);
 		botLeftPanel.add(chckbxPresentationThread);
-		
+
 		JLabel lblThreads = new JLabel("Thread(s)");
 		lblThreads.setHorizontalAlignment(SwingConstants.CENTER);
 		lblThreads.setBounds(20, 13, 114, 16);
@@ -393,12 +409,12 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		rotatePositionLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		rotatePositionLabel.setBounds(262, 483, 134, 25);
 		contentPane.add(rotatePositionLabel);
-		
+
 		elapsedTimeDisp = new JTextField();
 		elapsedTimeDisp.setColumns(5);
 		elapsedTimeDisp.setBounds(759, 481, 216, 28);
 		contentPane.add(elapsedTimeDisp);
-		
+
 		rotatePositionDisp = new JTextField();
 		rotatePositionDisp.setColumns(5);
 		rotatePositionDisp.setBounds(395, 481, 216, 28);
@@ -408,36 +424,35 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	@Override
 	public void present(SimulationResult result) throws InterruptedException {
 		presentation_panel.updateGrid(result);
-		
+
 		// Shift sun position from -180 - 180 to 0 - 360
 		float sunPositionShifted = result.getSunPosition() + 180;
 		presentation_panel.moveSunPosition(sunPositionShifted);
 		incrementTimeElapsed(sunPositionShifted);
-		previousSunPosition = sunPositionShifted;
-		
 		rotatePositionDisp.setText(String.format("%f", result.getSunPosition()));
-		
+		previousSunPosition = sunPositionShifted;
 		System.out.println(result.getTemperature(1, 1));
 		LOGGER.info("Temperature (1,1): " + result.getTemperature(1, 1));
 		LOGGER.info("Sun position: " + result.getSunPosition());
 	}
-	
+
 	private void incrementTimeElapsed(float sunPosition) {
+		secondsElapsed += Utils.convertDegreesToTime(previousSunPosition - sunPosition);
 		elapsedTimeDisp.setText(Utils.convertSecondsToTimeString(secondsElapsed));
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	private void setInputsEnabled(boolean value) {
 		gridSpacing.setEnabled(value);
 		timeStep.setEnabled(value);
