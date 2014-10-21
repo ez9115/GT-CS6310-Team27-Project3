@@ -33,7 +33,7 @@ public class SimulationMethodImpl implements SimulationMethod {
 		}
 
 		int Cols = 360 / degreeSeparation;
-		int Rows = 360 / degreeSeparation;
+		int Rows = 180 / degreeSeparation;
 
 		int tau = 30;
 
