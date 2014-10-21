@@ -157,9 +157,9 @@ public class GUIApp extends JFrame implements PresentationMethod {
 							presentationTimeStep = 1;
 						}
 					} catch (NumberFormatException ex) {
-						displayRate.setText(Integer
-								.toString(presentationTimeStep));
+						
 					}
+					displayRate.setText(Integer.toString(presentationTimeStep));
 
 					presentation_panel.drawGrid(degreeSeparation);
 					initiative.start(degreeSeparation, simulationTimeStep,
