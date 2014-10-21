@@ -16,7 +16,7 @@ public class CellpropertiesBuilder {
 	double SB =5.67E-8;
 
 	//thermal conductivity of the water, in W/(m*k)
-	double k =38.0;
+	double k = 0.58;
 
 	//Specific heat capacity for water in J/(kg * K )
 	int CW =4187;
@@ -36,6 +36,7 @@ public class CellpropertiesBuilder {
 	static int Cols =24;
 	static int  Rows = 12;
 
+	int tempPenetretionCoefficient = 20000;
 	//class CellpropertiesBuilder cell= null;
 	//double T_sun = 278;
 	File  diag;
@@ -82,21 +83,23 @@ public class CellpropertiesBuilder {
 
 void setNeighbors( int num , CellpropertiesBuilder cell )
 {
-
-    neighbor[ num ].cell = this;
+ 
+    neighbor[ num ].cell = cell;
+ //   System.out.println( " init happened"+ neighbor[ num ].cell.h);
 
 	switch ( num )
 	{
-	case 0: neighbor[ num ].p = l_t / ( 0.5 * (h + this.h ) ); //North neighbor
+	case 0: neighbor[ num ].p = l_t / tempPenetretionCoefficient;//( 0.5 * (h + cell.h ) ); //North neighbor
 			break;
-	case 1:	neighbor[ num ].p = l_v / ( l_t + l_b ); //West neighbor
+	case 1:	neighbor[ num ].p = l_v /tempPenetretionCoefficient;// ( l_t + l_b ); //West neighbor
 			break;
-	case 2:	neighbor[ num ].p = l_b / (  0.5 * (h + this.h) ); //South neighbor
+	case 2:	neighbor[ num ].p = l_b / tempPenetretionCoefficient;//(  0.5 * (h + cell.h) ); //South neighbor
 			break;
-	case 3: neighbor[ num ].p = l_v / (l_t + l_b ) ; //East neighbor
+	case 3: neighbor[ num ].p = l_v / tempPenetretionCoefficient;//(l_t + l_b ) ; //East neighbor
 			break;
 	default: break;
 	}
+	System.out.println("We are in neighbor[ num ].p="+neighbor[ num ].cell.T + "     nun =" + num);
 }
 
 
@@ -197,8 +200,7 @@ void calculateTempIncrement( double sunPosition, int tau)
 	T_inc = ( T_radiation + T_neighbor ) * tau * 60 / ( CW * Ro ) ;
 
 
-   // System.out.println(  "c_lat = %d   c_lon = %d   sunPosition = %f   sun_angle = %f   lon_attenuation = %f   T = %f    T_neighbor = %f    T_radiation = %f    T_inc = %f\n"+
-            //              c_lat +":"+  c_lon +":" + sunPosition +":" + sun_angle+":" +lon_attenuation +":" + T +":" +T_neighbor +":"+ T_radiation+":" +T_inc  );
+   System.out.println( "c_lat ="+ c_lat +":"+"c_lon =" +c_lon +":" + "sunPosition ="+ sunPosition +":"+" T ="+T +":" +"T_neighbor ="+T_neighbor +":" + "T_radiation = "+ T_radiation+":" +"T_inc = "+T_inc + "   neighbor[ 2 ].cell.T =" +  ( neighbor[ 2 ].cell.T ) );
 }
 
 void updateTemperature()
