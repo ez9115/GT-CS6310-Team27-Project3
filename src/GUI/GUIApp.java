@@ -40,7 +40,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	private JTextField gridSpacing;
 	private JTextField timeStep;
 	private JTextField displayRate;
-	private JComboBox<String> iniativeEntry;
+	private JComboBox iniativeEntry;
 	private JTextField bufferSizeEntry;
 	private JCheckBox chckbxNewCheckBox;
 	private JCheckBox chckbxPresentationThread;
@@ -340,7 +340,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		lblInitiative.setHorizontalAlignment(SwingConstants.CENTER);
 		botLeftPanel.add(lblInitiative);
 
-		iniativeEntry = new JComboBox<String>(new String[] { "Master", "Presentation", "Simulation" });
+		iniativeEntry = new JComboBox(new String[] { "Master", "Presentation", "Simulation" });
 		//iniativeEntry.setHorizontalAlignment(SwingConstants.CENTER);
 		iniativeEntry.setBounds(20, 102, 114, 28);
 		//iniativeEntry.setColumns(5);
