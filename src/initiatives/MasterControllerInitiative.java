@@ -13,18 +13,20 @@ import base.SimulationResult;
 import base.Utils;
 
 /**
- * @author 
+ * @author
  *
  */
 public class MasterControllerInitiative extends PausableStoppable {
-	
+
 	private BlockingQueue<SimulationResult> mSharedQueue;
 	private SimulationInitiative mSim;
 	private PresentationInitiative mPres;
 	private boolean mAsyncPresentation;
 	private boolean mAsyncSimulation;
-	
-	public MasterControllerInitiative(int bufferSize, boolean asyncSimulation, boolean asyncPresentation, SimulationMethod simulationMethod, PresentationMethod presentationMethod) {
+
+	public MasterControllerInitiative(int bufferSize, boolean asyncSimulation,
+			boolean asyncPresentation, SimulationMethod simulationMethod,
+			PresentationMethod presentationMethod) {
 		mSharedQueue = new ArrayBlockingQueue<SimulationResult>(bufferSize);
 		mSim = new SimulationInitiative(mSharedQueue, simulationMethod);
 		mPres = new PresentationInitiative(mSharedQueue, presentationMethod);
@@ -33,9 +35,12 @@ public class MasterControllerInitiative extends PausableStoppable {
 	}
 
 	@Override
-	public void start(int degreeSeparation, int timeStep, int displayRate) throws Exception {
-		//TODO: Pause, resume, and stop need to be implemented here as well
-		Utils.startSimulationProcess(mAsyncPresentation, mAsyncSimulation, mSharedQueue, mPres, mSim).onStart(degreeSeparation, timeStep, displayRate);
+	public void start(int degreeSeparation, int timeStep, int displayRate)
+			throws Exception {
+		// TODO: Pause, resume, and stop need to be implemented here as well
+		Utils.startSimulationProcess(mAsyncPresentation, mAsyncSimulation,
+				mSharedQueue, mPres, mSim).onStart(degreeSeparation, timeStep,
+				displayRate);
 	}
 
 	@Override
@@ -44,15 +49,15 @@ public class MasterControllerInitiative extends PausableStoppable {
 			try {
 				mSim.pause();
 			} catch (Exception e) {
-				
+
 			}
 		}
-		
+
 		if (mAsyncPresentation) {
 			try {
 				mPres.pause();
 			} catch (Exception e) {
-				
+
 			}
 		}
 	}
@@ -63,19 +68,19 @@ public class MasterControllerInitiative extends PausableStoppable {
 			try {
 				mSim.resume();
 			} catch (Exception e) {
-				
+
 			}
 		}
-		
+
 		if (mAsyncPresentation) {
 			try {
 				mPres.resume();
 			} catch (Exception e) {
-				
+
 			}
 		}
 	}
-	
+
 	@Override
 	public void stop() {
 		if (mAsyncSimulation) {
@@ -85,7 +90,7 @@ public class MasterControllerInitiative extends PausableStoppable {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (mAsyncPresentation) {
 			try {
 				mPres.stop();
@@ -99,5 +104,5 @@ public class MasterControllerInitiative extends PausableStoppable {
 	protected Runnable getRunnableAction() {
 		return null;
 	}
-	
+
 }

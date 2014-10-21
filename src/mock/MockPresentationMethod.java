@@ -5,6 +5,7 @@ import base.SimulationResult;
 
 /**
  * Mock presentation method for testing purposes.
+ * 
  * @author Tyler Benfield
  *
  */
@@ -19,13 +20,13 @@ public class MockPresentationMethod implements PresentationMethod {
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }
