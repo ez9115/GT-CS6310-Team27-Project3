@@ -435,6 +435,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		
 		int minutesElapsed = (int) Math.floor(remainingSeconds / 60.0);
 		
+		rotatePositionDisp.setText(String.format("%f", sunPosition));
 		
 		elapsedTimeDisp.setText(String.format("%d Yr, %d Day, %d Hr, %d Min", yearsElapsed, daysElapsed, hoursElapsed, minutesElapsed));
 	}
