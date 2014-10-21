@@ -151,6 +151,11 @@ public class GUIApp extends JFrame implements PresentationMethod {
 					try {
 						presentationTimeStep = Integer.parseInt(displayRate
 								.getText());
+						if (presentationTimeStep > 1440) { 
+							presentationTimeStep = 1440;
+						} else if (presentationTimeStep < 1) {
+							presentationTimeStep = 1;
+						}
 					} catch (NumberFormatException ex) {
 						displayRate.setText(Integer
 								.toString(presentationTimeStep));
