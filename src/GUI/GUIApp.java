@@ -436,7 +436,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		int minutesElapsed = (int) Math.floor(remainingSeconds / 60.0);
 		
 		
-		elapsedTimeDisp.setText(String.format("%d years, %d days, %d hours, %d minutes", yearsElapsed, daysElapsed, hoursElapsed, minutesElapsed));
+		elapsedTimeDisp.setText(String.format("%d Yr, %d Day, %d Hr, %d Min", yearsElapsed, daysElapsed, hoursElapsed, minutesElapsed));
 	}
 
 	@Override
