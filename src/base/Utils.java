@@ -2,6 +2,7 @@ package base;
 
 import initiatives.PresentationInitiative;
 import initiatives.SimulationInitiative;
+import initiatives.SimulationInitiative.StabilizationData;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.logging.Logger;
@@ -163,15 +164,22 @@ public abstract class Utils {
 			BlockingQueue<SimulationResult> queue,
 			SimulationInitiative simulation, int degreeSeparation, int timeStep)
 			throws InterruptedException {
-		SimulationResult previousResult = ObjectFactory
-				.getInitialGrid(degreeSeparation);
 		float sunPosition = 0;
+		StabilizationData stabilizationData = new StabilizationData();
+
+		SimulationResult previousResult = ObjectFactory.getInitialGrid(degreeSeparation);
 
 		// TODO: Would be nice to do some sort of timer check here to not have
 		// an infinite loop, but the single-threaded context makes it difficult
 		while (true) {
-			previousResult = simulation.simulate(previousResult,
-					degreeSeparation, sunPosition);
+			previousResult = simulation.simulate(previousResult, degreeSeparation, sunPosition);
+			
+			stabilizationData.checkStabilization(previousResult);
+
+			if (stabilizationData.stabilizationAchieved) {
+				System.out.println(stabilizationData.toString());
+			}
+			
 			queue.put(previousResult);
 			sunPosition = incrementSunPosition(sunPosition, timeStep);
 		}
@@ -199,18 +207,26 @@ public abstract class Utils {
 		float previousSunPosition = 0;
 		float sunPosition = 0;
 
+		StabilizationData stabilizationData = new StabilizationData();
+
 		// TODO: Would be nice to do some sort of timer check here to not have
 		// an infinite loop, but the single-threaded context makes it difficult
 		while (true) {
-			previousResult = simulation.simulate(previousResult,
-					degreeSeparation, sunPosition);
+			previousResult = simulation.simulate(previousResult, degreeSeparation, sunPosition);
 
 			// Check if enough degrees have passed for our display threshold
-			degreesPassed += Math.abs(previousResult.getSunPosition()
-					- previousSunPosition);
+			degreesPassed += Math.abs(previousResult.getSunPosition() - previousSunPosition);
 			if (degreesPassed >= sunPositionChangeBetweenDisplay) {
 				degreesPassed = degreesPassed - sunPositionChangeBetweenDisplay;
 				previousSunPosition = previousResult.getSunPosition();
+
+				// Determine if we have stabilized
+				stabilizationData.checkStabilization(previousResult);
+
+				if (stabilizationData.stabilizationAchieved) {
+					System.out.println(stabilizationData.toString());
+				}
+				
 				presentation.present(previousResult);
 			} else {
 				LOGGER.info("SimulationResult skipped");
@@ -272,6 +288,11 @@ public abstract class Utils {
 		return Math.abs(newMinMaxTemp.Max - minMaxTemp.Max) <= STABILIZATION_DELTA && Math.abs(newMinMaxTemp.Min - minMaxTemp.Min) <= STABILIZATION_DELTA;
 	}
 
+	/**
+	 * Converts a number of seconds elapsed to a formatted time string.
+	 * @param secondsElapsed
+	 * @return
+	 */
 	public static String convertSecondsToTimeString(float secondsElapsed) {
 		int yearsElapsed = (int) Math.floor(secondsElapsed / 31536000.0);
 		double remainingSeconds = secondsElapsed % 31536000.0;
@@ -286,4 +307,5 @@ public abstract class Utils {
 
 		return String.format("%d Yr, %d Day, %d Hr, %d Min", yearsElapsed, daysElapsed, hoursElapsed, minutesElapsed);
 	}
+	
 }

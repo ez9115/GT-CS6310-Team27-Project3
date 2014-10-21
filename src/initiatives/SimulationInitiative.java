@@ -23,8 +23,6 @@ public class SimulationInitiative extends PausableStoppable {
 	private final static Logger LOGGER = Logger
 			.getLogger(SimulationInitiative.class.getName());
 
-	private final static int STABILIZATION_DELTA = 1;
-
 	/**
 	 * OnStart callback to execute IN PLACE OF the standard start call.
 	 */
@@ -175,41 +173,25 @@ public class SimulationInitiative extends PausableStoppable {
 			public void run() {
 				try {
 					float oldSunPosition = 0;
-					float secondsElapsed = 0;
-					SimulationResult.MinMaxTemp minMaxTemp = null;
-					int numberOfIterationsToStabilization = 0;
-					boolean stabilizationAchieved = false;
-					SimulationResult previousResult = ObjectFactory
-							.getInitialGrid(mDegreeSeparation);
+					StabilizationData stabilizationData = new StabilizationData();
+					
+					SimulationResult previousResult = ObjectFactory.getInitialGrid(mDegreeSeparation);
+					
 					while (!mRunningThread.isInterrupted()) {
 						checkPaused();
 
-						SimulationResult newResult = simulate(previousResult,
-								mDegreeSeparation, oldSunPosition);
-						float newSunPosition = Utils.incrementSunPosition(oldSunPosition, mTimeStep);
+						SimulationResult newResult = simulate(previousResult, mDegreeSeparation, oldSunPosition);
+						oldSunPosition = Utils.incrementSunPosition(oldSunPosition, mTimeStep);
 
 						// Determine if we have stabilized
-						if (!stabilizationAchieved) {
-							numberOfIterationsToStabilization++;
-							SimulationResult.MinMaxTemp newMinMaxTemp = newResult
-									.getMinMaxTemperature();
-							if (minMaxTemp != null && !stabilizationAchieved) {
-								if (Utils.hasStabilized(minMaxTemp, newMinMaxTemp)) {
-									System.out
-											.println("Stabilization achieved");
-									stabilizationAchieved = true;
-								}
-							}
-							minMaxTemp = newMinMaxTemp;
-						}
+						stabilizationData.checkStabilization(newResult);
 
-						if (stabilizationAchieved) {
-							System.out.println("Stabilization achieved at " + Utils.convertSecondsToTimeString(secondsElapsed) + " (" + numberOfIterationsToStabilization + " iterations)");
+						if (stabilizationData.stabilizationAchieved) {
+							System.out.println(stabilizationData.toString());
 						}
 
 						mQueue.put(newResult);
 						previousResult = newResult;
-						oldSunPosition = newSunPosition;
 					}
 				} catch (InterruptedException e) {
 					LOGGER.info("Simulation stopped");
@@ -224,4 +206,58 @@ public class SimulationInitiative extends PausableStoppable {
 		};
 	}
 
+	/**
+	 * Class to hold information on simulation stabilization.
+	 * @author Tyler Benfield
+	 *
+	 */
+	public static class StabilizationData {
+		public SimulationResult.MinMaxTemp minMaxTemp = null;
+		public int numberOfIterationsToStabilization = 0;
+		public boolean stabilizationAchieved = false;
+		public long memoryAtStabilization = -1;
+		public long startTime;
+		public long timeToStabilization = -1;
+		
+		/**
+		 * Initializes a new StabilizationData object and records the startTime.
+		 */
+		public StabilizationData() {
+			startTime = System.currentTimeMillis();
+		}
+		
+		/**
+		 * Checks if the simulation has stabilized by comparing new results to the previous.
+		 * Also updates the previous results.
+		 * @param newResult Newly generated results
+		 * @return True if stabilization has been achieved, false otherwise
+		 */
+		public boolean checkStabilization(SimulationResult newResult) {
+			if (!stabilizationAchieved) {
+				numberOfIterationsToStabilization++;
+				SimulationResult.MinMaxTemp newMinMaxTemp = newResult.getMinMaxTemperature();
+				if (minMaxTemp != null) {
+					if (Utils.hasStabilized(minMaxTemp, newMinMaxTemp)) {
+						stabilizationAchieved();
+					}
+				}
+				minMaxTemp = newMinMaxTemp;
+			}
+			return stabilizationAchieved;
+		}
+		
+		/**
+		 * Marks this simulation as stabilized and records analytics.
+		 */
+		public void stabilizationAchieved() {
+			stabilizationAchieved = true;
+			memoryAtStabilization = Runtime.getRuntime().totalMemory();
+			timeToStabilization = System.currentTimeMillis() - startTime;
+		}
+		
+		@Override
+		public String toString() {
+			return String.format("Stabilization achieved at (%d iterations | %d ms) memory: %d bytes", numberOfIterationsToStabilization, timeToStabilization, memoryAtStabilization);
+		}
+	}
 }
