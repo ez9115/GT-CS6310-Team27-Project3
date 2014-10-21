@@ -396,12 +396,12 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		
 		elapsedTimeDisp = new JTextField();
 		elapsedTimeDisp.setColumns(5);
-		elapsedTimeDisp.setBounds(759, 481, 172, 28);
+		elapsedTimeDisp.setBounds(759, 481, 216, 28);
 		contentPane.add(elapsedTimeDisp);
 		
 		rotatePositionDisp = new JTextField();
 		rotatePositionDisp.setColumns(5);
-		rotatePositionDisp.setBounds(395, 481, 172, 28);
+		rotatePositionDisp.setBounds(395, 481, 216, 28);
 		contentPane.add(rotatePositionDisp);
 	}
 
@@ -435,9 +435,8 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		
 		int minutesElapsed = (int) Math.floor(remainingSeconds / 60.0);
 		
-		int displaySecondsElapsed = remainingSeconds;
 		
-		elapsedTimeDisp.setText(String.format("%d years, %d days, %d hours, %d minutes, %d seconds", yearsElapsed, daysElapsed, hoursElapsed, minutesElapsed, displaySecondsElapsed));
+		elapsedTimeDisp.setText(String.format("%d years, %d days, %d hours, %d minutes", yearsElapsed, daysElapsed, hoursElapsed, minutesElapsed));
 	}
 
 	@Override
