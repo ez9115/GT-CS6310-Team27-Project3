@@ -40,7 +40,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 	private JTextField gridSpacing;
 	private JTextField timeStep;
 	private JTextField displayRate;
-	private JComboBox iniativeEntry;
+	private JComboBox initiativeEntry;
 	private JTextField bufferSizeEntry;
 	private JCheckBox chckbxNewCheckBox;
 	private JCheckBox chckbxPresentationThread;
@@ -94,7 +94,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 					
 					// Retrieve initiative type
 					InitiativeType initiativeType;
-					switch(iniativeEntry.getSelectedIndex()) {
+					switch(initiativeEntry.getSelectedIndex()) {
 					case 1:
 						initiativeType = InitiativeType.Presentation;
 						break;
@@ -340,22 +340,22 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		lblInitiative.setHorizontalAlignment(SwingConstants.CENTER);
 		botLeftPanel.add(lblInitiative);
 
-		iniativeEntry = new JComboBox(new String[] { "Master", "Presentation", "Simulation" });
+		initiativeEntry = new JComboBox(new String[] { "Master", "Presentation", "Simulation" });
 		//iniativeEntry.setHorizontalAlignment(SwingConstants.CENTER);
-		iniativeEntry.setBounds(20, 102, 114, 28);
+		initiativeEntry.setBounds(20, 102, 114, 28);
 		//iniativeEntry.setColumns(5);
 		switch (initiativeType) {
 		case MasterController:
-			iniativeEntry.setSelectedItem("Master");
+			initiativeEntry.setSelectedItem("Master");
 			break;
 		case Presentation:
-			iniativeEntry.setSelectedItem("Presentation");
+			initiativeEntry.setSelectedItem("Presentation");
 			break;
 		case Simulation:
-			iniativeEntry.setSelectedItem("Simulation");
+			initiativeEntry.setSelectedItem("Simulation");
 			break;
 		}
-		botLeftPanel.add(iniativeEntry);
+		botLeftPanel.add(initiativeEntry);
 
 		JLabel lblBufferSize = new JLabel("Buffer Size");
 		lblBufferSize.setBounds(39, 191, 78, 16);
@@ -437,7 +437,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		
 		int displaySecondsElapsed = remainingSeconds;
 		
-		elapsedTimeDisplay.setText(String.format("%d years, %d days, %d hours, %d minutes, %d seconds", yearsElapsed, daysElapsed, hoursElapsed, minutesElapsed, displaySecondsElapsed));
+		elapsedTimeDisp.setText(String.format("%d years, %d days, %d hours, %d minutes, %d seconds", yearsElapsed, daysElapsed, hoursElapsed, minutesElapsed, displaySecondsElapsed));
 	}
 
 	@Override
@@ -456,7 +456,7 @@ public class GUIApp extends JFrame implements PresentationMethod{
 		gridSpacing.setEnabled(value);
 		timeStep.setEnabled(value);
 		displayRate.setEnabled(value);
-		iniativeEntry.setEnabled(value);
+		initiativeEntry.setEnabled(value);
 		bufferSizeEntry.setEditable(value);
 		chckbxNewCheckBox.setEnabled(value);
 		chckbxPresentationThread.setEnabled(value);
