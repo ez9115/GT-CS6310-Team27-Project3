@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.6" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" language="java" name="initiatives.PresentationInitiative" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/initiatives/PresentationInitiative.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="336" width="564" x="3505" y="1846"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="GUI.widget.earth.Util" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/GUI/widget/earth/Util.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="176" width="368" x="128" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="simulation.GridData" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/simulation/GridData.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="416" width="190" x="3505" y="2518"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="mock.MockPresentationMethod" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/mock/MockPresentationMethod.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="246" x="4704" y="1846"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="GUI.GUIApp" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/GUI/GUIApp.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="556" width="320" x="4664" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="base.PausableStoppable" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/base/PausableStoppable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="4027" y="962"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="simulation.TemperatureColorMapper" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/simulation/TemperatureColorMapper.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="298" x="536" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="8" language="java" name="base.SimulationMethod" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/base/SimulationMethod.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="383" x="5350" y="2222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="9" language="java" name="callbacks.OnStart" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/callbacks/OnStart.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="96" width="175" x="3840" y="2222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="10" language="java" name="GUI.JImageComponent" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/GUI/JImageComponent.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="247" x="884" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="GUI.GraphicalRenderer" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/GUI/GraphicalRenderer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="436" width="272" x="1171" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="GUI.widget.earth.EarthGridDisplay" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/GUI/widget/earth/EarthGridDisplay.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="636" width="291" x="5133" y="1170"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="base.SimulationResult" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/base/SimulationResult.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="236" width="295" x="3505" y="2222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="14" language="java" name="GUI.widget.earth.TemperatureGrid" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/GUI/widget/earth/TemperatureGrid.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="116" width="232" x="5310" y="2518"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="15" language="java" name="base.SimulationResult.MinMaxTemp" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/base/SimulationResult.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="140" x="3871" y="2518"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="base.ObjectFactory" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/base/ObjectFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="216" width="629" x="1483" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="initiatives.SimulationInitiative.StabilizationData" 
+    project="GT-CS6310-Project2-Team23" file="/GT-CS6310-Project2-Team23/src/initiatives/SimulationInitiative.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="256" width="338" x="4237" y="2222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="initiatives.MasterControllerInitiative" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/initiatives/MasterControllerInitiative.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="236" width="616" x="3505" y="1170"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="simulation.CellpropertiesBuilder.Neighbor" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/simulation/CellpropertiesBuilder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="123" x="5306" y="813"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="simulation.TempData" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/simulation/TempData.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="276" width="175" x="2152" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="simulation.SimulationMethodImpl" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/simulation/SimulationMethodImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="176" width="383" x="5350" y="1846"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="22" language="java" name="callbacks.OnStop" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/callbacks/OnStop.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="96" width="142" x="4055" y="2222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <enumeration id="23" language="java" name="base.InitiativeType" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/base/InitiativeType.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="156" width="238" x="2367" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="24" language="java" name="initiatives.SimulationInitiative" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/initiatives/SimulationInitiative.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="336" width="534" x="4109" y="1846"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="GUI.widget.earth.EarthPanel" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/GUI/widget/earth/EarthPanel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="256" width="346" x="4873" y="813"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="simulation.TemperatureCalcUtil" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/simulation/TemperatureCalcUtil.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="176" width="458" x="2645" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="GUI.widget.earth.EarthImage" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/GUI/widget/earth/EarthImage.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="266" x="3143" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="simulation.CellpropertiesBuilder" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/simulation/CellpropertiesBuilder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="736" width="329" x="5306" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="base.Utils" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/base/Utils.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="316" width="895" x="3449" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="30" language="java" name="base.PresentationMethod" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/base/PresentationMethod.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="237" x="4664" y="2222"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="31" language="java" name="GUI.widget.earth.SunDisplay" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/GUI/widget/earth/SunDisplay.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="416" width="220" x="4873" y="1170"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="mock.MockSimulationMethod" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/mock/MockSimulationMethod.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="176" width="383" x="5773" y="1846"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="GUI.widget.earth.TemperatureColorPicker" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/GUI/widget/earth/TemperatureColorPicker.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="156" width="289" x="4990" y="1846"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="EarthSim.Demo" project="GT-CS6310-Project2-Team23" 
+    file="/GT-CS6310-Project2-Team23/src/EarthSim/Demo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="296" width="240" x="4384" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="35">    
+    <bendpoint x="4151" y="1170"/>    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="36">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="37" name="cell"/>      
+      <multiplicity id="38" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="39">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="19"/>  
+  </nesting>  
+  <realization id="40">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <realization id="41">    
+    <bendpoint x="4673" y="813"/>    
+    <bendpoint x="4673" y="1170"/>    
+    <bendpoint x="4673" y="1846"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="30"/>  
+  </realization>  
+  <association id="42">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="43" name="mResult"/>      
+      <multiplicity id="44" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="45">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="46" name="mPres"/>      
+      <multiplicity id="47" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="48">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="49" name="sunDisplay"/>      
+      <multiplicity id="50" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="51">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="52" name="mSim"/>      
+      <multiplicity id="53" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="54">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="55" name="mQueue"/>      
+      <multiplicity id="56" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="57">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="58" name="mOnStop"/>      
+      <multiplicity id="59" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="60">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="61" name="instance"/>      
+      <multiplicity id="62" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="63">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="64" name="instance"/>      
+      <multiplicity id="65" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="66">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="67" name="minMaxTemp"/>      
+      <multiplicity id="68" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="69">    
+    <end type="SOURCE" refId="25" navigable="false">      
+      <attribute id="70" name="earth"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="72">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="73" name="mOnStop"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="75">    
+    <bendpoint x="3474" y="1846"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="76" name="mSharedQueue"/>      
+      <multiplicity id="77" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="78">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="79" name="mSimulationMethod"/>      
+      <multiplicity id="80" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="81">    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="82" name="neighbor"/>      
+      <multiplicity id="83" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="84">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <generalization id="85">    
+    <bendpoint x="3474" y="1170"/>    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <association id="86">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="87" name="mOnStart"/>      
+      <multiplicity id="88" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="89">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="90" name="mQueue"/>      
+      <multiplicity id="91" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="92">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="93" name="mPresentationMethod"/>      
+      <multiplicity id="94" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="95">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="17"/>  
+  </nesting>  
+  <generalization id="96">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <realization id="97">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <association id="98">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="99" name="mOnStart"/>      
+      <multiplicity id="100" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="101">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <association id="102">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="103" name="colorPicker"/>      
+      <multiplicity id="104" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="105">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="106" name="initiative"/>      
+      <multiplicity id="107" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="108">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="30"/>  
+  </realization>  
+  <association id="109">    
+    <bendpoint x="5319" y="1846"/>    
+    <bendpoint x="5319" y="2222"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="110" name="grid"/>      
+      <multiplicity id="111" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="112">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="113" name="presentation_panel"/>      
+      <multiplicity id="114" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
