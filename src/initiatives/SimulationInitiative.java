@@ -234,6 +234,7 @@ public class SimulationInitiative extends PausableStoppable {
 		public int cyclesToStabilization = 0;
 		private boolean rolledOver = false;
 		private int gridSize;
+		private boolean fullCyclePerSimulation = false;
 		
 		/**
 		 * Initializes a new StabilizationData object and records the startTime.
@@ -251,6 +252,12 @@ public class SimulationInitiative extends PausableStoppable {
 		public boolean checkStabilization(SimulationResult newResult) {
 			if (!stabilizationAchieved) {
 				numberOfIterationsToStabilization++;
+
+				float sunPosition = newResult.getSunPosition() + 180;
+				
+				if (numberOfIterationsToStabilization == 2) {
+					fullCyclePerSimulation = sunPosition == previousSunPosition;
+				}
 				
 				if (previousMaxTemp == null) {
 					gridSize = newResult.getGridSize();
@@ -275,10 +282,9 @@ public class SimulationInitiative extends PausableStoppable {
 					}	
 				}
 				
-				float sunPosition = newResult.getSunPosition() + 180;
-				if (sunPosition > SUN_STARTING_POSITION && !rolledOver) {
+				if (sunPosition > SUN_STARTING_POSITION && !rolledOver && !fullCyclePerSimulation) {
 					rolledOver = true;
-				} else if (sunPosition < SUN_STARTING_POSITION && rolledOver) {
+				} else if ((sunPosition < SUN_STARTING_POSITION && rolledOver) || fullCyclePerSimulation) {
 					// Full cycle has passed
 					cyclesToStabilization++;
 					boolean hasStabilized = true;
