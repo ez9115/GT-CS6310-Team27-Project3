@@ -20,8 +20,7 @@ import callbacks.OnStop;
  */
 public class SimulationInitiative extends PausableStoppable {
 
-	private final static Logger LOGGER = Logger
-			.getLogger(SimulationInitiative.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName());
 
 	/**
 	 * OnStart callback to execute IN PLACE OF the standard start call.
@@ -212,12 +211,29 @@ public class SimulationInitiative extends PausableStoppable {
 	 *
 	 */
 	public static class StabilizationData {
-		public SimulationResult.MinMaxTemp minMaxTemp = null;
+
+		private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName());
+		
+		private final static int SUN_STARTING_POSITION = 180;
+
+		/**
+		 * The difference threshold allowed for stabilization.
+		 */
+		private final static double STABILIZATION_DELTA = 0.001;
+		
+		public double[] previousMaxTemp;
+		public double[] previousMinTemp;
+		public double[] currentMaxTemp;
+		public double[] currentMinTemp;
+		public float previousSunPosition = 360;
 		public int numberOfIterationsToStabilization = 0;
 		public boolean stabilizationAchieved = false;
 		public long memoryAtStabilization = -1;
 		public long startTime;
 		public long timeToStabilization = -1;
+		public int cyclesToStabilization = 0;
+		private boolean rolledOver = false;
+		private int gridSize;
 		
 		/**
 		 * Initializes a new StabilizationData object and records the startTime.
@@ -235,13 +251,55 @@ public class SimulationInitiative extends PausableStoppable {
 		public boolean checkStabilization(SimulationResult newResult) {
 			if (!stabilizationAchieved) {
 				numberOfIterationsToStabilization++;
-				SimulationResult.MinMaxTemp newMinMaxTemp = newResult.getMinMaxTemperature();
-				if (minMaxTemp != null) {
-					if (Utils.hasStabilized(minMaxTemp, newMinMaxTemp)) {
-						stabilizationAchieved();
+				
+				if (previousMaxTemp == null) {
+					gridSize = newResult.getGridSize();
+					previousMaxTemp = new double[gridSize];
+					previousMinTemp = new double[gridSize];
+					currentMaxTemp = new double[gridSize];
+					currentMinTemp = new double[gridSize];
+					
+					for (int i = 0; i < gridSize; i++) {
+						previousMaxTemp[i] = Double.MIN_VALUE;
+						previousMinTemp[i] = Double.MAX_VALUE;
 					}
 				}
-				minMaxTemp = newMinMaxTemp;
+				
+				for (int i = 0; i < gridSize; i++) {
+					double temp = newResult.getTemperature(i, 1);
+					if (temp > currentMaxTemp[i]) {
+						currentMaxTemp[i] = temp;
+					}
+					if (temp < currentMinTemp[i]) {
+						currentMinTemp[i] = temp;
+					}	
+				}
+				
+				float sunPosition = newResult.getSunPosition() + 180;
+				if (sunPosition > SUN_STARTING_POSITION && !rolledOver) {
+					rolledOver = true;
+				} else if (sunPosition < SUN_STARTING_POSITION && rolledOver) {
+					// Full cycle has passed
+					cyclesToStabilization++;
+					boolean hasStabilized = true;
+					for (int i = 0; i < previousMaxTemp.length; i++) {
+						if (Math.abs(currentMaxTemp[i] - previousMaxTemp[i]) > STABILIZATION_DELTA
+								|| Math.abs(currentMinTemp[i] - previousMinTemp[i]) > STABILIZATION_DELTA) {
+							hasStabilized = false;
+							break;
+						}
+					}
+					if (hasStabilized) {
+						LOGGER.info("Stabilization achieved");
+						stabilizationAchieved();
+					} else {
+						LOGGER.info("Stabilization not achieved");
+					}
+					previousMaxTemp = currentMaxTemp;
+					previousMinTemp = currentMinTemp;
+					rolledOver = false;
+				}
+				previousSunPosition = sunPosition;
 			}
 			return stabilizationAchieved;
 		}
@@ -257,7 +315,7 @@ public class SimulationInitiative extends PausableStoppable {
 		
 		@Override
 		public String toString() {
-			return String.format("Stabilization achieved at (%d iterations | %d ms) memory: %d bytes", numberOfIterationsToStabilization, timeToStabilization, memoryAtStabilization);
+			return String.format("Stabilization achieved at (%d iterations | %d sun cycles | %d ms) memory: %d bytes", numberOfIterationsToStabilization, cyclesToStabilization, timeToStabilization, memoryAtStabilization);
 		}
 	}
 }

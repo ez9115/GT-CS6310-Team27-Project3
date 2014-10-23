@@ -51,7 +51,7 @@ public class GUIApp extends JFrame implements PresentationMethod {
 	private EarthPanel presentation_panel;
 	private PausableStoppable initiative;
 	private float secondsElapsed;
-	private int presentationTimeStep;
+	private int simulationTimeStep;
 	private JTextField elapsedTimeDisp;
 	private JTextField rotatePositionDisp;
 
@@ -126,7 +126,7 @@ public class GUIApp extends JFrame implements PresentationMethod {
 
 					// Retrieve degree separation
 					int degreeSeparation = 15;
-					int simulationTimeStep = 1;
+					simulationTimeStep = 1;
 
 					degreeSeparation = Integer.parseInt(gridSpacing.getSelectedItem().toString());
 
@@ -144,7 +144,7 @@ public class GUIApp extends JFrame implements PresentationMethod {
 					}
 					timeStep.setText(Integer.toString(simulationTimeStep));
 
-					presentationTimeStep = 1;
+					int presentationTimeStep = 1;
 					try {
 						presentationTimeStep = Integer.parseInt(displayRate
 								.getText());
@@ -430,7 +430,7 @@ public class GUIApp extends JFrame implements PresentationMethod {
 	public void present(SimulationResult result) throws InterruptedException {
 		presentation_panel.updateGrid(result);
 
-		presentation_panel.moveSunPosition(-1 * Utils.convertTimeToDegrees(presentationTimeStep));
+		presentation_panel.moveSunPosition(-1 * Utils.convertTimeToDegrees(simulationTimeStep));
 		incrementTimeElapsed();
 		rotatePositionDisp.setText(String.format("%f", result.getSunPosition()));
 		System.out.println(result.getTemperature(1, 1));
@@ -439,7 +439,7 @@ public class GUIApp extends JFrame implements PresentationMethod {
 	}
 
 	private void incrementTimeElapsed() {
-		secondsElapsed += presentationTimeStep * 60;
+		secondsElapsed += simulationTimeStep * 60;
 		elapsedTimeDisp.setText(Utils.convertSecondsToTimeString(secondsElapsed));
 	}
 

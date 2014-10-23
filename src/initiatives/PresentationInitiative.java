@@ -173,8 +173,7 @@ public class PresentationInitiative extends PausableStoppable {
 
 						// Check if enough degrees have passed for our display
 						// threshold
-						degreesPassed += Math.abs(result.getSunPosition()
-								- previousSunPosition);
+						degreesPassed += result.getSunPosition() == previousSunPosition ? 360 : Math.abs(result.getSunPosition() - previousSunPosition);
 						if (degreesPassed >= sunPositionChangeBetweenDisplay) {
 							degreesPassed = degreesPassed
 									- sunPositionChangeBetweenDisplay;

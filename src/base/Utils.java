@@ -17,13 +17,7 @@ import callbacks.OnStart;
  */
 public abstract class Utils {
 
-	private final static Logger LOGGER = Logger
-			.getLogger(SimulationInitiative.class.getName());
-
-	/**
-	 * The difference threshold allowed for stabilization.
-	 */
-	private final static double STABILIZATION_DELTA = 0.01;
+	private final static Logger LOGGER = Logger.getLogger(SimulationInitiative.class.getName());
 
 	/**
 	 * Helper function for beginning the simulation process. Main responsibility
@@ -278,16 +272,6 @@ public abstract class Utils {
 		return portionOfDayElapsed * 86400.0;
 	}
 	
-	/**
-	 * Determines if a result has stabilized based on the previous results.
-	 * @param minMaxTemp The previous results
-	 * @param newMinMaxTemp The current results
-	 * @return Whether the results have stabilized
-	 */
-	public static boolean hasStabilized(SimulationResult.MinMaxTemp minMaxTemp, SimulationResult.MinMaxTemp newMinMaxTemp) {
-		return Math.abs(newMinMaxTemp.Max - minMaxTemp.Max) <= STABILIZATION_DELTA && Math.abs(newMinMaxTemp.Min - minMaxTemp.Min) <= STABILIZATION_DELTA;
-	}
-
 	/**
 	 * Converts a number of seconds elapsed to a formatted time string.
 	 * @param secondsElapsed

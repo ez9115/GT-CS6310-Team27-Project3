@@ -74,33 +74,13 @@ public class SimulationResult implements TemperatureGrid {
 		// Note that -180 is near Russia, 180 is near Alaska, 0 is center
 		return mSunPosition;
 	}
-
+	
 	/**
-	 * Retrieves the temperature spread of the result data.
-	 * 
+	 * Gets the size of the result grid.
 	 * @return
 	 */
-	public MinMaxTemp getMinMaxTemperature() {
-		MinMaxTemp ret = new MinMaxTemp();
-		ret.Min = Double.MAX_VALUE;
-		ret.Max = Double.MIN_VALUE;
-		for (int i = 0; i < mResult.length; i++) {
-			for (int j = 0; j < mResult[i].length; j++) {
-				double cell = mResult[i][j].getTemp();
-				if (cell < ret.Min) {
-					ret.Min = cell;
-				}
-				if (cell > ret.Max) {
-					ret.Max = cell;
-				}
-			}
-		}
-		return ret;
-	}
-
-	public class MinMaxTemp {
-		public double Min;
-		public double Max;
+	public int getGridSize() {
+		return mResult.length;
 	}
 
 }
