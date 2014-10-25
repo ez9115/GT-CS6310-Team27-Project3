@@ -101,7 +101,7 @@ public class SimulationMethodImpl implements SimulationMethod {
 		buff.append("\n");
 
 		for (int i = 0; i < Rows; i++) {
-			buff.append("c_lat=" + Grid[i][0].c_lat + "\t\t");
+			buff.append("c_lat=" + Grid[i][0].centerLatitude + "\t\t");
 
 			for (int j = 0; j < Cols; j++) {
 				int tt = (int) Grid[i][j].T;
