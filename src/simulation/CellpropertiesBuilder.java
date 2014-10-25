@@ -42,7 +42,7 @@ public class CellpropertiesBuilder {
 	static int flag;
 	int lat, lon; // coordinates of the left bottom corner of the cell in
 					// degrees
-	int c_lat, c_lon; // coordinates of the center of the cell in degrees
+	int centerLatitude, c_lon; // coordinates of the center of the cell in degrees
 	double T, T_inc, lat_attenuation, area;
 	double h; // height of the cell;
 	double l_v; // length of the vertical side of the cell
@@ -127,7 +127,7 @@ void init( int i_lat, int i_lon, int cols, int rows, int gs, double startingTemp
     else
         lon = 360 - ( i_lon + 1 ) * gs;
 
-	c_lat = lat + gs / 2;
+	centerLatitude = lat + gs / 2;
 	c_lon = lon + gs / 2;
 
     l_v = C * gs / 360.0; //length of the vertical side of the cell
@@ -137,7 +137,7 @@ void init( int i_lat, int i_lon, int cols, int rows, int gs, double startingTemp
 
     area = 0.5 * ( l_t + l_b ) * h;
 
-    lat_attenuation = Math.cos( c_lat * PI / 180.0 );
+    lat_attenuation = Math.cos( centerLatitude * PI / 180.0 );
 
     //Neighbors:
     neighbor[0] = new Neighbor();
@@ -319,7 +319,7 @@ void calculateTempIncrement( double sunPosition, int tau)
 
 				for (int i = 0; i < Rows; i++) {
 
-					buff.append("c_lat=" + Grid[i][0].c_lat + "\t\t");
+					buff.append("c_lat=" + Grid[i][0].centerLatitude + "\t\t");
 
 					for (int j = 0; j < Cols; j++) {
 						int tt = (int) Grid[i][j].T;
