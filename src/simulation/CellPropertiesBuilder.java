@@ -5,6 +5,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+/**
+ * CellpropertiesBulder provides some core functionality for calculating temperature
+ * of trapezoid cell to SimulatonResult
+ * 
+ * @author Elena Zlatopolsky
+ *
+ */
+
 public class CellPropertiesBuilder {
 	// Earth Circumference in m
 	double C = 4.003014E7;
@@ -64,8 +72,8 @@ public class CellPropertiesBuilder {
 		 * int lat, lon; //coordinates of the left bottom corner of the cell in
 		 * degrees int centerLatitude, centerlongitude; // coordinates of the center of the cell in
 		 * degrees double temp, temperatureInc, latAttenuation, area; double height; //height of
-		 * the cell; double l_v; //length of the vertical side of the cell
-		 * double lengthBottom; //length of the base of the cell double l_t; // length of
+		 * the cell; double lengthVertical; //length of the vertical side of the cell
+		 * double lengthBottom; //length of the base of the cell double lengthTop; // length of
 		 * the top of the cell
 		 * 
 		 * //Neighbor[] neighbor = new Neighbor[4];
@@ -74,7 +82,7 @@ public class CellPropertiesBuilder {
 		/*
 		 * init( i_lat, i_lon, cols, rows, gs ) ;
 		 * 
-		 * void Calculate_T_inc( double sunPosition, int tau ); void T_Update();
+		 * void calculateTempIncrement( double sunPosition, int tau ); void updateTemperature();
 		 * void setNeighbors( int num, Cell cell );
 		 */
 	}
