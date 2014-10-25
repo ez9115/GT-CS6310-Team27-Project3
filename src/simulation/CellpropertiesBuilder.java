@@ -32,7 +32,7 @@ public class CellpropertiesBuilder {
 	// Solar Constant
 	double S = 1.366E3;
 
-	static int Cols = 24;
+	static int numberOfColumns = 24;
 	static int Rows = 12;
 
 	int tempPenetrationCoefficient = 20000;
