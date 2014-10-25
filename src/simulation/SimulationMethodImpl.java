@@ -39,7 +39,7 @@ public class SimulationMethodImpl implements SimulationMethod {
 
 		int gs = 180 / Rows;
 
-		CellpropertiesBuilder[][] Grid = new CellpropertiesBuilder[Rows][Cols];
+		CellPropertiesBuilder[][] Grid = new CellPropertiesBuilder[Rows][Cols];
 
 		String fileName = "../TempMatrix.";
 		File logFile = new File(fileName);
@@ -47,7 +47,7 @@ public class SimulationMethodImpl implements SimulationMethod {
 
 		for (int i = 0; i < Rows; i++) {
 			for (int j = 0; j < Cols; j++) {
-				Grid[i][j] = new CellpropertiesBuilder();
+				Grid[i][j] = new CellPropertiesBuilder();
 				Grid[i][j].init(i, j, Cols, Rows, gs,
 						previousResults.getTemperature(i, j));
 			}
@@ -78,13 +78,13 @@ public class SimulationMethodImpl implements SimulationMethod {
 		// ouput
 		int sp = (int) sunPosition;
 		GridData[][] gridDataArraylist = new GridData[Rows][Cols];
-		double T_ave = 0.0;
+		double averageTemp = 0.0;
 		for (int i = 0; i < Rows; i++) {
 			for (int j = 0; j < Cols; j++) {
 				GridData gridData = new GridData();
 				gridData.setLatitude(i);
-				gridData.setTemp(Grid[i][j].T);
-				T_ave += Grid[i][j].T;
+				gridData.setTemp(Grid[i][j].temp);
+				averageTemp += Grid[i][j].temp;
 				// System.out.println("sunPositon" + sp + ",  i,j" +i + ":"+j
 				// +"=t="+ Grid[ i ][ j ].T);
 				gridDataArraylist[i][j] = gridData;
@@ -92,7 +92,7 @@ public class SimulationMethodImpl implements SimulationMethod {
 
 		}
 
-		buff.append("\n\n sunPosition = " + sp + " T_ave = " + T_ave
+		buff.append("\n\n sunPosition = " + sp + " T_ave = " + averageTemp
 				+ "\n    \t\t\t");
 		for (int it = 0; it < Cols; it++) {
 			buff.append(Grid[0][it].lon + "\t");
@@ -101,17 +101,17 @@ public class SimulationMethodImpl implements SimulationMethod {
 		buff.append("\n");
 
 		for (int i = 0; i < Rows; i++) {
-			buff.append("c_lat=" + Grid[i][0].centerLatitude + "\t\t");
+			buff.append("centerLatitude=" + Grid[i][0].centerLatitude + "\t\t");
 
 			for (int j = 0; j < Cols; j++) {
-				int tt = (int) Grid[i][j].T;
+				int tt = (int) Grid[i][j].temp;
 				buff.append(tt + "\t");
 			}
 			buff.append("\n");
 		}
 		addToFile(buff.toString(), logFile, fileName);
 
-		T_ave = T_ave / (Rows * Cols);
+		averageTemp = averageTemp / (Rows * Cols);
 		// System.out.println("T_eve" + T_ave);
 
 		return new SimulationResult(gridDataArraylist, (float) sunPosition);
