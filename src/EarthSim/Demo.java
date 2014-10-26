@@ -14,8 +14,8 @@ public class Demo {
 			.getLogger(SimulationInitiative.class.getName());
 
 	private static int buffersize = 1;
-	private static boolean presentationThread = true;
-	private static boolean simulationThread = true;
+	private static boolean presentationThread = false;
+	private static boolean simulationThread = false;
 	private static boolean presentationInitiative = false;
 	private static boolean simulationInitiative = false;
 	private static boolean masterInitiative = true;
