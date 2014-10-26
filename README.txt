@@ -1,6 +1,9 @@
 #In order to compile the code you must be in the src directory:
+
 cd src
+
 #Use the following command to compile the program:
+
 javac EarthSim/Demo.java
 
 #In order launch the GUI and interact with the GUI to supply program parameters,
@@ -8,8 +11,8 @@ perform the following:
 
 java EarthSim.Demo
 
-#In order launch the GUI and pass parameters from the command line pass the
-following arguments:
+#In order launch the GUI and pass parameters from the command line use the
+#following arguments:
 
 java EarthSim.Demo [-s] [-p] [-r | -t] [-b #]
 
