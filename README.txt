@@ -1,11 +1,10 @@
 #Use the following command to compile the program:
 
-javac -d bin src/
+cd src
+javac EarthSim/Demo.java
 
 #In order launch the GUI and interact with the GUI to supply program parameters,
 perform the following:
-
-cd bin
 
 java EarthSim.Demo
 
