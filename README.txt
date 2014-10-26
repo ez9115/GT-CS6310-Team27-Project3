@@ -1,6 +1,6 @@
-#Use the following command to compile the program:
-
+#In order to compile the code you must be in the src directory:
 cd src
+#Use the following command to compile the program:
 javac EarthSim/Demo.java
 
 #In order launch the GUI and interact with the GUI to supply program parameters,
