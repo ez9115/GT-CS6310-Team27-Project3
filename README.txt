@@ -21,5 +21,5 @@ java EarthSim.Demo [-s] [-p] [-r | -t] [-b #]
 -p  set the Presentation to run in its own thread
 -r  set the Presentation to have the initiative 
 -t  set the Simulation to have the initiative
--b # set the buffer length to an integer of value #
+-b # set the buffer length to a positive integer of value #
 
